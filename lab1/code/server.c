@@ -19,6 +19,9 @@
 
 #define BACKLOG 10     // how many pending connections queue will hold
 
+void menu(int new_fd);
+int leOpcao();
+
 void sigchld_handler(int s)
 {
   while(waitpid(-1, NULL, WNOHANG) > 0);
@@ -115,9 +118,9 @@ int main(void)
 
     if (!fork()) { // this is the child process
       close(sockfd); // child doesn't need the listener
-      if (send(new_fd, "Hello, world!", 13, 0) == -1)
-	perror("send");
-      menu();
+      // if (send(new_fd, "Hello, world!\n", 15, 0) == -1)
+      //	perror("send");
+      menu(new_fd);
       close(new_fd);
       exit(0);
     }
@@ -128,14 +131,14 @@ int main(void)
 }
 
 
-void menu(){
-  int menu;
-  char menu[1000] = "Escolha uma opcao:\n
-                  Opcao 1 - Le\n
-                  Opcao 2 - Grava\n
-                  Opcao 3 - Apaga\n"
-    if (send(new_fd, menu , strlen(menu), 0) == -1)
+void menu(int new_fd){
+  char str[1000] = "Escolha uma opcao:\n\
+                  Opcao 1 - Le\n\
+                  Opcao 2 - Grava\n\
+                  Opcao 3 - Apaga\n";
+    if (send(new_fd, str , strlen(str), 0) == -1)
       perror("send");
+      printf("%d\n", strlen(str));
   leOpcao();
   switch(leOpcao()){
   case 1:
@@ -151,7 +154,7 @@ void menu(){
 }
 
 int leOpcao(){
-   addr_len = sizeof their_addr;
+  /*  addr_len = sizeof their_addr;
     if ((numbytes = recvfrom(sockfd, buf, MAXBUFLEN-1 , 0,
         (struct sockaddr *)&their_addr, &addr_len)) == -1) {
         perror("recvfrom");
@@ -163,6 +166,6 @@ int leOpcao(){
             s, sizeof s));
     printf("listener: packet is %d bytes long\n", numbytes);
     buf[numbytes] = '\0';
-    printf("listener: packet contains \"%s\"\n", buf);
+    printf("listener: packet contains \"%s\"\n", buf);*/
     return 0;
 }

@@ -20,7 +20,7 @@
 #define BACKLOG 10     // how many pending connections queue will hold
 
 void menu(int new_fd, struct sockaddr_storage their_addr);
-int leOpcao();
+int leOpcao(struct sockaddr_storage their_addr, int sockfd);
 
 void sigchld_handler(int s)
 {
@@ -170,5 +170,6 @@ int leOpcao(struct sockaddr_storage their_addr, int sockfd ){
     printf("listener: packet is %d bytes long\n", numbytes);
     buf[numbytes] = '\0';
     printf("listener: packet contains \"%s\"\n", buf);
-    return 0;
+    printf("%c", buf[0]);
+    return atoi(buf);
 }

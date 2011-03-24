@@ -86,7 +86,11 @@ int main(int argc, char *argv[])
     buf[numbytes] = '\0';
 
     printf("%s\n",buf); //client received
- 
+    if ((numbytes = sendto(sockfd, argv[2], strlen(argv[2]), 0,
+             p->ai_addr, p->ai_addrlen)) == -1) {
+        perror("talker: sendto");
+        exit(1);
+    }
     close(sockfd);
 
     return 0;

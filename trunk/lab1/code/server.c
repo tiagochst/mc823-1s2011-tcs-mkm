@@ -16,10 +16,10 @@
 #include <signal.h>
 
 #define PORT "3490"  // the port users will be connecting to
-
+#define MAXDATASIZE 1000
 #define BACKLOG 10     // how many pending connections queue will hold
 
-void menu(int new_fd);
+void menu(int new_fd, struct sockaddr_storage their_addr);
 int leOpcao();
 
 void sigchld_handler(int s)
@@ -120,7 +120,7 @@ int main(void)
       close(sockfd); // child doesn't need the listener
       // if (send(new_fd, "Hello, world!\n", 15, 0) == -1)
       //	perror("send");
-      menu(new_fd);
+      menu(new_fd, their_addr);
       close(new_fd);
       exit(0);
     }
@@ -131,7 +131,7 @@ int main(void)
 }
 
 
-void menu(int new_fd){
+void menu(int new_fd, struct sockaddr_storage their_addr){
   char str[1000] = "Escolha uma opcao:\n\
                   Opcao 1 - Le\n\
                   Opcao 2 - Grava\n\
@@ -139,8 +139,7 @@ void menu(int new_fd){
     if (send(new_fd, str , strlen(str), 0) == -1)
       perror("send");
       printf("%d\n", strlen(str));
-  leOpcao();
-  switch(leOpcao()){
+      switch(leOpcao(their_addr, new_fd)){
   case 1:
     printf("Opcao1");
     break;
@@ -153,9 +152,13 @@ void menu(int new_fd){
   }
 }
 
-int leOpcao(){
-  /*  addr_len = sizeof their_addr;
-    if ((numbytes = recvfrom(sockfd, buf, MAXBUFLEN-1 , 0,
+int leOpcao(struct sockaddr_storage their_addr, int sockfd ){
+  int numbytes;
+  char buf[MAXDATASIZE];
+  char s[INET6_ADDRSTRLEN];
+  socklen_t addr_len = sizeof their_addr;
+
+    if ((numbytes = recvfrom(sockfd, buf, MAXDATASIZE-1 , 0,
         (struct sockaddr *)&their_addr, &addr_len)) == -1) {
         perror("recvfrom");
         exit(1);
@@ -166,6 +169,6 @@ int leOpcao(){
             s, sizeof s));
     printf("listener: packet is %d bytes long\n", numbytes);
     buf[numbytes] = '\0';
-    printf("listener: packet contains \"%s\"\n", buf);*/
+    printf("listener: packet contains \"%s\"\n", buf);
     return 0;
 }

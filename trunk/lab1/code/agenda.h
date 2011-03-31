@@ -34,6 +34,7 @@ typedef struct user {
 /* Funcoes */
 void menu(int new_fd, struct sockaddr_storage their_addr);
 void menu2(int new_fd, struct sockaddr_storage their_addr, User *user);
+
 void sendStr(int sockfd, char str[]);
 int leOpcao(struct sockaddr_storage their_addr, int sockfd);
 void leString(struct sockaddr_storage their_addr, int sockfd , char string[]);
@@ -43,6 +44,7 @@ int agenda_vazia(User *a);
 int compData(Agenda *newTasks,Agenda *tasks);
 int set_task(int dia,int hora, int min,char task[], User *u);
 Agenda * task_init(int dia,int hora, int min,char task[]);
+int verMes(int new_fd, User *u);
 
 #endif /*CONJUNTO_H_*/
 

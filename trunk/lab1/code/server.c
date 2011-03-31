@@ -126,7 +126,7 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
       sendStr(new_fd, "Digite o nome do usuario a ser buscado:\0");
       leString(their_addr, new_fd, nome);
       /* Busca nome no banco de dados */
-      menu2(new_fd, their_addr, nome);
+      menu2(new_fd, their_addr, user);
       break;
     case 2:
       /* Criar um usuario */
@@ -134,7 +134,7 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
       leString(their_addr, new_fd, nome);
       /* Verifica se nome ja existe */
       user=agenda_init(nome);
-      menu2(new_fd, their_addr,nome);
+      menu2(new_fd, their_addr,user);
       break;
     default:
       return;
@@ -143,8 +143,7 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
   }
 }
 
-void menu2(int new_fd, struct sockaddr_storage their_addr, char usr[]){
-  User *user;
+void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
   char nome[20], dia[5], hora[5], minuto[5], task[1000];
   char str[1000];
   while(1){
@@ -166,7 +165,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, char usr[]){
       leString(their_addr, new_fd, hora);
       sendStr(new_fd, "Digite os minutos do compromisso:\0");
       leString(their_addr, new_fd, minuto);
-      set_task(dia, hora, minuto, task, usr);
+      set_task(atoi(dia), atoi(hora), atoi(minuto), task, user);
       printf("\nCompromisso %s marcado! TODO: implentar isso\n", str);
       sendStr(new_fd, "\nCompromisso %s marcado! TODO: implentar isso\n");
       break;

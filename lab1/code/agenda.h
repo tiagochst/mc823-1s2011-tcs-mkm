@@ -1,6 +1,22 @@
 #ifndef AGENDA_H_
 #define AGENDA_H_
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <errno.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <sys/wait.h>
+#include <signal.h>
+
+#define PORT "3490"  // the port users will be connecting to
+#define MAXDATASIZE 1000
+#define BACKLOG 10     // how many pending connections queue will hold
 
 typedef struct agenda {
   struct agenda *next;
@@ -15,6 +31,13 @@ typedef struct user {
   char user[20];
 } User;
 
+/* Funcoes */
+void menu(int new_fd, struct sockaddr_storage their_addr);
+int leOpcao(struct sockaddr_storage their_addr, int sockfd);
+void leNome(struct sockaddr_storage their_addr, int sockfd , char nome[]);
+User * agenda_init(char nome[]);
+void user_destroy(User *u);
+int angenda_vazia(User *a);
 
 #endif /*CONJUNTO_H_*/
 

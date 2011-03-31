@@ -1,27 +1,7 @@
 /*
 ** server.c -- a stream socket server demo
 */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
-#include <arpa/inet.h>
-#include <sys/wait.h>
-#include <signal.h>
 #include "agenda.h"
-
-#define PORT "3490"  // the port users will be connecting to
-#define MAXDATASIZE 1000
-#define BACKLOG 10     // how many pending connections queue will hold
-
-void menu(int new_fd, struct sockaddr_storage their_addr);
-int leOpcao(struct sockaddr_storage their_addr, int sockfd);
 
 void sigchld_handler(int s)
 {
@@ -133,24 +113,52 @@ int main(void)
 
 
 void menu(int new_fd, struct sockaddr_storage their_addr){
+  User *user;
+  char nome[20];
   char str[1000] = "Escolha uma opcao:\n\
-                  Opcao 1 - Le\n\
-                  Opcao 2 - Grava\n\
-                  Opcao 3 - Apaga\n";
+                  Opcao 1 - Entrar como um usuario\n\
+                  Opcao 2 - Criar um usuario\n\
+                  Opcao 3 - Sair\n";
     if (send(new_fd, str , strlen(str), 0) == -1)
       perror("send");
       printf("%d\n", strlen(str));
       switch(leOpcao(their_addr, new_fd)){
   case 1:
-    printf("Opcao1");
+    /* Ler usuario */
+    leNome(their_addr, new_fd,nome);
     break;
   case 2:
-    printf("Opcao2");
+    /* Criar um usuario */
+    leNome(their_addr, new_fd,nome);
+    /* Verifica se nome ja existe */
+    user=agenda_init(nome);
     break;
   default:
-    printf("Opcao3");
+    return;
     break;
   }
+}
+
+void leNome(struct sockaddr_storage their_addr, int sockfd, char nome[]){
+
+  int numbytes;
+  char s[INET6_ADDRSTRLEN];
+  socklen_t addr_len = sizeof their_addr;
+
+    if ((numbytes = recvfrom(sockfd, nome, 256 , 0,
+        (struct sockaddr *)&their_addr, &addr_len)) == -1) {
+        perror("recvfrom");
+        exit(1);
+    }
+   printf("listener: got packet from %s\n",
+        inet_ntop(their_addr.ss_family,
+            get_in_addr((struct sockaddr *)&their_addr),
+            s, sizeof s));
+    printf("listener: packet is %d bytes long\n", numbytes);
+    /* buf[numbytes] = '\0'; */
+    printf("listener: packet contains \"%s\"\n", nome);
+    return;
+
 }
 
 int leOpcao(struct sockaddr_storage their_addr, int sockfd ){

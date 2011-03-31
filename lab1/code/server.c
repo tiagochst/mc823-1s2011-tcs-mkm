@@ -201,7 +201,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       /* Obter todos os compromissos do mes */
       sendStr(new_fd, "Todos os compromissos:\0");
       leString(their_addr, new_fd, dia);
-      printf("\nCompromissos para o dia %s: TODO: implentar isso\n", dia);
+      verMes(new_fd, user);
       break;
     default:
       return;

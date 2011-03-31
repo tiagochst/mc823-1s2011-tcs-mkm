@@ -17,7 +17,7 @@
 #define PORT "3490" // the port client will be connecting to 
 
 #define MAXDATASIZE 1000 // max number of bytes we can get at once 
-char opcao[1000]; 
+char opcao[256]; 
 
 
 void envia_pct( int sockfd, char s[], int size){
@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
     printf("client: connecting to %s\n", s);
 
     freeaddrinfo(servinfo); // all done with this structure
-
+    int size;
     while(1){
       /* Esperando resposta do servidor*/
       if ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
@@ -98,8 +98,9 @@ int main(int argc, char *argv[])
       printf("\n%s\n",buf); //client received
 
       /* Espera resposta do servidor*/
-      scanf(" %s", opcao );
-      envia_pct(sockfd, opcao ,sizeof(opcao));
+      scanf("%s", opcao );
+      printf("\nenviando:  %s tamanho:%d",opcao,strlen(opcao));
+      envia_pct(sockfd, opcao ,strlen(opcao)+1);
     }
     
       close(sockfd);

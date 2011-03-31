@@ -98,7 +98,6 @@ int main(void)
     printf("server: got connection from %s\n", s);
 
     if (!fork()) { // this is the child process
-      close(sockfd); // child doesn't need the listener
       // if (send(new_fd, "Hello, world!\n", 15, 0) == -1)
       //	perror("send");
       menu(new_fd, their_addr);

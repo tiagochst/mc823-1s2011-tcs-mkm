@@ -14,6 +14,7 @@
 #include <arpa/inet.h>
 #include <sys/wait.h>
 #include <signal.h>
+#include "agenda.h"
 
 #define PORT "3490"  // the port users will be connecting to
 #define MAXDATASIZE 1000
@@ -50,7 +51,7 @@ int main(void)
 
   memset(&hints, 0, sizeof hints);
   hints.ai_family = AF_UNSPEC;
-  hints.ai_socktype = SOCK_STREAM;
+  hints.ai_socktype = SOCK_STREAM;// TCP stream sockets
   hints.ai_flags = AI_PASSIVE; // use my IP
 
   if ((rv = getaddrinfo(NULL, PORT, &hints, &servinfo)) != 0) {

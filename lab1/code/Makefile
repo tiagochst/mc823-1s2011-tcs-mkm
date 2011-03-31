@@ -5,17 +5,18 @@ LIBS = -lm
 OBJS_C =  client.o   
 OBJS_S =  agenda.o server.o  
 
-EXEC = run
+EXEC_C = c
+EXEC_S = s
 
 all:
 	make c
 	make s
 
 c: $(OBJS_C)
-	$(CC) $(CFLAGS) $(OBJS_C) $(LIBS) -o $(EXEC)
+	$(CC) $(CFLAGS) $(OBJS_C) $(LIBS) -o $(EXEC_C)
 
 s: $(OBJS_S)
-	$(CC) $(CFLAGS) $(OBJS_S) $(LIBS) -o $(EXEC)
+	$(CC) $(CFLAGS) $(OBJS_S) $(LIBS) -o $(EXEC_S)
 
 
 run: all

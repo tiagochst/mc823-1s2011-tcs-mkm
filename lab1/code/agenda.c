@@ -29,36 +29,34 @@ int agenda_vazia(User *a) {
   return (a->tasks == NULL)?(1):(0);
 }
 
-int set_task(int dia,int hora,char task[], User u){
+int set_task(int dia,int hora,int min,char task[], User *u){
   int cmp;
   Agenda *a,*next,*ant;
-  Agenda *newTask = (Agenda *) malloc(sizeof(Agenda));
-  newTask.dia=dia;
-  newTask.hora=hora;
-  strcpy(newTask.tasks,task);
-  newTask.next=Null;
-
+  Agenda *newTask = task_init(dia, hora,min,task);
+ 
   next=u->tasks;
-  /*Já é a menor?*/
-  if(compData(newTasks,next)==1){
-    newTask->next=u->tasks->next;
-    u->tasks=newTask;
-    return 1; 
-  }
-
-  /* insere ordenado usando insertion sort */
-  for (a = next; a != NULL; a = next) {
-    cmp=compData(newTasks,a); 
-    if(cmp==-1){
-      ant=a;
-      next = a->next;
+  if(next!=NULL){ /*Agenda vazia?*/
+    /*Já é a menor?*/
+    if(compData(newTask,next)==1){
+      newTask->next=u->tasks->next;
+      u->tasks=newTask;
+      return 1; 
     }
-    else if(cmp==1){
-      newTask.next = a;
-      ant->next=newTask;
-    }      
-    else{
-      return 0;
+    
+    /* insere ordenado usando insertion sort */
+    for (a = next; a != NULL; a = next) {
+      cmp=compData(newTask,a); 
+      if(cmp==-1){
+	ant=a;
+	next = a->next;
+      }
+      else if(cmp==1){
+	newTask->next = a;
+	ant->next=newTask;
+      }      
+      else{
+	return 0;
+      }
     }
   }
     /*ultimo compromisso*/  
@@ -74,18 +72,32 @@ int set_task(int dia,int hora,char task[], User u){
 */
 int compData(Agenda *newTasks,Agenda *tasks){
 
-  if(newTasks.dia<tasks.dia)
+  if(newTasks->dia < tasks->dia)
     return 1;
-  else if(newTasks.dia>tasks.dia)
+  else if(newTasks->dia > tasks->dia)
     return -1;
-  else if (newTasks.hora<tasks.hora)	
+  else if (newTasks->hora < tasks->hora)	
     return 1;
-  else if (newTasks.hora>tasks.hora)	
+  else if (newTasks->hora > tasks->hora)	
     return -1;
-  else if (newTasks.min<tasks.min)	
+  else if (newTasks->min < tasks->min)	
     return 1;
-  else if (newTasks.min>tasks.min)	
+  else if (newTasks->min > tasks->min)	
     return 1;
 
   return 0;
+}
+
+/* INICIALIZA COMPROMISSOS
+ * gera o nó cabeça e o devolve */
+Agenda * task_init(int dia,int hora,int min,char task[]) {
+  Agenda *newTask = (Agenda *) malloc(sizeof(Agenda));
+  
+  newTask->dia=dia;
+  newTask->hora=hora;
+  newTask->min=min;
+  strcpy(newTask->task,task);
+  newTask->next=NULL;
+
+  return newTask;
 }

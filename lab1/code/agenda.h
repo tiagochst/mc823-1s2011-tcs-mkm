@@ -41,8 +41,8 @@ User * agenda_init(char nome[]);
 void user_destroy(User *u);
 int agenda_vazia(User *a);
 int compData(Agenda *newTasks,Agenda *tasks);
-int set_task(int dia,int hora,char task[], User u);
- 
+int set_task(int dia,int hora, int min,char task[], User *u);
+Agenda * task_init(int dia,int hora, int min,char task[]);
 
 #endif /*CONJUNTO_H_*/
 

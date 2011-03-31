@@ -104,7 +104,6 @@ Agenda * task_init(int dia,int hora,int min,char task[]) {
 
 int verMes(int new_fd, User *u){
   Agenda *next,*a;
-  Agenda *newTask = task_init(dia, hora,min,task);
  
   next=u->tasks;
  

@@ -2,6 +2,8 @@
 #include <string.h>
 #include "agenda.h"
 
+
+
 /* INICIALIZA AGENDA
  * gera o nó cabeça e o devolve */
 User * agenda_init(char nome[]) {

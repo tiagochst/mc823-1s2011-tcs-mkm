@@ -28,7 +28,7 @@ typedef struct agenda {
 
 typedef struct user {
   struct agenda *tasks;
-  char user[20];
+  char name[20];
 } User;
 
 /* Funcoes */

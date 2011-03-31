@@ -118,17 +118,60 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
   char str[1000] = "Escolha uma opcao:\n\
                   Opcao 1 - Entrar como um usuario\n\
                   Opcao 2 - Criar um usuario\n\
-                  Opcao 3 - Sair\n";
-    if (send(new_fd, str , strlen(str), 0) == -1)
+                  Opcao 3 - Sair\n\0";
+    if (send(new_fd, str , strlen(str) + 1, 0) == -1)
       perror("send");
       printf("%d\n", strlen(str));
       switch(leOpcao(their_addr, new_fd)){
   case 1:
     /* Ler usuario */
+    strcpy(str, "Digite o nome do usuario a ser buscado:\0");
+    if (send(new_fd, str , strlen(str) + 1, 0) == -1)
+      perror("send");
     leNome(their_addr, new_fd,nome);
+    /* Busca nome no banco de dados */
     break;
   case 2:
     /* Criar um usuario */
+    strcpy(str, "Digite o nome do usuario a ser criado:\0");
+    if (send(new_fd, str , strlen(str) + 1, 0) == -1)
+      perror("send");
+    leNome(their_addr, new_fd,nome);
+    /* Verifica se nome ja existe */
+    user=agenda_init(nome);
+    break;
+  default:
+    return;
+    break;
+  }
+}
+
+void menu2(int new_fd, struct sockaddr_storage their_addr){
+  User *user;
+  char nome[20];
+  char str[1000] = "Escolha uma opcao:\n\
+                  Opcao 1 - Marcar um compromisso\n\
+                  Opcao 2 - Desmarcar um compromisso\n\
+                  Opcao 3 - Obter um compromisso marcado para um horario de um dia\n\
+                  Opcao 3 - Obter todos os compromissos marcados para um dia\n\
+                  Opcao 3 - Obter todos os compromissos do mes\n\0";
+    if (send(new_fd, str , strlen(str) + 1, 0) == -1)
+      perror("send");
+      printf("%d\n", strlen(str));
+      switch(leOpcao(their_addr, new_fd)){
+  case 1:
+    /* Ler usuario */
+    strcpy(str, "Digite o nome do usuario a ser buscado:\0");
+    if (send(new_fd, str , strlen(str) + 1, 0) == -1)
+      perror("send");
+    leNome(their_addr, new_fd,nome);
+    /* Busca nome no banco de dados */
+    break;
+  case 2:
+    /* Criar um usuario */
+    strcpy(str, "Digite o nome do usuario a ser criado:\0");
+    if (send(new_fd, str , strlen(str) + 1, 0) == -1)
+      perror("send");
     leNome(their_addr, new_fd,nome);
     /* Verifica se nome ja existe */
     user=agenda_init(nome);
@@ -145,7 +188,7 @@ void leNome(struct sockaddr_storage their_addr, int sockfd, char nome[]){
   char s[INET6_ADDRSTRLEN];
   socklen_t addr_len = sizeof their_addr;
 
-    if ((numbytes = recvfrom(sockfd, nome, 256 , 0,
+    if ((numbytes = recvfrom(sockfd, nome, 20 , 0,
         (struct sockaddr *)&their_addr, &addr_len)) == -1) {
         perror("recvfrom");
         exit(1);

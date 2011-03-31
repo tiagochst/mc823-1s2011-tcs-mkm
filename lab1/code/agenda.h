@@ -33,6 +33,7 @@ typedef struct user {
 
 /* Funcoes */
 void menu(int new_fd, struct sockaddr_storage their_addr);
+void menu2(int new_fd, struct sockaddr_storage their_addr)
 int leOpcao(struct sockaddr_storage their_addr, int sockfd);
 void leNome(struct sockaddr_storage their_addr, int sockfd , char nome[]);
 User * agenda_init(char nome[]);

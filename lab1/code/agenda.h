@@ -33,9 +33,10 @@ typedef struct user {
 
 /* Funcoes */
 void menu(int new_fd, struct sockaddr_storage their_addr);
-void menu2(int new_fd, struct sockaddr_storage their_addr)
+void menu2(int new_fd, struct sockaddr_storage their_addr);
+void sendStr(int sockfd, char str[]);
 int leOpcao(struct sockaddr_storage their_addr, int sockfd);
-void leNome(struct sockaddr_storage their_addr, int sockfd , char nome[]);
+void leString(struct sockaddr_storage their_addr, int sockfd , char string[]);
 User * agenda_init(char nome[]);
 void user_destroy(User *u);
 int angenda_vazia(User *a);

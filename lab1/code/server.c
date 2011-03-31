@@ -119,26 +119,21 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
                   Opcao 1 - Entrar como um usuario\n\
                   Opcao 2 - Criar um usuario\n\
                   Opcao 3 - Sair\n\0";
-    if (send(new_fd, str , strlen(str) + 1, 0) == -1)
-      perror("send");
-      printf("%d\n", strlen(str));
-      switch(leOpcao(their_addr, new_fd)){
+  sendStr(new_fd, str);
+  switch(leOpcao(their_addr, new_fd)){
   case 1:
     /* Ler usuario */
-    strcpy(str, "Digite o nome do usuario a ser buscado:\0");
-    if (send(new_fd, str , strlen(str) + 1, 0) == -1)
-      perror("send");
-    leNome(their_addr, new_fd,nome);
+    sendStr(new_fd, "Digite o nome do usuario a ser buscado:\0");
+    leString(their_addr, new_fd, nome);
     /* Busca nome no banco de dados */
     break;
   case 2:
     /* Criar um usuario */
-    strcpy(str, "Digite o nome do usuario a ser criado:\0");
-    if (send(new_fd, str , strlen(str) + 1, 0) == -1)
-      perror("send");
-    leNome(their_addr, new_fd,nome);
+    sendStr(new_fd, "Digite o nome do usuario a ser criado:\0");
+    leString(their_addr, new_fd, nome);
     /* Verifica se nome ja existe */
     user=agenda_init(nome);
+    menu2(new_fd, their_addr);
     break;
   default:
     return;
@@ -148,59 +143,89 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
 
 void menu2(int new_fd, struct sockaddr_storage their_addr){
   User *user;
-  char nome[20];
+  char nome[20], dia[5], hora[5], minuto[5];
   char str[1000] = "Escolha uma opcao:\n\
                   Opcao 1 - Marcar um compromisso\n\
                   Opcao 2 - Desmarcar um compromisso\n\
                   Opcao 3 - Obter um compromisso marcado para um horario de um dia\n\
                   Opcao 3 - Obter todos os compromissos marcados para um dia\n\
                   Opcao 3 - Obter todos os compromissos do mes\n\0";
-    if (send(new_fd, str , strlen(str) + 1, 0) == -1)
-      perror("send");
-      printf("%d\n", strlen(str));
-      switch(leOpcao(their_addr, new_fd)){
+  sendStr(new_fd, str);
+  switch(leOpcao(their_addr, new_fd)){
   case 1:
-    /* Ler usuario */
-    strcpy(str, "Digite o nome do usuario a ser buscado:\0");
+    /* Marcar um compromisso */
+    strcpy(str, "Digite o nome do compromisso:\0");
     if (send(new_fd, str , strlen(str) + 1, 0) == -1)
       perror("send");
-    leNome(their_addr, new_fd,nome);
-    /* Busca nome no banco de dados */
+    leString(their_addr, new_fd, str);
+    printf("\nCompromisso %s marcado! TODO: implentar isso\n", str);
+    strcpy(str, "\nCompromisso %s marcado! TODO: implentar isso\n");
+    if (send(new_fd, str , strlen(str) + 1, 0) == -1)
+      perror("send");
     break;
   case 2:
-    /* Criar um usuario */
-    strcpy(str, "Digite o nome do usuario a ser criado:\0");
-    if (send(new_fd, str , strlen(str) + 1, 0) == -1)
-      perror("send");
-    leNome(their_addr, new_fd,nome);
+    /* Desmarcar um compromisso */
+    sendStr(new_fd, "Digite o nome do compromisso a ser desmarcado:\0");
+    leString(their_addr, new_fd, str);
+    printf("\nCompromisso %s desmarcado! TODO: implentar isso\n", str);
+    sendStr(new_fd, "\nCompromisso %s desmarcado! TODO: implentar isso\n");
     /* Verifica se nome ja existe */
     user=agenda_init(nome);
+  case 3:
+    /* Desmarcar um compromisso */
+    sendStr(new_fd, "Digite o dia:\0");
+    leString(their_addr, new_fd, dia);
+    sendStr(new_fd, "Digite as horas:\0");
+    leString(their_addr, new_fd, hora);
+    sendStr(new_fd, "Digite os minutos:\0");
+    leString(their_addr, new_fd, minuto);
+    printf("\nCompromisso: d=%s h=%s m=%s TODO: implentar isso\n", dia, hora, minuto);
+    sendStr(new_fd, "\nCompromisso: d=%s h=%s m=%s TODO: implentar isso\n\0");
+    user=agenda_init(nome);
+    break;
+  case 4:
+    /* Obter todos os compromissos marcados para um dia */
+    strcpy(str, "Digite o dia:\0");
+    if (send(new_fd, str , strlen(str) + 1, 0) == -1)
+      perror("send");
+    leString(their_addr, new_fd, dia);
+    printf("\nCompromissos para o dia %s: TODO: implentar isso\n", dia);
+    strcpy(str,"\nCompromissos para o dia %s: TODO: implentar isso\n\0");
+    if (send(new_fd, str , strlen(str) + 1, 0) == -1)
+      perror("send");
+    break;
+  case 5:
+    /* Obter todos os compromissos do mes */
+    sendStr(new_fd, "Todos os compromissos:\0");
+    leString(their_addr, new_fd, dia);
+    printf("\nCompromissos para o dia %s: TODO: implentar isso\n", dia);
     break;
   default:
+    printf("Opcao default\n");
     return;
     break;
   }
 }
 
-void leNome(struct sockaddr_storage their_addr, int sockfd, char nome[]){
+void leString(struct sockaddr_storage their_addr, int sockfd, char string[]){
 
   int numbytes;
   char s[INET6_ADDRSTRLEN];
   socklen_t addr_len = sizeof their_addr;
 
-    if ((numbytes = recvfrom(sockfd, nome, 20 , 0,
-        (struct sockaddr *)&their_addr, &addr_len)) == -1) {
-        perror("recvfrom");
-        exit(1);
-    }
-   printf("listener: got packet from %s\n",
-        inet_ntop(their_addr.ss_family,
-            get_in_addr((struct sockaddr *)&their_addr),
-            s, sizeof s));
-    printf("listener: packet is %d bytes long\n", numbytes);
-    /* buf[numbytes] = '\0'; */
-    printf("listener: packet contains \"%s\"\n", nome);
-    return;
+  if ((numbytes = recvfrom(sockfd, string, 1000 , 0,
+			   (struct sockaddr *)&their_addr, &addr_len)) == -1) {
+    perror("recvfrom");
+    exit(1);
+  }
+  printf("listener: got packet from %s\n",
+	 inet_ntop(their_addr.ss_family,
+		   get_in_addr((struct sockaddr *)&their_addr),
+		   s, sizeof s));
+  printf("listener: packet is %d bytes long\n", numbytes);
+  /* buf[numbytes] = '\0'; */
+  printf("listener: packet contains \"%s\"\n", string);
+  return;
 
 }
 
@@ -210,18 +235,23 @@ int leOpcao(struct sockaddr_storage their_addr, int sockfd ){
   char s[INET6_ADDRSTRLEN];
   socklen_t addr_len = sizeof their_addr;
 
-    if ((numbytes = recvfrom(sockfd, buf, MAXDATASIZE-1 , 0,
-        (struct sockaddr *)&their_addr, &addr_len)) == -1) {
-        perror("recvfrom");
-        exit(1);
-    }
-   printf("listener: got packet from %s\n",
-        inet_ntop(their_addr.ss_family,
-            get_in_addr((struct sockaddr *)&their_addr),
-            s, sizeof s));
-    printf("listener: packet is %d bytes long\n", numbytes);
-    buf[numbytes] = '\0';
-    printf("listener: packet contains \"%s\"\n", buf);
-    printf("%c", buf[0]);
-    return atoi(buf);
+  if ((numbytes = recvfrom(sockfd, buf, MAXDATASIZE-1 , 0,
+			   (struct sockaddr *)&their_addr, &addr_len)) == -1) {
+    perror("recvfrom");
+    exit(1);
+  }
+  printf("listener: got packet from %s\n",
+	 inet_ntop(their_addr.ss_family,
+		   get_in_addr((struct sockaddr *)&their_addr),
+		   s, sizeof s));
+  printf("listener: packet is %d bytes long\n", numbytes);
+  buf[numbytes] = '\0';
+  printf("listener: packet contains \"%s\"\n", buf);
+  printf("%c", buf[0]);
+  return atoi(buf);
+}
+
+void sendStr(int new_fd, char str[]){
+    if (send(new_fd, str , strlen(str) + 1, 0) == -1)
+      perror("send");
 }

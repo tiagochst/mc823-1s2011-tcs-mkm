@@ -101,3 +101,18 @@ Agenda * task_init(int dia,int hora,int min,char task[]) {
 
   return newTask;
 }
+
+int verMes(int new_fd, User *u){
+  Agenda *next,*a;
+  Agenda *newTask = task_init(dia, hora,min,task);
+ 
+  next=u->tasks;
+ 
+  for (a = next; a != NULL; a = next) {
+    printf("\nCompromisso: %s",a->task);
+    printf("Dia: %d\n",a->dia);
+    printf("Hora: %d\n",a->hora);
+    printf("Min: %d\n",a->min);
+  }
+
+}

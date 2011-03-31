@@ -40,6 +40,9 @@ void leString(struct sockaddr_storage their_addr, int sockfd , char string[]);
 User * agenda_init(char nome[]);
 void user_destroy(User *u);
 int agenda_vazia(User *a);
+int compData(Agenda *newTasks,Agenda *tasks);
+int set_task(int dia,int hora,char task[], User u);
+ 
 
 #endif /*CONJUNTO_H_*/
 

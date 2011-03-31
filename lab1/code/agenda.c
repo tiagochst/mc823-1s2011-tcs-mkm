@@ -2,13 +2,11 @@
 #include <string.h>
 #include "agenda.h"
 
-
-
 /* INICIALIZA AGENDA
  * gera o nó cabeça e o devolve */
 User * agenda_init(char nome[]) {
   User *y = (User *) malloc(sizeof(User));
-  strcpy(y.user,nome);
+  strcpy(y->name,nome);
   y->tasks = NULL;
   return y;
 }
@@ -16,13 +14,14 @@ User * agenda_init(char nome[]) {
 /* DESTRÓI AGENDA
  * desaloca todos os nós */
 void user_destroy(User *u) {
-  User *next;
+  Agenda *next;
+  Agenda *a;
 
-  next = u->taks;
+  next = u->tasks;
   free(u);
-  for (u = next; u != NULL; u = next) {
-    next = u->next;
-    free(u);
+  for (a = next; a != NULL; a = next) {
+    next = a->next;
+    free(a);
   }
 }
 

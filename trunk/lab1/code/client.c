@@ -17,6 +17,16 @@
 #define PORT "3490" // the port client will be connecting to 
 
 #define MAXDATASIZE 1000 // max number of bytes we can get at once 
+char opcao[1000]; 
+
+
+void envia_pct( int sockfd, char s[], int size){
+  if (( send(sockfd, s ,size, 0)) == -1) {
+    perror("talker: sendto");
+    exit(1);
+  }
+ return;
+}
 
 // get sockaddr, IPv4 or IPv6:
 void *get_in_addr(struct sockaddr *sa)
@@ -78,21 +88,21 @@ int main(int argc, char *argv[])
 
     freeaddrinfo(servinfo); // all done with this structure
 
-    if ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
+    while(1){
+      /* Esperando resposta do servidor*/
+      if ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
         perror("recv");
         exit(1);
-    }
+      }
+      system("clear");
+      printf("\n%s\n",buf); //client received
 
-    buf[numbytes] = '\0';
-
-    printf("%s\n",buf); //client received
-    char opcao[10]; 
-   scanf(" %s", opcao );
-    if (( send(sockfd, opcao ,10, 0)) == -1) {
-        perror("talker: sendto");
-        exit(1);
+      /* Espera resposta do servidor*/
+      scanf(" %s", opcao );
+      envia_pct(sockfd, opcao ,sizeof(opcao));
     }
-    close(sockfd);
+    
+      close(sockfd);
 
     return 0;
 }

@@ -164,7 +164,9 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, char usr[]){
       leString(their_addr, new_fd, dia);
       sendStr(new_fd, "Digite o hora do compromisso:\0");
       leString(their_addr, new_fd, hora);
-      set_task(dia, hora, task, usr);
+      sendStr(new_fd, "Digite os minutos do compromisso:\0");
+      leString(their_addr, new_fd, minuto);
+      set_task(dia, hora, minuto, task, usr);
       printf("\nCompromisso %s marcado! TODO: implentar isso\n", str);
       sendStr(new_fd, "\nCompromisso %s marcado! TODO: implentar isso\n");
       break;
@@ -176,6 +178,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, char usr[]){
       sendStr(new_fd, "\nCompromisso %s desmarcado! TODO: implentar isso\n");
       /* Verifica se nome ja existe */
       user=agenda_init(nome);
+      break;
     case 3:
       /* Desmarcar um compromisso */
       sendStr(new_fd, "Digite o dia:\0");

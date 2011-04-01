@@ -144,7 +144,7 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
 }
 
 void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
-  char nome[20], dia[5], hora[5], minuto[5], task[1000];
+  char nome[20], dia[5], hora[5], minuto[5], task[1000],again[1];
   char str[1000];
   while(1){
     sendStr(new_fd, "Escolha uma opcao:\n\
@@ -167,8 +167,11 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       leString(their_addr, new_fd, minuto);
       set_task(atoi(dia), atoi(hora), atoi(minuto), task, user);
       printf("\nCompromisso %s marcado! TODO: implentar isso\n", str);
-      sendStr(new_fd, "\nCompromisso %s marcado! TODO: implentar isso\n");
       verMes(new_fd,user);
+      /*Se m retorna ao menu, se q sai*/
+      leString(their_addr, new_fd,again);
+      if(strcmp("q",again)==0) 
+	exit(1);
       break;
     case 2:
       /* Desmarcar um compromisso */

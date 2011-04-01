@@ -1,4 +1,4 @@
-/*
+ /*
 ** server.c -- a stream socket server demo
 */
 #include "agenda.h"
@@ -168,6 +168,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       set_task(atoi(dia), atoi(hora), atoi(minuto), task, user);
       printf("\nCompromisso %s marcado! TODO: implentar isso\n", str);
       sendStr(new_fd, "\nCompromisso %s marcado! TODO: implentar isso\n");
+      verMes(new_fd,user);
       break;
     case 2:
       /* Desmarcar um compromisso */
@@ -189,6 +190,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       printf("\nCompromisso: d=%s h=%s m=%s TODO: implentar isso\n", dia, hora, minuto);
       sendStr(new_fd, "\nCompromisso: d=%s h=%s m=%s TODO: implentar isso\n\0");
       user=agenda_init(nome);
+
       break;
     case 4:
       /* Obter todos os compromissos marcados para um dia */

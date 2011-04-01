@@ -35,7 +35,9 @@ int set_task(int dia,int hora,int min,char task[], User *u){
   Agenda *newTask = task_init(dia, hora,min,task);
  
   next=u->tasks;
-  if(next!=NULL){ /*Agenda vazia?*/
+  if (next ==NULL)
+    u->tasks=newTask;
+  else if(next!=NULL){ /*Agenda vazia?*/
     /*Já é a menor?*/
     if(compData(newTask,next)==1){
       newTask->next=u->tasks->next;
@@ -58,9 +60,9 @@ int set_task(int dia,int hora,int min,char task[], User *u){
 	return 0;
       }
     }
-  }
     /*ultimo compromisso*/  
-  ant=newTask;
+    ant=newTask;
+  }
   return 1;
 }
 
@@ -108,10 +110,11 @@ int verMes(int new_fd, User *u){
   next=u->tasks;
  
   for (a = next; a != NULL; a = next) {
-    printf("\nCompromisso: %s",a->task);
+    printf("\nCompromisso: %s\n",a->task);
     printf("Dia: %d\n",a->dia);
     printf("Hora: %d\n",a->hora);
     printf("Min: %d\n",a->min);
+    next=a->next;
   }
 
 }

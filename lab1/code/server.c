@@ -177,36 +177,36 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       /* Desmarcar um compromisso */
       sendStr(new_fd, "Digite o nome do compromisso a ser desmarcado:\0");
       leString(their_addr, new_fd, str);
-      printf("\nCompromisso %s desmarcado! TODO: implentar isso\n", str);
-      sendStr(new_fd, "\nCompromisso %s desmarcado! TODO: implentar isso\n");
-      /* Verifica se nome ja existe */
-      user=agenda_init(nome);
       break;
     case 3:
-      /* Desmarcar um compromisso */
+      /* Obter compromissos de um dia em determinada hora */
       sendStr(new_fd, "Digite o dia:\0");
       leString(their_addr, new_fd, dia);
       sendStr(new_fd, "Digite as horas:\0");
       leString(their_addr, new_fd, hora);
-      sendStr(new_fd, "Digite os minutos:\0");
-      leString(their_addr, new_fd, minuto);
-      printf("\nCompromisso: d=%s h=%s m=%s TODO: implentar isso\n", dia, hora, minuto);
-      sendStr(new_fd, "\nCompromisso: d=%s h=%s m=%s TODO: implentar isso\n\0");
-      user=agenda_init(nome);
-
+      verHora(new_fd,user,atoi(dia),atoi(hora));
+     /*Se m retorna ao menu, se q sai*/
+      leString(their_addr, new_fd,again);
+      if(strcmp("q",again)==0) 
+	exit(1);
       break;
     case 4:
       /* Obter todos os compromissos marcados para um dia */
       sendStr(new_fd, "Digite o dia:\0");
       leString(their_addr, new_fd, dia);
-      printf("\nCompromissos para o dia %s: TODO: implentar isso\n", dia);
-      sendStr(new_fd,"\nCompromissos para o dia %s: TODO: implentar isso\n\0");
+      verDia(new_fd,user,atoi(dia));
+      /*Se m retorna ao menu, se q sai*/
+      leString(their_addr, new_fd,again);
+      if(strcmp("q",again)==0) 
+	exit(1);
       break;
     case 5:
       /* Obter todos os compromissos do mes */
-      sendStr(new_fd, "Todos os compromissos:\0");
-      leString(their_addr, new_fd, dia);
-      verMes(new_fd, user);
+      verMes(new_fd,user);
+      /*Se m retorna ao menu, se q sai*/
+      leString(their_addr, new_fd,again);
+      if(strcmp("q",again)==0) 
+	exit(1);
       break;
     default:
       return;

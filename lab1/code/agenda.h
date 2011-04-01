@@ -45,6 +45,7 @@ int compData(Agenda *newTasks,Agenda *tasks);
 int set_task(int dia,int hora, int min,char task[], User *u);
 Agenda * task_init(int dia,int hora, int min,char task[]);
 int verMes(int new_fd, User *u);
-
+int verDia(int new_fd, User *u, int dia);
+int verHora(int new_fd, User *u, int dia, int hora);
 #endif /*CONJUNTO_H_*/
 

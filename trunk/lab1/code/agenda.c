@@ -29,6 +29,36 @@ int agenda_vazia(User *a) {
   return (a->tasks == NULL)?(1):(0);
 }
 
+/* remover um compromisso pelo seu nome */ 
+int delTask( User *u, char nome[]){
+  int cmp;
+  Agenda *a,*ant;
+  Agenda *newTask;
+
+  a=u->tasks;
+  if (a ==NULL) /* Agenda vazia*/
+    return 0;
+  
+  /* primeiro no da cabeca */
+  if(cmp=strcmp(nome,a->task)==0){
+    printf("sou eu!\n");
+    u->tasks=a->next;
+    return 1; 
+  }
+  ant=a;
+  for (a=a->next; a != NULL; a =a->next) {
+    if( strcmp(nome,a->task)==0){
+      ant->next=a->next;
+      free(a);
+      return 1;
+    }
+    ant=a;
+  }      
+  
+  return 0;
+}
+
+
 int set_task(int dia,int hora,int min,char task[], User *u){
   int cmp;
   Agenda *a,*next,*ant;
@@ -202,3 +232,5 @@ int verHora(int new_fd, User *u, int dia, int hora){
   return 0;
 
 }
+
+

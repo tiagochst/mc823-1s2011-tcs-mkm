@@ -40,7 +40,8 @@ int set_task(int dia,int hora,int min,char task[], User *u){
   else if(next!=NULL){ /*Agenda vazia?*/
     /*Já é a menor?*/
     if(compData(newTask,next)==1){
-      newTask->next=u->tasks->next;
+      printf("sou a menor!\n");
+      newTask->next=u->tasks;
       u->tasks=newTask;
       return 1; 
     }
@@ -55,13 +56,14 @@ int set_task(int dia,int hora,int min,char task[], User *u){
       else if(cmp==1){
 	newTask->next = a;
 	ant->next=newTask;
+	break;
       }      
       else{
 	return 0;
       }
     }
     /*ultimo compromisso*/  
-    ant=newTask;
+    ant->next=newTask;
   }
   return 1;
 }
@@ -106,7 +108,9 @@ Agenda * task_init(int dia,int hora,int min,char task[]) {
 
 int verMes(int new_fd, User *u){
   Agenda *next,*a;
- 
+  char mes[1000]="=== Mes de ABRIL ===\n"; 
+  char comp[1000],num[5];
+  
   next=u->tasks;
  
   for (a = next; a != NULL; a = next) {
@@ -115,6 +119,21 @@ int verMes(int new_fd, User *u){
     printf("Hora: %d\n",a->hora);
     printf("Min: %d\n",a->min);
     next=a->next;
+    strcat(comp,"\nCompromisso: ");
+    strcat(comp,a->task);
+    strcat(comp,"\nDia:");
+    snprintf(num, sizeof(num)-1, "%d", a->dia);
+    strcat(comp,num);
+    strcat(comp,"\nHora:");
+    snprintf(num, sizeof(num)-1, "%d", a->hora);
+    strcat(comp,num);
+    strcat(comp,"\nMin:");
+    snprintf(num, sizeof(num)-1, "%d", a->min);
+    strcat(comp,num);
+    strcat(mes,comp);
+    strcpy(comp,"");
   }
-
+  printf("%s",mes);
+  strcat(mes,"\nDigite m para voltar ao menu anterior ou q para sair\n");
+  sendStr(new_fd, mes);
 }

@@ -47,5 +47,7 @@ Agenda * task_init(int dia,int hora, int min,char task[]);
 int verMes(int new_fd, User *u);
 int verDia(int new_fd, User *u, int dia);
 int verHora(int new_fd, User *u, int dia, int hora);
+int delTask( User *u, char nome[]);
+
 #endif /*CONJUNTO_H_*/
 

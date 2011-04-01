@@ -177,6 +177,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       /* Desmarcar um compromisso */
       sendStr(new_fd, "Digite o nome do compromisso a ser desmarcado:\0");
       leString(their_addr, new_fd, str);
+      delTask(user, str);
       break;
     case 3:
       /* Obter compromissos de um dia em determinada hora */

@@ -144,17 +144,7 @@ int verMes(int new_fd, User *u){
   next=u->tasks;
  
   for (a = next; a != NULL; a = a->next) {
-    strcat(comp,"\nCompromisso: ");
-    strcat(comp,a->task);
-    strcat(comp,"\nDia:");
-    snprintf(num, sizeof(num)-1, "%d", a->dia);
-    strcat(comp,num);
-    strcat(comp,"\nHora:");
-    snprintf(num, sizeof(num)-1, "%d", a->hora);
-    strcat(comp,num);
-    strcat(comp,"\nMin:");
-    snprintf(num, sizeof(num)-1, "%d", a->min);
-    strcat(comp,num);
+    cpComp(a,comp);
     strcat(mes,comp);
     strcpy(comp,"");
   }
@@ -168,31 +158,20 @@ int verMes(int new_fd, User *u){
 int verDia(int new_fd, User *u, int dia){
   Agenda *next,*a;
   char mes[1000]="=== Mes de ABRIL ===\n"; 
-  char comp[1000],num[5];
+  char comp[1000];
   
   next=u->tasks;
  
   for (a = next; a != NULL; a=a->next) {
     if(a->dia==dia){
-      strcat(comp,"\nCompromisso: ");
-      strcat(comp,a->task);
-      strcat(comp,"\nDia:");
-      snprintf(num, sizeof(num)-1, "%d", a->dia);
-      strcat(comp,num);
-      strcat(comp,"\nHora:");
-      snprintf(num, sizeof(num)-1, "%d", a->hora);
-      strcat(comp,num);
-      strcat(comp,"\nMin:");
-      snprintf(num, sizeof(num)-1, "%d", a->min);
-      strcat(comp,num);
+      cpComp(a,comp);
       strcat(mes,comp);
-      strcpy(comp,"");
+      strcpy(comp,""); /* Limpeza de variaveis */
     }
-    else if(a->dia>dia){/*Dias ordenados - ultrapassou data*/
+    else if(a->dia>dia)/* Dias ordenados - ultrapassou data */
       break;
-    }
-   }
-  printf("%s",mes);
+  }
+
   strcat(mes,"\nDigite m para voltar ao menu anterior ou q para sair\n");
   sendStr(new_fd, mes);
 
@@ -202,35 +181,44 @@ int verDia(int new_fd, User *u, int dia){
 int verHora(int new_fd, User *u, int dia, int hora){
   Agenda *next,*a;
   char mes[1000]="=== Mes de ABRIL ===\n"; 
-  char comp[1000],num[5];
+  char comp[1000];
   
   next=u->tasks;
- 
+  
   for (a = next; a != NULL; a=a->next) {
     if(a->dia==dia && a->hora==hora){
-      strcat(comp,"\nCompromisso: ");
-      strcat(comp,a->task);
-      strcat(comp,"\nDia:");
-      snprintf(num, sizeof(num)-1, "%d", a->dia);
-      strcat(comp,num);
-      strcat(comp,"\nHora:");
-      snprintf(num, sizeof(num)-1, "%d", a->hora);
-      strcat(comp,num);
-      strcat(comp,"\nMin:");
-      snprintf(num, sizeof(num)-1, "%d", a->min);
-      strcat(comp,num);
+      cpComp(a,comp);
       strcat(mes,comp);
-      strcpy(comp,"");
+      strcpy(comp,"");/* limpeza da variavel */
     }
-    else if(a->dia>dia){/*Dias ordenados - ultrapassou data*/
+    else if(a->dia>dia)/* Dias ordenados - ultrapassou data */
       break;
-    }     
   }
-  printf("%s",mes);
+
   strcat(mes,"\nDigite m para voltar ao menu anterior ou q para sair\n");
   sendStr(new_fd, mes);
   return 0;
 
 }
 
+/* Copia compromiso para visuzalizacao */
+void cpComp(Agenda *a, char comp[]){
+  char num[5];
+  
+  strcat(comp,"\nCompromisso: ");
+  strcat(comp,a->task);
 
+  strcat(comp,"\nDia:");
+  snprintf(num, sizeof(num)-1, "%d", a->dia);
+  strcat(comp,num);
+
+  strcat(comp,"\nHora:");
+  snprintf(num, sizeof(num)-1, "%d", a->hora);
+  strcat(comp,num);
+
+  strcat(comp,"\nMin:");
+  snprintf(num, sizeof(num)-1, "%d", a->min);
+  strcat(comp,num);
+
+  return;
+}

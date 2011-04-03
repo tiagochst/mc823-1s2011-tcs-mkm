@@ -113,7 +113,7 @@ int main(void)
 
 void menu(int new_fd, struct sockaddr_storage their_addr){
   User *user;
-  char nome[20],again[1];
+  char nome[20],senha[20],pwd[20],again[1];
   char str[1000];
   while(1){
     sendStr(new_fd,"Escolha uma opcao:\n\
@@ -126,8 +126,21 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
       sendStr(new_fd, "Digite o nome do usuario a ser buscado:\0");
       leString(their_addr, new_fd, nome);
       /* Busca nome no banco de dados */
-      if(findUser(nome))     
-	menu2(new_fd, their_addr, user);
+      if(findUser(nome,pwd)){     
+
+	/*verifica senha*/
+	sendStr(new_fd, "Digite a senha do usuario:\0");
+	leString(their_addr, new_fd, senha);
+	strcat(senha,"\n"); /*Formatacao para comaparacao*/
+	if(!strcmp(senha,pwd))
+	  menu2(new_fd, their_addr, user);
+	else{
+	  sendStr(new_fd, "Senha nao confere! Digite m para voltar ou q para sair:\0");
+	  leString(their_addr, new_fd, again);
+	  if(strcmp("q",again)==0) 
+	    exit(1);
+	}
+      }
       else{
 	sendStr(new_fd, "Usuario inexistente! Digite m para voltar ou q para sair:\0");
 	leString(their_addr, new_fd, again);
@@ -141,8 +154,10 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
       /* Criar um usuario */
       sendStr(new_fd, "Digite o nome do usuario a ser criado:\0");
       leString(their_addr, new_fd, nome);
+      sendStr(new_fd, "Digite a senha do usuario:\0");
+      leString(their_addr, new_fd, senha);
       /* Verifica se nome ja existe */
-      if(newUser(nome)==1){
+      if(newUser(nome,senha)==1){
 	user=agenda_init(nome);
 	menu2(new_fd, their_addr,user);
       }

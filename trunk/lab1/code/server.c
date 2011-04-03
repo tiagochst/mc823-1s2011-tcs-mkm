@@ -142,9 +142,17 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
       sendStr(new_fd, "Digite o nome do usuario a ser criado:\0");
       leString(their_addr, new_fd, nome);
       /* Verifica se nome ja existe */
-      user=agenda_init(nome);
-      menu2(new_fd, their_addr,user);
-      break;
+      if(newUser(nome)==1){
+	user=agenda_init(nome);
+	menu2(new_fd, their_addr,user);
+      }
+      else{
+	sendStr(new_fd, "Usuario já existente! Digite m para voltar ou q para sair:\0");
+	leString(their_addr, new_fd, again);
+	if(strcmp("q",again)==0) 
+	  exit(1);
+      }
+	break;
     default:
       return;
       break;

@@ -3,7 +3,7 @@ CFLAGS =  -g -ggdb
 LIBS = -lm
 
 OBJS_C =  client.o   
-OBJS_S =  agenda.o server.o  
+OBJS_S =  agenda.o server.o bd.o  
 
 EXEC_C = c
 EXEC_S = s

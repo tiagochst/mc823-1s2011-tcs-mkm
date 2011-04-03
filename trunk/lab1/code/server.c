@@ -113,7 +113,7 @@ int main(void)
 
 void menu(int new_fd, struct sockaddr_storage their_addr){
   User *user;
-  char nome[20];
+  char nome[20],again[1];
   char str[1000];
   while(1){
     sendStr(new_fd,"Escolha uma opcao:\n\
@@ -126,7 +126,16 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
       sendStr(new_fd, "Digite o nome do usuario a ser buscado:\0");
       leString(their_addr, new_fd, nome);
       /* Busca nome no banco de dados */
-      menu2(new_fd, their_addr, user);
+      if(findUser(nome))     
+	menu2(new_fd, their_addr, user);
+      else{
+	sendStr(new_fd, "Usuario inexistente! Digite m para voltar ou q para sair:\0");
+	leString(their_addr, new_fd, again);
+	if(strcmp("q",again)==0) 
+	exit(1);
+      break;
+  
+      }
       break;
     case 2:
       /* Criar um usuario */

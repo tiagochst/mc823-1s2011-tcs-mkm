@@ -7,7 +7,7 @@
  * compara no arquivo fp uma lista de usuarios
  * se uxuario existe retorna 1, senao 0 */
 int findUser(char nome[],char pwd[]) {
-  char user [30];
+  char user [30], arq[20]="";;
   FILE * pFile;
 
   strcat(nome,"\n"); /*Formatacao para comaparacao*/
@@ -23,11 +23,14 @@ int findUser(char nome[],char pwd[]) {
       fgets (pwd, 100, pFile);/*senha do usuario*/
       if(strcmp(user,nome)==0){;
 	fclose (pFile);
+	strncpy(arq,nome,strlen(nome)-1);
+	/* Cria o arquivo do usuario, caso aquele nao exista */
+	pFile = fopen(arq, "a");
+	fclose(pFile);
 	return 1;
       }
     }
   }
-  
   fclose (pFile);
   return 0;
 }
@@ -36,7 +39,7 @@ int findUser(char nome[],char pwd[]) {
  * Retorna 0: caso contrario*/
 int newUser(char nome[],char senha[]){
   FILE * pFile;
-  char pwd[20];
+  char pwd[20], arq[20]="";
 
   if(findUser(nome,pwd)==0){
     pFile = fopen ("users.txt" , "a");/*arquivo com nome de usuarios*/
@@ -48,6 +51,11 @@ int newUser(char nome[],char senha[]){
       fputs ( nome , pFile );
       fputs ( senha , pFile );
       fclose (pFile);
+      /* Cria a agenda para o usuario */
+      
+      strncpy(arq,nome,strlen(nome)-1);
+      pFile = fopen(arq, "w");
+      fclose(pFile);
       return 1;
     }
   }

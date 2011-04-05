@@ -90,9 +90,11 @@ int main(int argc, char *argv[])
     int size;
     while(1){
       /* Esperando resposta do servidor*/
-      if ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
+      while ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == 0) {
+	if(numbytes==-1){
         perror("recv");
         exit(1);
+	}
       }
       system("clear");
       printf("\n%s\n",buf); //client received

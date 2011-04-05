@@ -12,3 +12,5 @@ a
 a
 o
 o
+bobo
+bobo

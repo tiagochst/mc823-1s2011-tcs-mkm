@@ -254,7 +254,7 @@ void leString(struct sockaddr_storage their_addr, int sockfd, char string[]){
   char s[INET6_ADDRSTRLEN];
   socklen_t addr_len = sizeof their_addr;
 
-  if ((numbytes = recvfrom(sockfd, string, 1000 , 0,
+  if ((numbytes = recvfrom(sockfd, string, MAXDATASIZE-1 , 0,
 			   (struct sockaddr *)&their_addr, &addr_len)) == -1) {
     perror("recvfrom");
     exit(1);

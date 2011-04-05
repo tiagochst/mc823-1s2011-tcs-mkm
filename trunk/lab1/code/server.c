@@ -195,7 +195,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       leString(their_addr, new_fd, dia);
       sendStr(new_fd, "Digite o hora do compromisso:\0");
       leString(their_addr, new_fd, hora);
-      sendStr(new_fd, "Digite os minutos do compromisso:\0");
+      sendStr(new_fd, "Digite os minutos do compromisso:\0"); 
       leString(their_addr, new_fd, minuto);
       set_task(atoi(dia), atoi(hora), atoi(minuto), task, user);
       printf("\nCompromisso %s marcado! TODO: implentar isso\n", str);

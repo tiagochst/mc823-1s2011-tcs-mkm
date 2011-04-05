@@ -47,9 +47,10 @@ int newUser(char nome[],char senha[]){
       perror ("Error opening file");
     else {
       fseek ( pFile ,0 , SEEK_END );
-      //strcat(nome,"\n"); /*Formatacao para comaparacao*/
+      //strcat(senha,"\n"); /*Formatacao para comaparacao*/
       fputs ( nome , pFile );
       fputs ( senha , pFile );
+      fputs ( "\n" , pFile );
       fclose (pFile);
       /* Cria a agenda para o usuario */
       

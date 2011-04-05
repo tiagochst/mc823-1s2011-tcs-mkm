@@ -41,10 +41,10 @@ void *get_in_addr(struct sockaddr *sa)
 int main(int argc, char *argv[])
 {
     int sockfd, numbytes;  
-    char buf[MAXDATASIZE];
+    char buf[MAXDATASIZE]="";
     struct addrinfo hints, *servinfo, *p;
     int rv;
-    char s[INET6_ADDRSTRLEN];
+    char s[INET6_ADDRSTRLEN]="";
 
     if (argc != 2) {
         fprintf(stderr,"usage: client hostname\n");
@@ -98,6 +98,7 @@ int main(int argc, char *argv[])
       printf("\n%s\n",buf); //client received
 
       /* Espera resposta do servidor*/
+      strcpy(opcao,"");
       scanf("%s", opcao );
       printf("\nenviando:  %s tamanho:%d",opcao,strlen(opcao));
       envia_pct(sockfd, opcao ,strlen(opcao)+1);

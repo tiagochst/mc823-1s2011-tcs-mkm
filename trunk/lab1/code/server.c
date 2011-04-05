@@ -176,8 +176,8 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
 }
 
 void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
-  char nome[20], dia[5], hora[5], minuto[5], task[1000],again[1];
-  char str[1000];
+  char nome[20]="", dia[5]="", hora[5]="", minuto[5]="", task[1000]="", again[1]="";
+  char str[1000]="";
   while(1){
     sendStr(new_fd, "Escolha uma opcao:\n\
                   Opcao 1 - Marcar um compromisso\n\

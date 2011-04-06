@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "bd.h"
+#include "agenda.h"
 
 
 /* Verifica USUARIOS
@@ -61,6 +61,84 @@ int newUser(char nome[],char senha[]){
     }
   }
 
+  fclose (pFile);
+  return 0;
+}
+
+/*Le toda a agenda do usuario*/
+int loadCal(User *user){
+  FILE * pFile;
+  char nome[20];
+  char dia[5],hora[5],min[5],task[100],arq[100];
+  Agenda *atual;
+  int i=0;  /*numero de compromissos*/
+
+  /*Abre agenda do usuario*/
+  strncpy(nome,user->name,strlen(user->name)-1);
+  strcat(nome,"\0");
+  pFile = fopen (nome , "r");/*arquivo com nome de usuarios*/
+  if (pFile == NULL) 
+    return i;
+
+  else {
+    /*Primeiro evento*/
+    if(fgets (task, 100, pFile)!=NULL){/*evento*/
+      fgets (dia, 100, pFile);/*dia*/
+      fgets (hora, 100, pFile);/*hora*/
+      fgets (min, 100, pFile);/*minuto*/
+      printf("\nInserindo:%s %s %s %s",task,dia,hora,min);   
+      user->tasks=task_init(atoi(dia),atoi(hora),atoi(min),task);
+      atual=user->tasks;
+      i++;
+       
+      while(fgets (task, 100, pFile)!=NULL){
+	fgets (dia, 100, pFile);/*dia*/
+	fgets (hora, 100, pFile);/*hora*/
+	fgets (min, 100, pFile);/*minuto*/
+	printf("\n\narq %s",arq);
+	printf("  task %s\n\n",task);
+	atual->next=task_init(atoi(dia),atoi(hora),atoi(min),task);
+	atual=atual->next;
+	i++;
+	strcpy(arq,"");
+	strcpy(task,"");
+ 
+     }
+    }
+    fclose(pFile);
+    return i;
+  }
+  
+  
+  fclose (pFile);
+  
+  
+  return i;
+}
+
+
+/* Insere Compromissos na agenda
+ * Retorna 1: se compromissos inseridos
+ * Retorna 0: caso contrario*/
+int saveCal(User *user){
+  FILE * pFile;
+  char pwd[20], arq[20]="",nome[20];
+  Agenda *atual;
+
+  strncpy(nome,user->name,strlen(user->name)-1);
+  strcat(nome,"\0");
+  pFile = fopen (nome , "w");/*arquivo com nome de usuarios*/
+  if (pFile == NULL) 
+    return 0;
+  else {
+    for (atual = user->tasks; atual != NULL; atual = atual->next) {
+      fputs ( atual->task , pFile );
+      fprintf (pFile, "%d\n%d\n%d\n", atual->dia, atual->hora, atual->min);
+    }    
+    fclose (pFile);
+    return 1;
+  }
+  
   fclose (pFile);
   return 0;
 }

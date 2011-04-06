@@ -132,9 +132,10 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
 	sendStr(new_fd, "Digite a senha do usuario:\0");
 	leString(their_addr, new_fd, senha);
 	strcat(senha,"\n"); /*Formatacao para comaparacao*/
-	if(!strcmp(senha,pwd))
+	if(!strcmp(senha,pwd)){
+	  user=agenda_init(nome);
 	  menu2(new_fd, their_addr, user);
-	else{
+	}else{
 	  sendStr(new_fd, "Senha nao confere! Digite m para voltar ou q para sair:\0");
 	  leString(their_addr, new_fd, again);
 	  if(strcmp("q",again)==0) 

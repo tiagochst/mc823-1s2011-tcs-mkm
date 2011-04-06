@@ -26,7 +26,7 @@ $(OBJS): %.o: %.c
 	$(CC) -c $(CFLAGS) $<
 
 clean:
-	rm -f $(OBJS_C) $(OBJS_S) $(EXEC) *~
+	rm -f $(OBJS_C) $(OBJS_S) $(EXEC_C) $(EXEC_S) *~
 
 reset: clean
 	rm -f $(FILES)

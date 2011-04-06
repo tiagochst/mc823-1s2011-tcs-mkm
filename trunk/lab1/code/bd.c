@@ -7,7 +7,7 @@
  * compara no arquivo fp uma lista de usuarios
  * se uxuario existe retorna 1, senao 0 */
 int findUser(char nome[],char pwd[]) {
-  char user [30], arq[20]="";;
+  char user [30], arq[20]="";
   FILE * pFile;
 
   strcat(nome,"\n"); /*Formatacao para comaparacao*/

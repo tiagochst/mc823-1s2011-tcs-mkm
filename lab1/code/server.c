@@ -165,7 +165,7 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
       else{
 	sendStr(new_fd, "Usuario já existente! Digite m para voltar ou q para sair:\0");
 	leString(their_addr, new_fd, again);
-	if(strcmp("q",again)==0) 
+	if(strcmp("q",again)==0)
 	  exit(1);
       }
 	break;
@@ -247,6 +247,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       break;
     default:
       saveCal(user);
+      user_destroy(user);
       return;
       break;
     }

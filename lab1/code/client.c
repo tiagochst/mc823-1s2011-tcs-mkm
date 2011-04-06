@@ -100,7 +100,8 @@ int main(int argc, char *argv[])
 
       /* Espera resposta do servidor*/
       strcpy(opcao,"");
-      scanf("%s", opcao );
+      scanf("%[^\n]", opcao );
+      getchar();
       printf("\nenviando:  %s tamanho:%d",opcao,strlen(opcao));
       envia_pct(sockfd, opcao ,strlen(opcao)+1);
     }

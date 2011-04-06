@@ -83,11 +83,11 @@ int set_task(int dia,int hora,int min,char task[], User *u){
 	ant=a;
 	next = a->next;
       }
-      else if(cmp==1){
+      else if(cmp==-1){
 	newTask->next = a;
 	ant->next=newTask;
 	break;
-      }      
+      }
       else{
 	return 0;
       }
@@ -117,7 +117,7 @@ int compData(Agenda *newTasks,Agenda *tasks){
   else if (newTasks->min < tasks->min)	
     return 1;
   else if (newTasks->min > tasks->min)	
-    return 1;
+    return -1;
 
   return 0;
 }
@@ -189,6 +189,7 @@ int verHora(int new_fd, User *u, int dia, int hora){
     if(a->dia==dia && a->hora==hora){
       cpComp(a,comp);
       strcat(mes,comp);
+      strcat(mes,"\n");
       strcpy(comp,"");/* limpeza da variavel */
     }
     else if(a->dia>dia)/* Dias ordenados - ultrapassou data */

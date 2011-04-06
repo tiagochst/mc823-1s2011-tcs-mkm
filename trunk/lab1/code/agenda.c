@@ -64,7 +64,6 @@ int set_task(int dia,int hora,int min,char task[], User *u){
   Agenda *a,*next,*ant;
   Agenda *newTask = task_init(dia, hora,min,task);
  
-  printf("gjlabhvgfjklbdfkbdfkçgasfobjjjkfajkbfjkfbjbjkbjklbvfbjkafbjklbj");
   next=u->tasks;
   if (next ==NULL)
     u->tasks=newTask;

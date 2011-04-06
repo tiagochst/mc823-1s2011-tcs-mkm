@@ -14,7 +14,7 @@
 
 #include <arpa/inet.h>
 
-#define PORT "3490" // the port client will be connecting to 
+#define PORT "34900" // the port client will be connecting to 
 
 #define MAXDATASIZE 1000 // max number of bytes we can get at once 
 char opcao[256]; 
@@ -90,11 +90,10 @@ int main(int argc, char *argv[])
     int size;
     while(1){
       /* Esperando resposta do servidor*/
-      while ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == 0) {
-	if(numbytes==-1){
+      if((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
         perror("recv");
         exit(1);
-	}
+	
       }
       system("clear");
       printf("\n%s\n",buf); //client received

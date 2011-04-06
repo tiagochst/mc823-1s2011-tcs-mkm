@@ -179,17 +179,18 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
 void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
   char nome[20]="", dia[5]="", hora[5]="", minuto[5]="", task[1000]="", again[1]="";
   char str[1000]="";
-
-  loadCal(user);
-
-  while(1){
-    sendStr(new_fd, "Escolha uma opcao:\n\
+  char menu[1000]="Escolha uma opcao:\n\
                   Opcao 1 - Marcar um compromisso\n\
                   Opcao 2 - Desmarcar um compromisso\n\
                   Opcao 3 - Obter um compromisso marcado para um horario de um dia\n\
                   Opcao 4 - Obter todos os compromissos marcados para um dia\n\
                   Opcao 5 - Obter todos os compromissos do mes\n\
-                  Opcao 6 - Voltar\0");
+                  Opcao 6 - Voltar\0";
+
+  loadCal(user);
+
+  while(1){
+    sendStr(new_fd, menu);
     switch(leOpcao(their_addr, new_fd)){
     case 1:
       /* Marcar um compromisso */
@@ -202,7 +203,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       sendStr(new_fd, "Digite os minutos do compromisso:\0"); 
       leString(their_addr, new_fd, minuto);
       set_task(atoi(dia), atoi(hora), atoi(minuto), task, user);
-      printf("\nCompromisso %s marcado! TODO: implentar isso\n", str);
+      
       verMes(new_fd,user);
       /*Se m retorna ao menu, se q sai*/
       leString(their_addr, new_fd,again);
@@ -213,7 +214,13 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       /* Desmarcar um compromisso */
       sendStr(new_fd, "Digite o nome do compromisso a ser desmarcado:\0");
       leString(their_addr, new_fd, str);
-      delTask(user, str);
+      if(delTask(user, str))
+        sendStr(new_fd, "\nCompromisso desmarcado\nDigite m para voltar ao menu anterior ou q para sair\n\0");
+      else
+        sendStr(new_fd, "\nNao foi encontrado nenhum compromisso registrado com esse nome\nDigite m para voltar ao menu anterior ou q para sair\n\0");
+    leString(their_addr, new_fd,again);
+      if(strcmp("q",again)==0)
+	exit(1);
       break;
     case 3:
       /* Obter compromissos de um dia em determinada hora */

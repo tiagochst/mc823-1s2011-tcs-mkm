@@ -53,7 +53,7 @@ int delTask( User *u, char nome[]){
       return 1;
     }
     ant=a;
-  }      
+  }
   
   return 0;
 }

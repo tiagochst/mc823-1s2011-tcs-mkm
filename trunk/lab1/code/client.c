@@ -102,11 +102,17 @@ int main(int argc, char *argv[])
       strcpy(opcao,"");
       scanf("%[^\n]", opcao );
       getchar();
+
       printf("\nenviando:  %s tamanho:%d",opcao,strlen(opcao));
       envia_pct(sockfd, opcao ,strlen(opcao)+1);
+
+      if(strcmp("q",opcao)==0){
+	close(sockfd);
+	exit(1);
+      }
     }
     
-      close(sockfd);
-
+    close(sockfd);
+    
     return 0;
 }

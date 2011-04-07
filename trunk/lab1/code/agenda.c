@@ -83,7 +83,7 @@ int set_task(int dia,int hora,int min,char task[], User *u){
 	ant=a;
 	next = a->next;
       }
-      else if(cmp==-1){
+      else if(cmp==1){
 	newTask->next = a;
 	ant->next=newTask;
 	break;

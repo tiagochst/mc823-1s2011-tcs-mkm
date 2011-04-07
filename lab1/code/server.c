@@ -119,7 +119,7 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
     sendStr(new_fd,"Escolha uma opcao:\n\
                   Opcao 1 - Entrar como um usuario\n\
                   Opcao 2 - Criar um usuario\n\
-                  Opcao 3 - Sair\n\0");
+                  Opcao q - Sair\n\0");
     switch(leOpcao(their_addr, new_fd)){
     case 1:
       /* Ler usuario */
@@ -166,10 +166,12 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
 	sendStr(new_fd, "Usuario já existente! Digite m para voltar ou q para sair:\0");
 	leString(their_addr, new_fd, again);
 	if(strcmp("q",again)==0)
+	  close(new_fd);  // mata conexao com cliente
 	  exit(1);
       }
 	break;
     default:
+      close(new_fd);  // mata conexao com cliente
       return;
       break;
     }
@@ -207,8 +209,11 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       verMes(new_fd,user);
       /*Se m retorna ao menu, se q sai*/
       leString(their_addr, new_fd,again);
-      if(strcmp("q",again)==0) 
+      if(strcmp("q",again)==0) {
+	saveCal(user);
+	close(new_fd);  // mata conexao com cliente
 	exit(1);
+      }
       break;
     case 2:
       /* Desmarcar um compromisso */
@@ -219,8 +224,11 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       else
         sendStr(new_fd, "\nNao foi encontrado nenhum compromisso registrado com esse nome\nDigite m para voltar ao menu anterior ou q para sair\n\0");
     leString(their_addr, new_fd,again);
-      if(strcmp("q",again)==0)
-	exit(1);
+    if(strcmp("q",again)==0){
+      saveCal(user);
+      close(new_fd);  // mata conexao com cliente
+      exit(1);
+    }
       break;
     case 3:
       /* Obter compromissos de um dia em determinada hora */
@@ -231,8 +239,11 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       verHora(new_fd,user,atoi(dia),atoi(hora));
      /*Se m retorna ao menu, se q sai*/
       leString(their_addr, new_fd,again);
-      if(strcmp("q",again)==0) 
+      if(strcmp("q",again)==0){ 
+	saveCal(user);
+	close(new_fd);  // mata conexao com cliente
 	exit(1);
+      }
       break;
     case 4:
       /* Obter todos os compromissos marcados para um dia */
@@ -241,16 +252,22 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       verDia(new_fd,user,atoi(dia));
       /*Se m retorna ao menu, se q sai*/
       leString(their_addr, new_fd,again);
-      if(strcmp("q",again)==0) 
+      if(strcmp("q",again)==0){ 
+	saveCal(user);
+	close(new_fd);  // mata conexao com cliente
 	exit(1);
+      }
       break;
     case 5:
       /* Obter todos os compromissos do mes */
       verMes(new_fd,user);
       /*Se m retorna ao menu, se q sai*/
       leString(their_addr, new_fd,again);
-      if(strcmp("q",again)==0) 
+      if(strcmp("q",again)==0){ 
+	saveCal(user);
+	close(new_fd);  // mata conexao com cliente
 	exit(1);
+      }
       break;
     default:
       saveCal(user);

@@ -15,8 +15,10 @@ int findUser(char nome[], char pwd[])
   /* Formato aqruivo: usuario\nsenha\n */
   pFile = fopen("users.txt", "r"); /*arquivo com nome de usuarios*/
 
-  if (pFile == NULL) 
+  if (pFile == NULL) {
+    printf("\nFIND USER NULL FILE");
     return 0;
+  }
   else {
 
     /*Le 100 caracteres ou até o final da linha*/
@@ -88,7 +90,7 @@ int loadCal(User *user)
   if (pFile == NULL){
     printf("\nnome: %s --- %s",user->name,user->name[strlen(user->name) - 1]);
     printf("\nnome: %s",nome);
-    printf("\nLOAD CAL NULL FILE\n");
+    printf("\nERROR -- LOAD CAL NULL FILE\n");
     return i;
   }
   else

@@ -15,9 +15,9 @@ int findUser(char nome[], char pwd[])
   /* Formato aqruivo: usuario\nsenha\n */
   pFile = fopen("users.txt", "r"); /*arquivo com nome de usuarios*/
 
-  if (pFile == NULL) perror("Error opening file");
-  else
-  {
+  if (pFile == NULL) 
+    return 0;
+  else {
 
     /*Le 100 caracteres ou até o final da linha*/
     while (fgets(user, 100, pFile) != NULL)

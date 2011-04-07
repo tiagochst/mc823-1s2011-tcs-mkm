@@ -25,7 +25,6 @@ int findUser(char nome[], char pwd[])
       fgets(pwd, 100, pFile); /*senha do usuario*/
       if (strcmp(user, nome) == 0)
       {
-        ;
         fclose(pFile);
         strncpy(arq, nome, strlen(nome) - 1);
         /* Cria o arquivo do usuario, caso aquele nao exista */
@@ -77,7 +76,7 @@ int newUser(char nome[], char senha[])
 int loadCal(User *user)
 {
   FILE * pFile;
-  char nome[20];
+  char nome[20]="";
   char dia[5], hora[5], min[5], task[100], arq[100];
   Agenda *atual;
   int i = 0; /*numero de compromissos*/
@@ -86,9 +85,12 @@ int loadCal(User *user)
   strncpy(nome, user->name, strlen(user->name) - 1);
   strcat(nome, "\0");
   pFile = fopen(nome, "r"); /*arquivo com nome de usuarios*/
-  if (pFile == NULL)
+  if (pFile == NULL){
+    printf("\nnome: %s --- %s",user->name,user->name[strlen(user->name) - 1]);
+    printf("\nnome: %s",nome);
+    printf("\nLOAD CAL NULL FILE\n");
     return i;
-
+  }
   else
   {
     /*Primeiro evento*/
@@ -148,8 +150,10 @@ int saveCal(User *user)
   strncpy(nome, user->name, strlen(user->name) - 1);
   strcat(nome, "\0");
   pFile = fopen(nome, "w"); /*arquivo com nome de usuarios*/
-  if (pFile == NULL)
+  if (pFile == NULL){
+    printf("\nNULL - SaveCal\n");
     return 0;
+  }
   else
   {
     for (atual = user->tasks; atual != NULL; atual = atual->next)

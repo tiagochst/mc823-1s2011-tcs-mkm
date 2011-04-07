@@ -19,6 +19,12 @@
 #define MAXDATASIZE 1000
 #define BACKLOG 10     // how many pending connections queue will hold
 
+/*Comaracao de compromissos*/
+#define ANTES 1     // how many pending connections queue will hold
+#define DEPOIS -1     // how many pending connections queue will hold
+#define SIMULTANEO 0     // how many pending connections queue will hold
+
+
 typedef struct agenda {
   struct agenda *next;
   int dia;

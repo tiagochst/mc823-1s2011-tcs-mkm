@@ -1,7 +1,8 @@
+% !TEX encoding = UTF-8 Unicode
 \documentclass[10pt,a4paper]{article}
 \usepackage[T1]{fontenc}
 \usepackage[brazil]{babel}
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}
 
 
 \usepackage{ae,aecompl}
@@ -19,8 +20,8 @@
 \usepackage{verbatim}
 
 
-% Definindo as margens para 2cm e o espaçamento entre linhas para 1.5
-% Relatório parcial deve ter espaçamento simples
+% Definindo as margens para 2cm e o espa√ßamento entre linhas para 1.5
+% Relat√≥rio parcial deve ter espa√ßamento simples
 % \linespread{1.5}
 
 \geometry{ 
@@ -29,7 +30,7 @@
   bmargin=20mm,	% Margem inferior
   lmargin=20mm,	% Margem esquerda
   rmargin=20mm,	% Margem direita
-  footskip=20mm	% Espaço entre o rodapé e o fim do texto
+  footskip=20mm	% Espa√ßo entre o rodap√© e o fim do texto
 }
 \include{abaco} 
 \renewcommand{\thetable}{\Roman{table}}
@@ -42,7 +43,7 @@
 \begin{titlepage}
   \thispagestyle{empty}
   \begin{center} {\large \textbf{UNIVERSIDADE~ESTADUAL~DE~CAMPINAS}} \end{center}
-  \begin{center} {\large INSTITUTO~DE~COMPUTAÇÃO}                    \end{center}
+  \begin{center} {\large INSTITUTO~DE~COMPUTA√á√ÉO}                    \end{center}
   \vspace{0.1cm}
   \begin{center}
     \begin{minipage}[tl]{31mm}
@@ -54,7 +55,7 @@
     {\large \textsc{Servidor de Agenda baseado em socket TCP
       }} 
     \\\vspace{0.5cm}
-    {\textsl{Relatório do primeiro laboratório de MC823}}
+    {\textsl{Relat√≥rio do primeiro laborat√≥rio de MC823}}
     \\\vspace{1cm}
     \begin{tabular}{ll}
       \textbf{Aluno}:        Marcelo~Keith~Matsumoto   &  \textbf{RA}:       085937 \\
@@ -69,23 +70,32 @@
 
   \end{abstract}
 
-  % Sumário
+  % Sum√°rio
   \tableofcontents
 \end{titlepage} 
 
 
 
 % -----------------------------------------------------------------------------%
-\section{Introdução}
+\section{Introdu√ß√£o}
+% -----------------------------------------------------------------------------%
+	Este laboratório tem o objetivo de medir o tempo e eficiência de uma comunicação entre cliente e servidor num protocolo TCP, que requer uma conexão.
+
 % -----------------------------------------------------------------------------%
 \section{Servidor de agenda}
+% -----------------------------------------------------------------------------%
+	O sistema implementado se baseia numa comunicação cliente-servidor. O cliente possui todas as informações da agenda, assim como a estrutura dos menus. O cliente só escolhe alguma opção do menu e insere as informações de um compromisso, como nome, dia, hora e minuto.
 
-\section{Conclusão}
+\section{Ambiente de implementação}
+
+\section{Tempos de comunicação}   %Verificar nome desta seção!
+
+\section{Conclus√£o}
 
 % ******************************************************
-% REFERENCIAS BIBLIOGRÁFICAS
+% REFERENCIAS BIBLIOGR√ÅFICAS
 % ******************************************************
-% \section{Referências}
+% \section{Refer√™ncias}
 \bibliographystyle{plain}
 \begin{small}
   \bibliography{referencias}

@@ -108,19 +108,19 @@ int set_task(int dia,int hora,int min,char task[], User *u){
 int compData(Agenda *newTasks,Agenda *tasks){
 
   if(newTasks->dia < tasks->dia)
-    return 1;
+    return ANTES;
   else if(newTasks->dia > tasks->dia)
-    return -1;
+    return DEPOIS;
   else if (newTasks->hora < tasks->hora)	
-    return 1;
+    return ANTES;
   else if (newTasks->hora > tasks->hora)	
-    return -1;
+    return DEPOIS;
   else if (newTasks->min < tasks->min)	
-    return 1;
+    return ANTES;
   else if (newTasks->min > tasks->min)	
-    return -1;
+    return DEPOIS;
 
-  return 0;
+  return SIMULTANEO;
 }
 
 /* INICIALIZA COMPROMISSOS

@@ -89,6 +89,7 @@ int set_task(int dia,int hora,int min,char task[], User *u){
 	break;
       }
       else{
+	free(newTask);
 	return 0;
       }
     }

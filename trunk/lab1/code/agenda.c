@@ -124,7 +124,7 @@ int compData(Agenda *newTasks,Agenda *tasks){
 }
 
 /* INICIALIZA COMPROMISSOS
- * gera o nó cabeça e o devolve */
+ * gera o nó compromisso e o devolve */
 Agenda * task_init(int dia,int hora,int min,char task[]) {
   Agenda *newTask = (Agenda *) malloc(sizeof(Agenda));
   

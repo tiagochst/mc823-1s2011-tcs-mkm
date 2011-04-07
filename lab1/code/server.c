@@ -98,8 +98,6 @@ int main(void)
     printf("server: got connection from %s\n", s);
 
     if (!fork()) { // this is the child process
-      // if (send(new_fd, "Hello, world!\n", 15, 0) == -1)
-      //	perror("send");
       menu(new_fd, their_addr);
       close(new_fd);
       exit(0);
@@ -125,17 +123,19 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
       /* Ler usuario */
       sendStr(new_fd, "Digite o nome do usuario a ser buscado:\0");
       leString(their_addr, new_fd, nome);
+
       /* Busca nome no banco de dados */
       if(findUser(nome,pwd)){     
-
 	/*verifica senha*/
 	sendStr(new_fd, "Digite a senha do usuario:\0");
 	leString(their_addr, new_fd, senha);
 	strcat(senha,"\n"); /*Formatacao para comaparacao*/
+
 	if(!strcmp(senha,pwd)){
 	  user=agenda_init(nome);
 	  menu2(new_fd, their_addr, user);
-	}else{
+	}
+	else{
 	  sendStr(new_fd, "Senha nao confere! Digite m para voltar ou q para sair:\0");
 	  leString(their_addr, new_fd, again);
 	  if(strcmp("q",again)==0) 
@@ -145,18 +145,24 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
       else{
 	sendStr(new_fd, "Usuario inexistente! Digite m para voltar ou q para sair:\0");
 	leString(their_addr, new_fd, again);
+
+	/*saida do programa*/
 	if(strcmp("q",again)==0) 
 	exit(1);
+
       break;
   
       }
       break;
+
     case 2:
+
       /* Criar um usuario */
       sendStr(new_fd, "Digite o nome do usuario a ser criado:\0");
       leString(their_addr, new_fd, nome);
       sendStr(new_fd, "Digite a senha do usuario:\0");
       leString(their_addr, new_fd, senha);
+
       /* Verifica se nome ja existe */
       if(newUser(nome,senha)==1){
 	user=agenda_init(nome);
@@ -165,6 +171,8 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
       else{
 	sendStr(new_fd, "Usuario já existente! Digite m para voltar ou q para sair:\0");
 	leString(their_addr, new_fd, again);
+
+	/*saida do programa */
 	if(strcmp("q",again)==0)
 	  close(new_fd);  // mata conexao com cliente
 	  exit(1);
@@ -188,7 +196,8 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
                   Opcao 4 - Obter todos os compromissos marcados para um dia\n\
                   Opcao 5 - Obter todos os compromissos do mes\n\
                   Opcao 6 - Voltar\0";
-
+ 
+  /*Recupera agenda do usuario, após login*/
   loadCal(user);
 
   while(1){
@@ -207,7 +216,8 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       set_task(atoi(dia), atoi(hora), atoi(minuto), task, user);
       
       verMes(new_fd,user);
-      /*Se m retorna ao menu, se q sai*/
+
+      /*Se m retorna ao menu, se q salva agenda sai*/
       leString(their_addr, new_fd,again);
       if(strcmp("q",again)==0) {
 	saveCal(user);
@@ -223,12 +233,14 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
         sendStr(new_fd, "\nCompromisso desmarcado\nDigite m para voltar ao menu anterior ou q para sair\n\0");
       else
         sendStr(new_fd, "\nNao foi encontrado nenhum compromisso registrado com esse nome\nDigite m para voltar ao menu anterior ou q para sair\n\0");
-    leString(their_addr, new_fd,again);
-    if(strcmp("q",again)==0){
-      saveCal(user);
-      close(new_fd);  // mata conexao com cliente
-      exit(1);
-    }
+
+      /*Se m retorna ao menu, se q salva agenda sai*/
+      leString(their_addr, new_fd,again);
+      if(strcmp("q",again)==0){
+	saveCal(user);
+	close(new_fd);  // mata conexao com cliente
+	exit(1);
+      }
       break;
     case 3:
       /* Obter compromissos de um dia em determinada hora */
@@ -237,7 +249,8 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       sendStr(new_fd, "Digite as horas:\0");
       leString(their_addr, new_fd, hora);
       verHora(new_fd,user,atoi(dia),atoi(hora));
-     /*Se m retorna ao menu, se q sai*/
+      
+      /*Se m retorna ao menu, se q salva agenda sai*/
       leString(their_addr, new_fd,again);
       if(strcmp("q",again)==0){ 
 	saveCal(user);
@@ -250,7 +263,8 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       sendStr(new_fd, "Digite o dia:\0");
       leString(their_addr, new_fd, dia);
       verDia(new_fd,user,atoi(dia));
-      /*Se m retorna ao menu, se q sai*/
+
+      /*Se m retorna ao menu, se q salva agenda sai*/
       leString(their_addr, new_fd,again);
       if(strcmp("q",again)==0){ 
 	saveCal(user);
@@ -261,7 +275,8 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
     case 5:
       /* Obter todos os compromissos do mes */
       verMes(new_fd,user);
-      /*Se m retorna ao menu, se q sai*/
+
+      /*Se m retorna ao menu, se q salva agenda sai*/
       leString(their_addr, new_fd,again);
       if(strcmp("q",again)==0){ 
 	saveCal(user);

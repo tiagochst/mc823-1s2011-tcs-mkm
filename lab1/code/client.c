@@ -135,7 +135,7 @@ int main(int argc, char *argv[])
       scanf("%[^\n]", opcao );
       getchar();
 
-      envia_pct(sockfd, opcao ,strlen(opcao)+1);
+      envia_pct(sockfd, opcao ,strlen(opcao) + 1);
 
       if(strcmp("q",opcao)==0){
 	close(sockfd);

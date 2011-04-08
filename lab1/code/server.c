@@ -129,7 +129,7 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
 	/*verifica senha*/
 	sendStr(new_fd, "Digite a senha do usuario:\0");
 	leString(their_addr, new_fd, senha);
-	strcat(senha,"\n"); /*Formatacao para comaparacao*/
+	//strcat(senha,"\n"); /*Formatacao para comaparacao*/
 
 	if(!strcmp(senha,pwd)){
 	  user=agenda_init(nome);
@@ -201,7 +201,13 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
   loadCal(user);
 
   while(1){
-    sendStr(new_fd, menu);
+    sendStr(new_fd, "Escolha uma opcao:\n\
+                  Opcao 1 - Marcar um compromisso\n\
+                  Opcao 2 - Desmarcar um compromisso\n\
+                  Opcao 3 - Obter um compromisso marcado para um horario de um dia\n\
+                  Opcao 4 - Obter todos os compromissos marcados para um dia\n\
+                  Opcao 5 - Obter todos os compromissos do mes\n\
+                  Opcao 6 - Voltar\0");
     switch(leOpcao(their_addr, new_fd)){
     case 1:
       /* Marcar um compromisso */
@@ -211,7 +217,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       leString(their_addr, new_fd, dia);
       sendStr(new_fd, "Digite o hora do compromisso:\0");
       leString(their_addr, new_fd, hora);
-      sendStr(new_fd, "Digite os minutos do compromisso:\0"); 
+      sendStr(new_fd, "Digite os minutos do compromisso:\0");
       leString(their_addr, new_fd, minuto);
       set_task(atoi(dia), atoi(hora), atoi(minuto), task, user);
       

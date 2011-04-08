@@ -10,7 +10,7 @@ int findUser(char nome[], char pwd[])
   char user [30], arq[20] = "";
   FILE * pFile;
 
-  strcat(nome, "\n"); /*Formatacao para comaparacao*/
+  //strcat(nome, "\n"); /*Formatacao para comaparacao*/
 
   /* Formato aqruivo: usuario\nsenha\n */
   pFile = fopen("users.txt", "r"); /*arquivo com nome de usuarios*/
@@ -22,15 +22,17 @@ int findUser(char nome[], char pwd[])
   else {
 
     /*Le 100 caracteres ou até o final da linha*/
-    while (fgets(user, 100, pFile) != NULL)
+    while (fscanf(pFile, "%[^\n]", user) != EOF)
     {
-      fgets(pwd, 100, pFile); /*senha do usuario*/
+      fgetc(pFile);
+      fscanf(pFile, "%[^\n]", pwd); /*senha do usuario*/
+      fgetc(pFile);
       if (strcmp(user, nome) == 0)
       {
         fclose(pFile);
-        strncpy(arq, nome, strlen(nome) - 1);
+        //strncpy(arq, nome, strlen(nome));
         /* Cria o arquivo do usuario, caso aquele nao exista */
-        pFile = fopen(arq, "a");
+        pFile = fopen(nome, "a");
         fclose(pFile);
         return 1;
       }
@@ -58,12 +60,13 @@ int newUser(char nome[], char senha[])
       fseek(pFile, 0, SEEK_END);
       //strcat(senha,"\n"); /*Formatacao para comaparacao*/
       fputs(nome, pFile);
+      fputs("\n", pFile);
       fputs(senha, pFile);
       fputs("\n", pFile);
       fclose(pFile);
       /* Cria a agenda para o usuario */
 
-      strncpy(arq, nome, strlen(nome) - 1);
+      strcpy(arq, nome);
       pFile = fopen(arq, "w");
       fclose(pFile);
       return 1;
@@ -84,8 +87,7 @@ int loadCal(User *user)
   int i = 0; /*numero de compromissos*/
 
   /*Abre agenda do usuario*/
-  strncpy(nome, user->name, strlen(user->name) - 1);
-  strcat(nome, "\0");
+  strcpy(nome, user->name);
   pFile = fopen(nome, "r"); /*arquivo com nome de usuarios*/
   if (pFile == NULL){
     printf("\nnome: %s --- %s",user->name,user->name[strlen(user->name) - 1]);
@@ -149,8 +151,7 @@ int saveCal(User *user)
   char pwd[20], arq[20] = "", nome[20];
   Agenda *atual;
 
-  strncpy(nome, user->name, strlen(user->name) - 1);
-  strcat(nome, "\0");
+  strcpy(nome, user->name);
   pFile = fopen(nome, "w"); /*arquivo com nome de usuarios*/
   if (pFile == NULL){
     printf("\nNULL - SaveCal\n");

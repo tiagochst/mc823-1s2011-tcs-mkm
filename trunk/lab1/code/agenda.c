@@ -167,7 +167,6 @@ int verDia(int new_fd, User *u, int dia){
     if(a->dia==dia){
       cpComp(a,comp);
       strcat(mes,comp);
-      strcpy(comp,""); /* Limpeza de variaveis */
     }
     else if(a->dia>dia)/* Dias ordenados - ultrapassou data */
       break;
@@ -206,6 +205,8 @@ int verHora(int new_fd, User *u, int dia, int hora){
 /* Copia compromiso para visuzalizacao */
 void cpComp(Agenda *a, char comp[]){
   char num[5];
+
+  strcpy(comp,""); /* Limpeza de variaveis */
   
   strcat(comp,"\nCompromisso: ");
   strcat(comp,a->task);

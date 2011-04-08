@@ -179,6 +179,7 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
       }
 	break;
     default:
+      user_destroy(user);
       close(new_fd);  // mata conexao com cliente
       return;
       break;
@@ -227,6 +228,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       leString(their_addr, new_fd,again);
       if(strcmp("q",again)==0) {
 	saveCal(user);
+  user_destroy(user);
 	close(new_fd);  // mata conexao com cliente
 	exit(1);
       }
@@ -244,6 +246,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       leString(their_addr, new_fd,again);
       if(strcmp("q",again)==0){
 	saveCal(user);
+  user_destroy(user);
 	close(new_fd);  // mata conexao com cliente
 	exit(1);
       }
@@ -260,6 +263,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       leString(their_addr, new_fd,again);
       if(strcmp("q",again)==0){ 
 	saveCal(user);
+  user_destroy(user);
 	close(new_fd);  // mata conexao com cliente
 	exit(1);
       }
@@ -274,6 +278,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       leString(their_addr, new_fd,again);
       if(strcmp("q",again)==0){ 
 	saveCal(user);
+  user_destroy(user);
 	close(new_fd);  // mata conexao com cliente
 	exit(1);
       }
@@ -286,6 +291,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       leString(their_addr, new_fd,again);
       if(strcmp("q",again)==0){ 
 	saveCal(user);
+  user_destroy(user);
 	close(new_fd);  // mata conexao com cliente
 	exit(1);
       }

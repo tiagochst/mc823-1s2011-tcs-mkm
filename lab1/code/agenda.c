@@ -43,6 +43,7 @@ int delTask( User *u, char nome[]){
   if(cmp=strcmp(nome,a->task)==0){
     printf("sou eu!\n");
     u->tasks=a->next;
+    free(a);
     return 1; 
   }
   ant=a;
@@ -76,7 +77,7 @@ int set_task(int dia,int hora,int min,char task[], User *u){
       return 1; 
     }
     
-    /* insere ordenado usando insertion sort */
+    /* insere ordenado usando insertion */
     for (a = next; a != NULL; a = next) {
       cmp=compData(newTask,a); 
       if(cmp==-1){

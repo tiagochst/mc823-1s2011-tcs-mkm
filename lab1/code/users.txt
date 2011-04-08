@@ -1,2 +1,6 @@
 user1
 senha1
+tcs
+tcs
+cliente1
+serverdor

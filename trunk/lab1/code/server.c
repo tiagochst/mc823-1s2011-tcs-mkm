@@ -129,7 +129,6 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
 	/*verifica senha*/
 	sendStr(new_fd, "Digite a senha do usuario:\0");
 	leString(their_addr, new_fd, senha);
-	//strcat(senha,"\n"); /*Formatacao para comaparacao*/
 
 	if(!strcmp(senha,pwd)){
 	  user=agenda_init(nome);
@@ -198,7 +197,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
                   Opcao 5 - Obter todos os compromissos do mes\n\
                   Opcao 6 - Voltar\0";
  
-  /*Recupera agenda do usuario, após login*/
+  /*Recupera agenda do usuario, apos login*/
   loadCal(user);
 
   while(1){
@@ -321,7 +320,6 @@ void leString(struct sockaddr_storage their_addr, int sockfd, char string[]){
 		   get_in_addr((struct sockaddr *)&their_addr),
 		   s, sizeof s));
   printf("listener: packet is %d bytes long\n", numbytes);
-  /* buf[numbytes] = '\0'; */
   printf("listener: packet contains \"%s\"\n", string);
   return;
 

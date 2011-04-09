@@ -11,8 +11,8 @@ User * agenda_init(char nome[]) {
   return y;
 }
 
-/* DESTRÓI AGENDA
- * desaloca todos os nós */
+/* DESTROI AGENDA
+ * desaloca todos os nos */
 void user_destroy(User *u) {
   Agenda *next;
   Agenda *a;
@@ -25,6 +25,7 @@ void user_destroy(User *u) {
   }
 }
 
+/* funcao booleana que verifica se a agenda esta vazia */
 int agenda_vazia(User *a) {
   return (a->tasks == NULL)?(1):(0);
 }
@@ -47,6 +48,7 @@ int delTask( User *u, char nome[]){
     return 1; 
   }
   ant=a;
+  /* Percorre a lista ligada procurando pelo compromisso a ser removido */
   for (a=a->next; a != NULL; a =a->next) {
     if( strcmp(nome,a->task)==0){
       ant->next=a->next;
@@ -59,7 +61,9 @@ int delTask( User *u, char nome[]){
   return 0;
 }
 
-
+/* Aloca um novo no com as informacoes do novo compromisso, e o insere na ordenadamente na lista ligada
+ * Retorna 1: se o compromisso marcado foi inserido com sucesso
+ * Retorna 0: caso contrario */
 int set_task(int dia,int hora,int min,char task[], User *u){
   int cmp;
   Agenda *a,*next,*ant;
@@ -68,8 +72,8 @@ int set_task(int dia,int hora,int min,char task[], User *u){
   next=u->tasks;
   if (next ==NULL)
     u->tasks=newTask;
-  else if(next!=NULL){ /*Agenda vazia?*/
-    /*Já é a menor?*/
+  else if(next!=NULL){ /* Agenda vazia? */
+    /* Ja eh a menor? */
     if(compData(newTask,next)==1){
       printf("sou a menor!\n");
       newTask->next=u->tasks;
@@ -79,17 +83,17 @@ int set_task(int dia,int hora,int min,char task[], User *u){
     
     /* insere ordenado usando insertion */
     for (a = next; a != NULL; a = next) {
-      cmp=compData(newTask,a); 
-      if(cmp==-1){
+      cmp=compData(newTask,a); /* Verifica se a data eh maior ou menor */
+      if(cmp==-1){ /* Se eh maior */
 	ant=a;
 	next = a->next;
       }
-      else if(cmp==1){
+      else if(cmp==1){ /* Se eh menor */
 	newTask->next = a;
 	ant->next=newTask;
 	break;
       }
-      else{
+      else{ /* Se forem simultaneos, o compromisso nao eh inserido */
 	free(newTask);
 	return 0;
       }
@@ -125,7 +129,7 @@ int compData(Agenda *newTasks,Agenda *tasks){
 }
 
 /* INICIALIZA COMPROMISSOS
- * gera o nó compromisso e o devolve */
+ * Aloca o no compromisso com as informacoes e o devolve o seu apontador */
 Agenda * task_init(int dia,int hora,int min,char task[]) {
   Agenda *newTask = (Agenda *) malloc(sizeof(Agenda));
   
@@ -138,13 +142,15 @@ Agenda * task_init(int dia,int hora,int min,char task[]) {
   return newTask;
 }
 
+/* Imprime todos os compromissos do mes envia para o cliente */
 int verMes(int new_fd, User *u){
   Agenda *next,*a;
   char mes[1000]="=== Mes de ABRIL ===\n"; 
   char comp[1000],num[5];
   
   next=u->tasks;
- 
+
+  /* Percorre a lista ligada e concatena cada compromisso numa string */
   for (a = next; a != NULL; a = a->next) {
     cpComp(a,comp);
     strcat(mes,comp);
@@ -152,18 +158,20 @@ int verMes(int new_fd, User *u){
   }
   printf("%s",mes);
   strcat(mes,"\nDigite m para voltar ao menu anterior ou q para sair\n");
-  sendStr(new_fd, mes);
+  sendStr(new_fd, mes); /* Envia para o cliente toda as informacoes */
 
   return 0;
 }
 
+/* Dado um dia, a funcao retorna todos os compromissos daquele dia */
 int verDia(int new_fd, User *u, int dia){
   Agenda *next,*a;
   char mes[1000]="=== Mes de ABRIL ===\n"; 
   char comp[1000];
   
   next=u->tasks;
- 
+
+  /* Percorre a lista ligada em busca dos compromissos daquele dia */
   for (a = next; a != NULL; a=a->next) {
     if(a->dia==dia){
       cpComp(a,comp);
@@ -174,18 +182,20 @@ int verDia(int new_fd, User *u, int dia){
   }
 
   strcat(mes,"\nDigite m para voltar ao menu anterior ou q para sair\n");
-  sendStr(new_fd, mes);
+  sendStr(new_fd, mes); /* Envia para o cliente os compromissos */
 
   return 0;
 }
 
+/* Dado um dia e uma hora, retorna para o cliente todos os compromissos correspondentes */
 int verHora(int new_fd, User *u, int dia, int hora){
   Agenda *next,*a;
   char mes[1000]="=== Mes de ABRIL ===\n"; 
   char comp[1000];
   
   next=u->tasks;
-  
+
+  /* Percorre a lista ligada procurando pelos compromissos correpondentes a hora e o dia */
   for (a = next; a != NULL; a=a->next) {
     if(a->dia==dia && a->hora==hora){
       cpComp(a,comp);
@@ -198,7 +208,7 @@ int verHora(int new_fd, User *u, int dia, int hora){
   }
 
   strcat(mes,"\nDigite m para voltar ao menu anterior ou q para sair\n");
-  sendStr(new_fd, mes);
+  sendStr(new_fd, mes); /* Envia para o cliente */
   return 0;
 
 }

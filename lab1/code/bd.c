@@ -10,8 +10,6 @@ int findUser(char nome[], char pwd[])
   char user [30], arq[20] = "";
   FILE * pFile;
 
-  //strcat(nome, "\n"); /*Formatacao para comaparacao*/
-
   /* Formato aqruivo: usuario\nsenha\n */
   pFile = fopen("users.txt", "r"); /*arquivo com nome de usuarios*/
 
@@ -21,25 +19,24 @@ int findUser(char nome[], char pwd[])
   }
   else {
 
-    /*Le 100 caracteres ou até o final da linha*/
+    /*Le 100 caracteres ou ate o final da linha*/
     while (fscanf(pFile, "%[^\n]", user) != EOF)
     {
       fgetc(pFile);
-      fscanf(pFile, "%[^\n]", pwd); /*senha do usuario*/
+      fscanf(pFile, "%[^\n]", pwd); /* senha do usuario, nao eh usado, somente para leitura do arquivo */
       fgetc(pFile);
-      if (strcmp(user, nome) == 0)
+      if (strcmp(user, nome) == 0)  /* Verifica se o eh o usuario buscado */
       {
         fclose(pFile);
-        //strncpy(arq, nome, strlen(nome));
         /* Cria o arquivo do usuario, caso aquele nao exista */
         pFile = fopen(nome, "a");
         fclose(pFile);
-        return 1;
+        return 1; /* Devolve 1 se o usuario buscado foi encontrado no arquivo users.txt */
       }
     }
   }
   fclose(pFile);
-  return 0;
+  return 0; /* Devolve 0 caso o usuario buscado nao esteja cadastrado */
 }
 
 /* Insere USUARIO
@@ -50,25 +47,24 @@ int newUser(char nome[], char senha[])
   FILE * pFile;
   char pwd[20], arq[20] = "";
 
-  if (findUser(nome, pwd) == 0)
+  if (findUser(nome, pwd) == 0)  /* Verifica se o usuario que se deseja cadastrar ja existe */
   {
     pFile = fopen("users.txt", "a"); /*arquivo com nome de usuarios*/
     if (pFile == NULL)
       perror("Error opening file");
     else
     {
-      fseek(pFile, 0, SEEK_END);
-      //strcat(senha,"\n"); /*Formatacao para comaparacao*/
-      fputs(nome, pFile);
+      fseek(pFile, 0, SEEK_END); /* O novo usuario eh colocado no final do arquivo */
+      fputs(nome, pFile); /* Nome */
       fputs("\n", pFile);
-      fputs(senha, pFile);
+      fputs(senha, pFile); /* Senha */
       fputs("\n", pFile);
       fclose(pFile);
-      /* Cria a agenda para o usuario */
 
-      strcpy(arq, nome);
-      pFile = fopen(arq, "w");
+      /* Cria a agenda para o usuario */
+      pFile = fopen(nome, "w");
       fclose(pFile);
+
       return 1;
     }
   }
@@ -77,7 +73,7 @@ int newUser(char nome[], char senha[])
   return 0;
 }
 
-/*Le toda a agenda do usuario*/
+/*Le toda a agenda do usuario em arquivo e passa para memoria*/
 int loadCal(User *user)
 {
   FILE * pFile;
@@ -112,6 +108,7 @@ int loadCal(User *user)
       atual = user->tasks;
       i++;
 
+      /* Percorre o arquivo lendo os compromissos */
       while (fscanf(pFile, "%[^\n]", task) != EOF)
       {
         fgetc(pFile);
@@ -123,6 +120,7 @@ int loadCal(User *user)
         fgetc(pFile);
         printf("\n\narq %s", arq);
         printf("  task %s\n\n", task);
+        /* Cria um novo no na lista ligada com as informacoes do compromisso */
         atual->next = task_init(atoi(dia), atoi(hora), atoi(min), task);
         atual = atual->next;
         i++;
@@ -142,7 +140,7 @@ int loadCal(User *user)
   return i;
 }
 
-/* Insere Compromissos na agenda
+/* Insere Compromissos na agenda, passando da memoria para arquivo
  * Retorna 1: se compromissos inseridos
  * Retorna 0: caso contrario*/
 int saveCal(User *user)
@@ -159,6 +157,7 @@ int saveCal(User *user)
   }
   else
   {
+    /* Percorre a lista ligada e imprime as infomacoes de cada no no arquivo */
     for (atual = user->tasks; atual != NULL; atual = atual->next)
     {
       fputs(atual->task, pFile);

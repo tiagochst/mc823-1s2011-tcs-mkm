@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2011.2.16)  9 APR 2011 13:09
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2010.5.28)  10 APR 2011 12:24
 entering extended mode
  %&-line parsing enabled.
 **lab1.tex
@@ -724,12 +724,12 @@ ming - Using In-ter-net Soc-kets .  Dis-po-ní-vel em
 
 ) [1] (./lab1.aux) ) 
 Here is how much of TeX's memory you used:
- 3412 strings out of 256217
- 46708 string characters out of 1917095
+ 3413 strings out of 256217
+ 46725 string characters out of 1917095
  100197 words of memory out of 1500000
- 6623 multiletter control sequences out of 10000+200000
+ 6624 multiletter control sequences out of 10000+200000
  34804 words of font info for 45 fonts, out of 1200000 for 2000
  645 hyphenation exceptions out of 8191
  43i,13n,42p,295b,329s stack positions out of 5000i,500n,6000p,200000b,15000s
 
-Output written on lab1.dvi (2 pages, 6752 bytes).
+Output written on lab1.dvi (2 pages, 8400 bytes).

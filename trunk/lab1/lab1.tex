@@ -207,7 +207,7 @@ cliente e um servidor.
 
   \item Funções de interação com a agenda  são:
 
-  \begin{lstlisting}
+   \begin{lstlisting}
     /*Cria agenda para usuario*/
     User * agenda_init(char nome[]);
 
@@ -237,6 +237,27 @@ cliente e um servidor.
     int compData(Agenda *newTasks,Agenda *tasks);
 
   \end{lstlisting}
+
+  \item Funções de interação servidor-cliente criadas foram:
+  \begin{lstlisting}
+
+    /*Envia mensagem ao cliente*/
+    void sendStr(int sockfd, char str[]);
+
+    /*Le mensagem do cliente*/
+    int leOpcao(struct sockaddr_storage their_addr, int sockfd);
+   
+    /*Apresenta opcoes de login ou criacao novo usuario*/
+    void menu(int new_fd, struct sockaddr_storage their_addr);
+  
+    /*Apresenta opcoes de interacao com agenda*/
+    void menu2(int new_fd, struct sockaddr_storage their_addr, User *user);
+
+    /*Envia mensagem para servidor*/
+    void envia_pct( int sockfd, char s[], int size){
+
+  \end{lstlisting}
+
 
 \end{itemize}
 

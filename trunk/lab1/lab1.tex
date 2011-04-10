@@ -78,6 +78,23 @@
 % -----------------------------------------------------------------------------%
 \section{Introdução}
 % -----------------------------------------------------------------------------%
+O TCP (Transmission Control Protocol) é um protocolo do nível da
+camada de transporte. Dentre usas principais características temos:
+\begin{description}
+\item[Orientado à conexão]  Cliente e o servidor trocam pacotes de
+controle entre si antes de enviarem os pacotes de dados. Isto é chamado de procedimento de
+estabelecimento de conexão (handshaking). 
+\item[Transferência garantida] Dados trocados são livres de erro, o que é conseguido a partir de
+mensagens de reconhecimento e retransmissão de pacotes. 
+\item[Controle de fluxo] Assegura que nenhum dos lados da comunicação envie pacotes rápido demais, pois uma aplicação em um
+lado pode não conseguir processar a informação na velocidade que está
+recebendo.
+\item[controle de congestão] Ajuda a prevenir congestionamentos na rede.
+
+
+\end{description}
+
+
   Este laboratório tem o objetivo de medir o tempo total e de comunicação de uma conexão TCP entre um cliente e um servidor.
 
 % -----------------------------------------------------------------------------%

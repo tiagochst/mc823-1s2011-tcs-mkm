@@ -153,27 +153,8 @@ sinal foi recebido. A ferramenta administrativa para as redes de
 computadores denominada ``Ping''~\cite{Ping} é usada para testar se um host é alcançável e para
 medir o RTT para mensagens enviadas do host remetente para o
 destinatário.
-
-Inicialmente, implementamos um programa semelhante ao ping para o
-cálculo da RTT. Com ele foi possível calcular várias vezes o tempo de envio pacote
-de 1 byte para o servidor e esse responder com um pacote de 4
-bytes. Utilizando um script para a coleta dos tempo, obtivemos o
-seguintes valores:
-
-\begin{table}[h!]
-\caption{Ping implementado}
-\begin{center}
-  \begin{tabular}{lr}
-    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
-    \hline
-    Max & 17.814 ms\\
-    Min & 0.045 ms\\
-    Média & 0.059 ms \\
-    Desvio & 0.232 ms
-  \end{tabular}
-
-\end{center}
-\end{table}
+Utilizado o ping nas máquinas nos quais servidor e cliente foram
+usadas obtivemos um valor de : PREENCHER AQUI!!!!!!
 
 Posteriormente, aplicamos o cálculo de tempo ao programa principal de
 forma a obtermos o tempo total e tempo de comunicação.
@@ -215,10 +196,8 @@ O resultado obtido para 100 valores foi:
 \end{center}
 \end{table}
 
-Comparando os resultados, como o ping é muito rápido nossa precisão é
-muito baixa. Porém nosso programa não é tão rápido assim os valores
-são mais precisos. Para certificarmos do tmepo, fizemos o teste com
-três situações, uma mais rápida, uma mais lenta. E obtemos valores
+Para certificarmos do tempo, fizemos o teste com
+duas situações, uma mais rápida, uma mais lenta. E obtemos valores
 muito próximos da média de tempo de ida e volta de um pacote(RTT). 
 
 \section{Conclusão}

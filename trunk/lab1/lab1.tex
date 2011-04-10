@@ -121,6 +121,49 @@ seguintes valores:
 
 Posteriormente, aplicamos o cálculo de tempo ao programa principal de
 forma a obtermos o tempo total e tempo de comunicação.
+Para o tempo total, no cliente pega-se  o tempo antes do primeiro send e após o último recv.
+Para o tempo de comunicação, no servidor pega-se o tempo após o
+primeiro recv e antes do último send.
+Subtraindo o segundo do primeiro você tem o tempo estimado de ida e
+volta de um pacote. 
+
+O resultado obtido para 100 valores foi:
+
+\begin{table}[h!]
+\caption{Teste 1: conexão e fechamento de conexão com servidor}
+\begin{center}
+  \begin{tabular}{lr}
+    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+    \hline
+    Max & 4.986 ms\\
+    Min & 0.097 ms\\
+    Média & 0.608 ms \\
+    Desvio & 0.008 ms
+  \end{tabular}
+
+\end{center}
+\end{table}
+
+\begin{table}[h!]
+\caption{Teste 2: conexão, login na conta, ver agenda do mês e fechamento de conexão com servidor}
+\begin{center}
+  \begin{tabular}{lr}
+    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+    \hline
+    Max & 4.959 ms\\
+    Min & 0.190 ms\\
+    Média & 0.638 ms \\
+    Desvio & 0.013 ms
+  \end{tabular}
+
+\end{center}
+\end{table}
+
+Comparando os resultados, como o ping é muito rápido nossa precisão é
+muito baixa. Porém nosso programa não é tão rápido assim os valores
+são mais precisos. Para certificarmos do tmepo, fizemos o teste com
+três situações, uma mais rápida, uma mais lenta. E obtemos valores
+muito próximos da média de tempo de ida e volta de um pacote(RTT). 
 
 \section{Conclusão}
 

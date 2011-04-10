@@ -144,8 +144,7 @@ int main(int argc, char *argv[])
       }
     }
  
-    while(recv(sockfd, tempo, 5, 0)==0){
-    } 
+    recv(sockfd, tempo, MAXDATASIZE-1, 0)==0);
     gettimeofday (&second, &tzp); 
   
     clienteTimeRecv(first,second);

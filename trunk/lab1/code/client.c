@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
     gettimeofday (&second, &tzp); 
   
     clienteTimeRecv(first,second);
-    
+        
     close(sockfd);
     
     return 0;

@@ -37,8 +37,7 @@ void cliTimeRecv(struct timeval first,struct timeval second, int tam){
   } 
   
   fseek(pFile, 0, SEEK_END);
-  fprintf(pFile,"Tempo de recebimento de um pacote de tam: %d e de %d microsegundos\n"
-	  ,tam,second.tv_usec - first.tv_usec);
+  fprintf(pFile,"%d\n" ,second.tv_usec - first.tv_usec);
   fclose(pFile);
 
   return;

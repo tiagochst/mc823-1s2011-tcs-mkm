@@ -7,4 +7,10 @@ Brian "Beej Jorgensen" Hall
 \newblock{Disponível em  {\em http://beej.us/guide/bgnet/}, [Último acesso: 07/04/2011].}
 
 
+\bibitem{Ping}
+ Mike Muuss
+\newblock {Packet Internet Grouper (Groper) }.
+\newblock{Disponível em  {\em http://linux.die.net/man/8/ping}, [Último acesso: 10/04/2011].}
+
+
 \end{thebibliography}

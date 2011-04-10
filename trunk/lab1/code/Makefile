@@ -4,7 +4,11 @@ LIBS = -lm
 
 OBJS_C =  client.o   
 OBJS_S =  agenda.o server.o bd.o  
+ECHO_S = echo_server.c
+ECHO_C = echo_client.c
 
+EXEC_C_ECHO = echoc
+EXEC_S_ECHO = echos
 EXEC_C = c
 EXEC_S = s
 
@@ -24,6 +28,10 @@ run: all
 
 $(OBJS): %.o: %.c
 	$(CC) -c $(CFLAGS) $<
+
+echo:
+	$(CC) $(CFLAGS)  $(ECHO_C) $(LIBS) -o $(EXEC_C_ECHO)
+	$(CC) $(CFLAGS)  $(ECHO_S) $(LIBS) -o $(EXEC_S_ECHO)
 
 clean:
 	rm -f $(OBJS_C) $(OBJS_S) $(EXEC_C) $(EXEC_S) *~

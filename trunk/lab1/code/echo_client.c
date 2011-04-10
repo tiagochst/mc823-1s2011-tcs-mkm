@@ -17,7 +17,33 @@
 #define PORT "34900" // the port client will be connecting to 
 
 #define MAXDATASIZE 1000 // max number of bytes we can get at once 
-char opcao[256]; 
+char opcao[65]; 
+
+/* Estrutura para analise de tempo em microsegundos */
+struct timeval  first, second, lapsed;
+struct timezone tzp; 
+
+
+void cliTimeRecv(struct timeval first,struct timeval second, int tam){
+  FILE * pFile;
+  pFile = fopen("cliTimeRecvRTT.dat", "a"); /*arquivo com nome de usuarios*/
+
+  if (pFile == NULL) 
+    return ;
+  
+  if (first.tv_usec > second.tv_usec) { 
+    second.tv_usec += 1000000; 
+    second.tv_sec--; 
+  } 
+  
+  fseek(pFile, 0, SEEK_END);
+  fprintf(pFile,"Tempo de recebimento de um pacote de tam: %d e de %d microsegundos\n"
+	  ,tam,second.tv_usec - first.tv_usec);
+  fclose(pFile);
+
+  return;
+}
+
 
 void envia_pct( int sockfd, char s[], int size){
   if (( send(sockfd, s ,size, 0)) == -1) {
@@ -87,30 +113,19 @@ int main(int argc, char *argv[])
 
     freeaddrinfo(servinfo); // all done with this structure
     int size;
+
+      strcpy(opcao,"1");//pedido de echo
+
     while(1){
 
-
+      /*Contagem de tempo para receber pacote*/
+      gettimeofday (&first, &tzp); 
+      envia_pct(sockfd, opcao ,strlen(opcao));
       /* Esperando resposta do servidor*/
-      if((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
-        perror("recv");
-        exit(1);
-	
-      }
+      recv(sockfd, buf, MAXDATASIZE-1, 0);
+      gettimeofday (&second, &tzp); 
+      cliTimeRecv(first,second,strlen(buf));
 
-      system("clear");
-      printf("\n%s\n",buf); //client received
-
-      /* Espera resposta do servidor*/
-      strcpy(opcao,"");
-      scanf("%[^\n]", opcao );
-      getchar();
-
-      envia_pct(sockfd, opcao ,strlen(opcao) + 1);
-
-      if(strcmp("q",opcao)==0){
-	close(sockfd);
-	exit(1);
-      }
     }
     
     close(sockfd);

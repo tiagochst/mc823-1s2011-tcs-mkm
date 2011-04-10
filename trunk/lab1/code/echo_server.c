@@ -140,7 +140,7 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
   char str[65],buf[256]; 
   int numbytes;
 
-  strcpy(str,"01234567890123456789012345678901234567890123456789666666");//56 bytes + 8 de hearder
+  strcpy(str,"0123");//56 bytes + 8 de hearder
 
   while(1){
 

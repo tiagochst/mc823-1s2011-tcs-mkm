@@ -2,6 +2,35 @@
 ** server.c -- a stream socket server demo
 */
 #include "agenda.h"
+#include <sys/time.h>
+
+/* Estrutura para analise de tempo em microsegundos */
+struct timeval  first, second, lapsed;
+struct timezone tzp; 
+
+void serverTimeRecv(struct timeval first,struct timeval second){
+
+  double t1=first.tv_sec+(first.tv_usec/1000000.0); 
+  double t2=second.tv_sec+(second.tv_usec/1000000.0); 
+
+  FILE * pFile;
+  pFile = fopen("serverTime.dat", "a"); /*arquivo com tempos do servidor*/
+
+  if (pFile == NULL) 
+    return ;
+  
+  /* if (first.tv_usec > second.tv_usec) { 
+    second.tv_usec += 1000000; 
+    second.tv_sec--; 
+  } */
+ 
+ fseek(pFile, 0, SEEK_END);
+  fprintf(pFile,"%f \n" ,t1-t2);
+  fclose(pFile);
+
+  return;
+}
+
 
 void sigchld_handler(int s)
 {
@@ -26,7 +55,7 @@ int main(void)
   socklen_t sin_size;
   struct sigaction sa;
   int yes=1;
-  char s[INET6_ADDRSTRLEN];
+  char s[INET6_ADDRSTRLEN],tempo[5],str[5];
   int rv;
 
   memset(&hints, 0, sizeof hints);
@@ -98,7 +127,15 @@ int main(void)
     printf("server: got connection from %s\n", s);
 
     if (!fork()) { // this is the child process
+      /*Recebe inteiro para teste de tempo*/
+      strcpy(str,"0123");//tamanho de um inteiro bytes
+      recv(new_fd, tempo, 5, 0); 
+      gettimeofday (&first, &tzp); 
       menu(new_fd, their_addr);
+      gettimeofday (&second, &tzp); 
+      send(new_fd, str , strlen(str), 0);
+      serverTimeRecv(first,second);
+
       close(new_fd);
       exit(0);
     }
@@ -179,7 +216,6 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
 	break;
     default:
       user_destroy(user);
-      close(new_fd);  // mata conexao com cliente
       return;
       break;
     }

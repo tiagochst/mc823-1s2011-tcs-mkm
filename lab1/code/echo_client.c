@@ -20,24 +20,25 @@
 char opcao[65]; 
 
 /* Estrutura para analise de tempo em microsegundos */
-struct timeval  first, second, lapsed;
+struct timeval  first, third, lapsed;
 struct timezone tzp; 
 
 
-void cliTimeRecv(struct timeval first,struct timeval second, int tam){
+void cliTimeRecv(struct timeval first,struct timeval third, int tam){
   FILE * pFile;
   pFile = fopen("cliTimeRecvRTT.dat", "a"); /*arquivo com nome de usuarios*/
 
   if (pFile == NULL) 
     return ;
   
-  if (first.tv_usec > second.tv_usec) { 
-    second.tv_usec += 1000000; 
-    second.tv_sec--; 
-  } 
+  if (first.tv_usec > third.tv_usec) {
+    third.tv_usec += 1000000;
+    third.tv_sec--;
+  }
   
   fseek(pFile, 0, SEEK_END);
-  fprintf(pFile,"%d\n" ,second.tv_usec - first.tv_usec);
+  fprintf(pFile,"Primeiro: %d\n" , first.tv_usec) ;
+  fprintf(pFile,"Terceiro: %d\n" ,third.tv_usec);
   fclose(pFile);
 
   return;
@@ -113,17 +114,17 @@ int main(int argc, char *argv[])
     freeaddrinfo(servinfo); // all done with this structure
     int size;
 
-      strcpy(opcao,"1");//pedido de echo
+      strcpy(opcao,"1234");//pedido de echo
 
     while(1){
 
       /*Contagem de tempo para receber pacote*/
-      gettimeofday (&first, &tzp); 
+      gettimeofday (&first, &tzp);
       envia_pct(sockfd, opcao ,strlen(opcao));
       /* Esperando resposta do servidor*/
       recv(sockfd, buf, MAXDATASIZE-1, 0);
-      gettimeofday (&second, &tzp); 
-      cliTimeRecv(first,second,strlen(buf));
+      gettimeofday (&third, &tzp);
+      cliTimeRecv(first,third,strlen(buf));
 
     }
     

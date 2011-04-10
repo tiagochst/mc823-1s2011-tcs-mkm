@@ -79,7 +79,7 @@
 \section{Introdução}
 % -----------------------------------------------------------------------------%
 O TCP (Transmission Control Protocol) é um protocolo do nível da
-camada de transporte. Dentre usas principais características temos:
+camada de transporte~\cite{Kurose05}. Dentre usas principais características temos:
 \begin{description}
 \item[Orientado à conexão]  Cliente e o servidor trocam pacotes de
 controle entre si antes de enviarem os pacotes de dados. Isto é chamado de procedimento de
@@ -136,13 +136,21 @@ cliente e um servidor.
 % -----------------------------------------------------------------------------%
 \section{Ambiente de implementação}
 % -----------------------------------------------------------------------------%
-  O sistema de agenda foi implementado na linguagem C. Os dados da agenda foram armazenados em arquivos, onde o servidor lê quando um usuário loga no sistema de agenda e os armazena em memória. A cada alteração na agenda o servidor atualiza as informações dos arquivos.
+  O sistema de agenda foi implementado na linguagem C. Os dados da
+  agenda foram armazenados em arquivos, onde o servidor lê quando um
+  usuário loga no sistema de agenda e os armazena em memória. 
+  A cada alteração na agenda o servidor atualiza as informações dos arquivos.
+
+  O sistema de agenda foi implementado e executado nos seguintes sistemas operacionais :
+  \begin{itemize}
+  \item FC14 - Fedora Laughlin Linux 2.6.35.11
+  \end{itemize}
 
 \section{Tempos de comunicação e total}
 O round-trip time (RTT) é o tempo que leva-se para um sinal ser
 enviado mais o tempo que se leva para receber um acknowledgment que o
 sinal foi recebido. A ferramenta administrativa para as redes de
-computadores denominada ``Ping'' é usada para testar se um host é alcançável e para
+computadores denominada ``Ping''~\cite{Ping} é usada para testar se um host é alcançável e para
 medir o RTT para mensagens enviadas do host remetente para o
 destinatário.
 

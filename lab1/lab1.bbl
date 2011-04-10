@@ -12,5 +12,11 @@ Brian "Beej Jorgensen" Hall
 \newblock {Packet Internet Grouper (Groper) }.
 \newblock{Disponível em  {\em http://linux.die.net/man/8/ping}, [Último acesso: 10/04/2011].}
 
+\bibitem{Kurose05}
+J.~Kurose e K.~Ross.
+\newblock {\em {Computer Networking: A Top-Down Approach Featuring the
+  Internet}}.
+\newblock Pearson Addison Wesley, 3 ed., 2005.
+
 
 \end{thebibliography}

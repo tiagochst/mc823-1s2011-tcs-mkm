@@ -89,19 +89,50 @@ mensagens de reconhecimento e retransmissão de pacotes.
 \item[Controle de fluxo] Assegura que nenhum dos lados da comunicação envie pacotes rápido demais, pois uma aplicação em um
 lado pode não conseguir processar a informação na velocidade que está
 recebendo.
-\item[controle de congestão] Ajuda a prevenir congestionamentos na rede.
-
+\item[controle de congestão] Ajuda a prevenir congestionamentos na
+  rede.
+\item[Fim-a-fim ] Conexão é sempre entre o host emissor e o host receptor.
 
 \end{description}
 
+Cada um dos segmentos da camada transporte tem em seu cabeçalho campos
+denominado número de portas que indicam a qual processo o mesmo deve
+ser entregue, existindo um número de porta do emissor e o número de porta do
+receptor. 
 
-  Este laboratório tem o objetivo de medir o tempo total e de comunicação de uma conexão TCP entre um cliente e um servidor.
+Possuindo as duas portas, pode-se realizar uma conexão entre elas
+conhecida por socket. Com o socket é possível diferenciar os canais
+utilizados por cada processo de aplicação.
+
+Os segmentos TCP, através do protocolo IP, são entregues a sistemas terminais, cada um
+identificado por seu endereço IP. E o protocolo TCP cuida de repassar
+os dados à cada processo de aplicação de acordo com porta especificada no
+cabeçalho do segmento.
+
+Devido a importância do protocolo, este laboratório tem o objetivo de
+medir o tempo total e de comunicação de uma conexão TCP entre um
+cliente e um servidor.
 
 % -----------------------------------------------------------------------------%
 \section{Servidor de agenda}
 % -----------------------------------------------------------------------------%
-  O sistema implementado se baseia numa comunicação cliente-servido O cliente possui todas as informações da agenda, assim como a estrutura dos menus. O cliente só escolhe alguma opção do menu e insere as informações de um compromisso, como nome, dia, hora e minuto.
-
+  O sistema implementado, uma agenda distribuída, se baseia numa comunicação
+  cliente-servidor. Na qual o servidor possui todas as informações da
+  agenda que estão armazenadas em um banco de dados,
+  assim como as opções de interações com os dados que são apresentadas
+  aos clientes em formas de um menu.
+  O cliente só escolhe alguma opção de interação com os dados de
+  acordo com menu.
+  No menu inicial pode-se logar com um usuário ou criar um usuário.E cada
+  usuário possui sua agenda. Assim, dentre as possibilidades de interações para um usuário logado tem-se:
+  \begin{itemize}
+  \item Inserção de um compromisso que possui um nome, dia, hora, e minuto. 
+  \item Remoção de um compromisso através de seu nome
+  \item Pesquisa de compromisso por dia
+  \item Pesquisa de compromisso por dia e hora
+  \item Ver todos os compromisso de mês de abril
+  \end{itemize}
+  
 % -----------------------------------------------------------------------------%
 \section{Ambiente de implementação}
 % -----------------------------------------------------------------------------%

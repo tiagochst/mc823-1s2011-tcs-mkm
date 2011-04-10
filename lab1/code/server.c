@@ -10,8 +10,8 @@ struct timezone tzp;
 
 void serverTimeRecv(struct timeval first,struct timeval second){
 
-  double t1=first.tv_sec+(first.tv_usec/1000000.0); 
-  double t2=second.tv_sec+(second.tv_usec/1000000.0); 
+  double t2=first.tv_sec+(first.tv_usec/1000000.0); 
+  double t3=second.tv_sec+(second.tv_usec/1000000.0); 
 
   FILE * pFile;
   pFile = fopen("serverTime.dat", "a"); /*arquivo com tempos do servidor*/
@@ -24,8 +24,8 @@ void serverTimeRecv(struct timeval first,struct timeval second){
     second.tv_sec--; 
   } */
  
- fseek(pFile, 0, SEEK_END);
-  fprintf(pFile,"%f \n" ,t1-t2);
+  fseek(pFile, 0, SEEK_END);
+  fprintf(pFile,"%f \n" ,t3-t2);
   fclose(pFile);
 
   return;
@@ -135,7 +135,6 @@ int main(void)
       gettimeofday (&second, &tzp); 
       send(new_fd, str , strlen(str), 0);
       serverTimeRecv(first,second);
-
       close(new_fd);
       exit(0);
     }
@@ -215,11 +214,12 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
       }
 	break;
     default:
-      user_destroy(user);
       return;
       break;
     }
   }
+  return;
+
 }
 
 void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
@@ -258,12 +258,12 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       set_task(atoi(dia), atoi(hora), atoi(minuto), task, user);
       
       verMes(new_fd,user);
-
+      
       /*Se m retorna ao menu, se q salva agenda sai*/
       leString(their_addr, new_fd,again);
       if(strcmp("q",again)==0) {
 	saveCal(user);
-  user_destroy(user);
+	user_destroy(user);
 	close(new_fd);  // mata conexao com cliente
 	exit(1);
       }
@@ -281,7 +281,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       leString(their_addr, new_fd,again);
       if(strcmp("q",again)==0){
 	saveCal(user);
-  user_destroy(user);
+	user_destroy(user);
 	close(new_fd);  // mata conexao com cliente
 	exit(1);
       }
@@ -298,7 +298,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       leString(their_addr, new_fd,again);
       if(strcmp("q",again)==0){ 
 	saveCal(user);
-  user_destroy(user);
+	user_destroy(user);
 	close(new_fd);  // mata conexao com cliente
 	exit(1);
       }
@@ -313,7 +313,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       leString(their_addr, new_fd,again);
       if(strcmp("q",again)==0){ 
 	saveCal(user);
-  user_destroy(user);
+	user_destroy(user);
 	close(new_fd);  // mata conexao com cliente
 	exit(1);
       }
@@ -326,7 +326,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       leString(their_addr, new_fd,again);
       if(strcmp("q",again)==0){ 
 	saveCal(user);
-  user_destroy(user);
+	user_destroy(user);
 	close(new_fd);  // mata conexao com cliente
 	exit(1);
       }

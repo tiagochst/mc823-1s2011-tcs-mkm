@@ -19,6 +19,34 @@
 #define MAXDATASIZE 1000 // max number of bytes we can get at once 
 char opcao[256]; 
 
+/* Estrutura para analise de tempo em microsegundos */
+struct timeval  first, second, lapsed;
+struct timezone tzp;
+
+void clienteTimeRecv(struct timeval first,struct timeval second){
+
+  double t1=first.tv_sec+(first.tv_usec/1000000.0); 
+  double t4=second.tv_sec+(second.tv_usec/1000000.0); 
+
+  FILE * pFile;
+  pFile = fopen("clientTime.dat", "a"); /*arquivo com tempos do servidor*/
+
+  if (pFile == NULL) 
+    return ;
+  
+  /* if (first.tv_usec > second.tv_usec) { 
+    second.tv_usec += 1000000; 
+    second.tv_sec--; 
+  } */
+ 
+  fseek(pFile, 0, SEEK_END);
+  fprintf(pFile,"%f \n" ,t4-t1);
+  fclose(pFile);
+
+  return;
+}
+
+
 void envia_pct( int sockfd, char s[], int size){
   if (( send(sockfd, s ,size, 0)) == -1) {
     perror("talker: sendto");
@@ -43,7 +71,7 @@ int main(int argc, char *argv[])
     char buf[MAXDATASIZE]="";
     struct addrinfo hints, *servinfo, *p;
     int rv;
-    char s[INET6_ADDRSTRLEN]="";
+    char s[INET6_ADDRSTRLEN]="",tempo[5],str[5];
 
     if (argc != 2) {
         fprintf(stderr,"usage: client hostname\n");
@@ -87,9 +115,13 @@ int main(int argc, char *argv[])
 
     freeaddrinfo(servinfo); // all done with this structure
     int size;
+
+    /* Teste de tempo */
+   strcpy(str,"0123");//tamanho de um inteiro bytes
+   gettimeofday (&first, &tzp); 
+   send(sockfd, str , strlen(str), 0);
+   
     while(1){
-
-
       /* Esperando resposta do servidor*/
       if((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
         perror("recv");
@@ -108,10 +140,15 @@ int main(int argc, char *argv[])
       envia_pct(sockfd, opcao ,strlen(opcao) + 1);
 
       if(strcmp("q",opcao)==0){
-	close(sockfd);
-	exit(1);
+	break;
       }
     }
+ 
+    while(recv(sockfd, tempo, 5, 0)==0){
+    } 
+    gettimeofday (&second, &tzp); 
+  
+    clienteTimeRecv(first,second);
     
     close(sockfd);
     

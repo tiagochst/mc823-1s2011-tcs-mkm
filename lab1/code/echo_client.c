@@ -127,7 +127,7 @@ int main(int argc, char *argv[])
       cliTimeRecv(first,third,strlen(buf));
 
     }
-    
+
     close(sockfd);
     
     return 0;

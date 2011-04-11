@@ -164,7 +164,7 @@ cliente e um servidor.
   aos clientes em formas de um menu.
   O cliente só escolhe alguma opção de interação com os dados de
   acordo com menu.
-  No menu inicial pode-se logar com um usuário ou criar um usuário.E cada
+  No menu inicial pode-se logar com um usuário ou criar um usuário. E cada
   usuário possui sua agenda. Assim, dentre as possibilidades de interações para um usuário logado tem-se:
   \begin{itemize}
   \item Inserção de um compromisso que possui um nome, dia, hora, e minuto. 
@@ -274,11 +274,9 @@ usadas obtivemos um valor de : PREENCHER AQUI!!!!!!
 
 Posteriormente, aplicamos o cálculo de tempo ao programa principal de
 forma a obtermos o tempo total e tempo de comunicação.
-Para o tempo total, no cliente pega-se  o tempo antes do primeiro send e após o último recv.
-Para o tempo de comunicação, no servidor pega-se o tempo após o
-primeiro recv e antes do último send.
-Subtraindo o segundo do primeiro você tem o tempo estimado de ida e
-volta de um pacote. 
+Para o tempo total, no cliente pega-se o tempo antes do primeiro send e após o último recv.
+Para o tempo de comunicação, pega-se o tempo total e subtrai-se o tempo de processamento do servidor,
+que é depois do primeiro recv e antes do último send.
 
 O resultado obtido para 100 valores foi:
 
@@ -313,7 +311,7 @@ O resultado obtido para 100 valores foi:
 \end{table}
 
 Para certificarmos do tempo, fizemos o teste com
-duas situações, uma mais rápida, uma mais lenta. E obtemos valores
+duas situações, uma mais rápida, uma mais lenta. E obtivemos valores
 muito próximos da média de tempo de ida e volta de um pacote(RTT). 
 
 \section{Conclusão}

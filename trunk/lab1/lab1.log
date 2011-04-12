@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2010.5.28)  12 APR 2011 17:22
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2010.5.28)  12 APR 2011 17:41
 entering extended mode
  %&-line parsing enabled.
 **lab1.tex
@@ -630,7 +630,7 @@ twocolumn: --
 twoside: --
 asymmetric: --
 h-parts: 56.9055pt, 483.69687pt, 56.9055pt
-v-parts: 113.81102pt, 674.33032pt, 56.9055pt
+v-parts: 113.81102pt, 617.4248pt, 113.81102pt
 hmarginratio: --
 vmarginratio: --
 lines: --
@@ -645,7 +645,7 @@ driver:
 \paperwidth  597.50787pt
 \paperheight 845.04684pt
 \textwidth  483.69687pt
-\textheight 674.33032pt
+\textheight 617.4248pt
 \oddsidemargin  -15.36449pt
 \evensidemargin -15.36449pt
 \topmargin  4.54103pt
@@ -762,16 +762,7 @@ File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 ) [1]
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <8> not available
 (Font)              Font shape `T1/pcr/m/sl' tried instead on input line 186.
- [2]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
+ [2] [3]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -787,18 +778,14 @@ Underfull \hbox (badness 2197) in paragraph at lines 4--8
 ming - Using In-ter-net Soc-kets .  Dis-po-ní-vel em
  []
 
-[3]
-Overfull \vbox (12.3346pt too high) has occurred while \output is active []
-
-
 [4]) [5] (./lab1.aux) ) 
 Here is how much of TeX's memory you used:
  5237 strings out of 256217
  70427 string characters out of 1917095
- 170326 words of memory out of 1500000
+ 174326 words of memory out of 1500000
  8422 multiletter control sequences out of 10000+200000
  39095 words of font info for 50 fonts, out of 1200000 for 2000
  645 hyphenation exceptions out of 8191
- 43i,13n,49p,248b,1715s stack positions out of 5000i,500n,6000p,200000b,15000s
+ 43i,13n,49p,248b,1687s stack positions out of 5000i,500n,6000p,200000b,15000s
 
-Output written on lab1.dvi (6 pages, 24512 bytes).
+Output written on lab1.dvi (6 pages, 24680 bytes).

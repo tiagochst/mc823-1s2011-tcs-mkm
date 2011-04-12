@@ -52,16 +52,8 @@
        }
        \lstloadlanguages{C
        }
-%       \usepackage{caption}
-%       \DeclareCaptionFont{white}{\color{white}}
-%       \DeclareCaptionFont{green}{\color{green}}
-%       \DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43, 0.35, 0.35,0.01}{\parbox{\textwidth}{\hspace{15pt}#1#2#3}}}
-%       \captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
-       
 
-
-
-% Definindo as margens para 2cm e o espaçamento entre linhas para 1.5
+% Definindo o espaçamento entre linhas para 1.5
 % Relatório parcial deve ter espaçamento simples
  \linespread{1.5}
 
@@ -295,6 +287,73 @@ O resultado obtido para 100 valores foi:
 \end{center}
 \end{table}
 
+
+\begin{table}[h!]
+\caption{Teste 2: conexão, login na conta, inserção de compromisso e fechamento de conexão com servidor}
+\begin{center}
+  \begin{tabular}{lr}
+    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+    \hline
+    Max & 0.851 ms\\
+    Min & 0.556 ms\\
+    Média & 0.752 ms \\
+    Desvio & 0.001 ms
+  \end{tabular}
+
+\end{center}
+\end{table}
+
+
+\begin{table}[h!]
+\caption{Teste 3: conexão, login na conta, remoção de compromissos
+  e fechamento de conexão com servidor}
+\begin{center}
+  \begin{tabular}{lr}
+    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+    \hline
+    Max & 0.851 ms\\
+    Min & 0.556 ms\\
+    Média & 0.752 ms \\
+    Desvio & 0.001 ms
+  \end{tabular}
+
+\end{center}
+\end{table}
+
+\begin{table}[h!]
+\caption{Teste 4: conexão, login na conta, ver compromissos do
+  determinado dia e hora e fechamento de conexão com servidor}
+\begin{center}
+  \begin{tabular}{lr}
+    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+    \hline
+    Max & 0.851 ms\\
+    Min & 0.556 ms\\
+    Média & 0.752 ms \\
+    Desvio & 0.001 ms
+  \end{tabular}
+
+\end{center}
+\end{table}
+
+\begin{table}[h!]
+\caption{Teste 5: conexão, login na conta, ver compromissos do mês em
+  determinado dia e fechamento de conexão com servidor}
+\begin{center}
+  \begin{tabular}{lr}
+    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+    \hline
+    Max & 0.851 ms\\
+    Min & 0.556 ms\\
+    Média & 0.752 ms \\
+    Desvio & 0.001 ms
+  \end{tabular}
+
+\end{center}
+\end{table}
+
+
+
 \begin{table}[h!]
 \caption{Teste 2: conexão, login na conta, ver agenda do mês e fechamento de conexão com servidor}
 \begin{center}
@@ -309,6 +368,7 @@ O resultado obtido para 100 valores foi:
 
 \end{center}
 \end{table}
+
 
 Para certificarmos do tempo, fizemos o teste com
 duas situações, uma mais rápida, uma mais lenta. E obtivemos valores

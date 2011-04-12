@@ -60,7 +60,7 @@
 \geometry{ 
   a4paper,	% Formato do papel
   tmargin=40mm,	% Margem superior
-  bmargin=20mm,	% Margem inferior
+  bmargin=40mm,	% Margem inferior
   lmargin=20mm,	% Margem esquerda
   rmargin=20mm,	% Margem direita
   footskip=20mm	% Espaço entre o rodapé e o fim do texto
@@ -265,10 +265,16 @@ Utilizado o ping nas máquinas nos quais servidor e cliente foram
 usadas obtivemos um valor de : PREENCHER AQUI!!!!!!
 
 Posteriormente, aplicamos o cálculo de tempo ao programa principal de
-forma a obtermos o tempo total e tempo de comunicação.
+forma a obtermos o tempo total,  tempo de comunicação e os tempos da
+execução de cada função.
 Para o tempo total, no cliente pega-se o tempo antes do primeiro send e após o último recv.
 Para o tempo de comunicação, pega-se o tempo total e subtrai-se o tempo de processamento do servidor,
 que é depois do primeiro recv e antes do último send.
+
+Para o tempo total das funções obteu-se o tempo de inserir um
+compromisso, remover o compromisso, ver a agenda do mês, ver a agenda
+de um dia, ver a agenda de uma hora. Os dados e os testes estão
+exemplificados nas tabelas I, II, III, IV e V.
 
 O resultado obtido para 100 valores foi:
 
@@ -369,10 +375,6 @@ O resultado obtido para 100 valores foi:
 \end{center}
 \end{table}
 
-
-Para certificarmos do tempo, fizemos o teste com
-duas situações, uma mais rápida, uma mais lenta. E obtivemos valores
-muito próximos da média de tempo de ida e volta de um pacote(RTT). 
 
 \section{Conclusão}
 

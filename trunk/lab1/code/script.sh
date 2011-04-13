@@ -3,19 +3,19 @@
 rm asd
 maquina="cult"
 
-for((i=0;i<100;i++))
-do
-    ./c $maquina < ./entradas/input1
-    mv asd asd~
-done
-
-mv *.dat 1
-
 #for((i=0;i<100;i++))
 #do
-#    cp asd~ asd
-#    ./c $maquina < ./entradas/input2
+#    ./c $maquina < ./entradas/input1
+#    mv asd asd~
 #done
+
+#mv *.dat 1
+
+for((i=0;i<100;i++))
+do
+    cp asd~ asd
+    ./c $maquina < ./entradas/input2
+done
 
 #cp asd~ asd
 #

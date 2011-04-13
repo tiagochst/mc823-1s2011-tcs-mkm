@@ -11,35 +11,35 @@ done
 
 mv *.dat 1
 
-for((i=0;i<100;i++))
-do
-    cp asd~ asd
-    ./c $maquina < ./entradas/input2
-done
+#for((i=0;i<100;i++))
+#do
+#    cp asd~ asd
+#    ./c $maquina < ./entradas/input2
+#done
 
-cp asd~ asd
+#cp asd~ asd
+#
+#mv *.dat 2
 
-mv *.dat 2
+#for((i=0;i<100;i++))
+#do
+#    ./c $maquina < ./entradas/input3
+#done
 
-for((i=0;i<100;i++))
-do
-    ./c $maquina < ./entradas/input3
-done
-
-mv *.dat 3
-
-
-for((i=0;i<100;i++))
-do
-    ./c $maquina < ./entradas/input4
-done
-
-mv *.dat 4
+#mv *.dat 3
 
 
-for((i=0;i<100;i++))
-do
-    ./c $maquina < ./entradas/input5
-done
+#for((i=0;i<100;i++))
+#do
+#    ./c $maquina < ./entradas/input4
+#done
 
-mv *.dat 5
+#mv *.dat 4
+
+
+#for((i=0;i<100;i++))
+#do
+#    ./c $maquina < ./entradas/input5
+#done
+
+#mv *.dat 5

@@ -22,40 +22,40 @@
 \lstset{language=C}
 \usepackage{listings}
 \lstset{
-         basicstyle=\footnotesize\ttfamily, % Standardschrift
-         numbers=left,               % Ort der Zeilennummern
-         numberstyle=\tiny,          % Stil der Zeilennummern
-         %stepnumber=2,               % Abstand zwischen den Zeilennummern
-         numbersep=5pt,              % Abstand der Nummern zum Text
-         tabsize=2,                  % Groesse von Tabs
-         extendedchars=true,         %
-         breaklines=true,            % Zeilen werden Umgebrochen
-         classoffset=0,
-         keywordstyle=\color{blue},
-         classoffset=1,
-         morekeywords={factor},keywordstyle=\color{red},
-         classoffset=0,
-         %  frame=b,         
-         % keywordstyle=[1]\textbf,    % Stil der Keywords
-         % keywordstyle=[2]\textbf,    %
-         % keywordstyle=[3]\textbf,    %
-         % keywordstyle=[4]\textbf,   \sqrt{\sqrt{}} %
-         stringstyle=\color{green}\ttfamily, % Farbe der String
-         showspaces=false,           % Leerzeichen anzeigen ?
-         showtabs=false,             % Tabs anzeigen ?
-         xleftmargin=17pt,
-         framexleftmargin=17pt,
-         framexrightmargin=5pt,
-         framexbottommargin=4pt,
-         %backgroundcolor=\color{lightgray},
-         showstringspaces=false      % Leerzeichen in Strings anzeigen ?        
-       }
-       \lstloadlanguages{C
-       }
+  basicstyle=\footnotesize\ttfamily, % Standardschrift
+  numbers=left,               % Ort der Zeilennummern
+  numberstyle=\tiny,          % Stil der Zeilennummern
+  % stepnumber=2,               % Abstand zwischen den Zeilennummern
+  numbersep=5pt,              % Abstand der Nummern zum Text
+  tabsize=2,                  % Groesse von Tabs
+  extendedchars=true,         %
+  breaklines=true,            % Zeilen werden Umgebrochen
+  classoffset=0,
+  keywordstyle=\color{blue},
+  classoffset=1,
+  morekeywords={factor},keywordstyle=\color{red},
+  classoffset=0,
+  % frame=b,         
+  % keywordstyle=[1]\textbf,    % Stil der Keywords
+  % keywordstyle=[2]\textbf,    %
+  % keywordstyle=[3]\textbf,    %
+  % keywordstyle=[4]\textbf,   \sqrt{\sqrt{}} %
+  stringstyle=\color{green}\ttfamily, % Farbe der String
+  showspaces=false,           % Leerzeichen anzeigen ?
+  showtabs=false,             % Tabs anzeigen ?
+  xleftmargin=17pt,
+  framexleftmargin=17pt,
+  framexrightmargin=5pt,
+  framexbottommargin=4pt,
+  % backgroundcolor=\color{lightgray},
+  showstringspaces=false      % Leerzeichen in Strings anzeigen ?        
+}
+\lstloadlanguages{C
+}
 
 % Definindo o espaçamento entre linhas para 1.5
 % Relatório parcial deve ter espaçamento simples
- \linespread{1.5}
+\linespread{1.5}
 
 \geometry{ 
   a4paper,	% Formato do papel
@@ -93,7 +93,7 @@
     \begin{tabular}{ll}
       \textbf{Aluno}:        Marcelo~Keith~Matsumoto   &  \textbf{RA}:       085937 \\
       \textbf{Aluno}:        Tiago~Chedraoui~Silva    &   \textbf{RA}:       082941 \\
-   
+      
     \end{tabular}
   \end{center}
   \vspace{0.5cm}
@@ -115,13 +115,13 @@ O TCP (Transmission Control Protocol) é um protocolo do nível da
 camada de transporte~\cite{Kurose05}. Dentre usas principais características temos:
 \begin{description}
 \item[Orientado à conexão]  Cliente e o servidor trocam pacotes de
-controle entre si antes de enviarem os pacotes de dados. Isto é chamado de procedimento de
-estabelecimento de conexão (handshaking). 
+  controle entre si antes de enviarem os pacotes de dados. Isto é chamado de procedimento de
+  estabelecimento de conexão (handshaking). 
 \item[Transferência garantida] Dados trocados são livres de erro, o que é conseguido a partir de
-mensagens de reconhecimento e retransmissão de pacotes. 
+  mensagens de reconhecimento e retransmissão de pacotes. 
 \item[Controle de fluxo] Assegura que nenhum dos lados da comunicação envie pacotes rápido demais, pois uma aplicação em um
-lado pode não conseguir processar a informação na velocidade que está
-recebendo.
+  lado pode não conseguir processar a informação na velocidade que está
+  recebendo.
 \item[controle de congestão] Ajuda a prevenir congestionamentos na
   rede.
 \item[Fim-a-fim ] Conexão é sempre entre o host emissor e o host receptor.
@@ -149,57 +149,57 @@ cliente e um servidor.
 % -----------------------------------------------------------------------------%
 \section{Servidor de agenda}
 % -----------------------------------------------------------------------------%
-  O sistema implementado, uma agenda distribuída, se baseia numa comunicação
-  cliente-servidor. Na qual o servidor possui todas as informações da
-  agenda que estão armazenadas em um banco de dados,
-  assim como as opções de interações com os dados que são apresentadas
-  aos clientes em formas de um menu.
-  O cliente só escolhe alguma opção de interação com os dados de
-  acordo com menu.
-  No menu inicial pode-se logar com um usuário ou criar um usuário. E cada
-  usuário possui sua agenda. Assim, dentre as possibilidades de interações para um usuário logado tem-se:
-  \begin{itemize}
-  \item Inserção de um compromisso que possui um nome, dia, hora, e minuto. 
-  \item Remoção de um compromisso através de seu nome
-  \item Pesquisa de compromisso por dia
-  \item Pesquisa de compromisso por dia e hora
-  \item Ver todos os compromisso de mês de abril
-  \end{itemize}
-  
+O sistema implementado, uma agenda distribuída, se baseia numa comunicação
+cliente-servidor. Na qual o servidor possui todas as informações da
+agenda que estão armazenadas em um banco de dados,
+assim como as opções de interações com os dados que são apresentadas
+aos clientes em formas de um menu.
+O cliente só escolhe alguma opção de interação com os dados de
+acordo com menu.
+No menu inicial pode-se logar com um usuário ou criar um usuário. E cada
+usuário possui sua agenda. Assim, dentre as possibilidades de interações para um usuário logado tem-se:
+\begin{itemize}
+\item Inserção de um compromisso que possui um nome, dia, hora, e minuto. 
+\item Remoção de um compromisso através de seu nome
+\item Pesquisa de compromisso por dia
+\item Pesquisa de compromisso por dia e hora
+\item Ver todos os compromisso de mês de abril
+\end{itemize}
+
 % -----------------------------------------------------------------------------%
 \section{Ambiente de implementação}
 % -----------------------------------------------------------------------------%
-  O sistema de agenda foi implementado e executado nos seguintes sistemas operacionais :
-  \begin{itemize}
-  \item FC14 - Fedora Laughlin Linux 2.6.35.11
-  \end{itemize}
+O sistema de agenda foi implementado e executado nos seguintes sistemas operacionais :
+\begin{itemize}
+\item FC14 - Fedora Laughlin Linux 2.6.35.11
+\end{itemize}
 
-  O sistema de agenda foi implementado na linguagem C. Os dados da
-  agenda foram armazenados em arquivos, onde o servidor lê quando um
-  usuário loga no sistema de agenda e os armazena em memória. 
-  A cada alteração na agenda o servidor atualiza as informações dos arquivos.
+O sistema de agenda foi implementado na linguagem C. Os dados da
+agenda foram armazenados em arquivos, onde o servidor lê quando um
+usuário loga no sistema de agenda e os armazena em memória. 
+A cada alteração na agenda o servidor atualiza as informações dos arquivos.
 
-  Listaremos a seguir algumas funções implementadas:
-  \begin{itemize}
-  \item  Funções de interação com o banco de dados são:
-    \begin{lstlisting}
-      /* Encontra usuario que ja esta cadastrado no servidor e verifica
-      senha*/
-      int findUser(char nome[], char pwd[]);
-      
-      /* Insere novo usuario (nome e senha) no banco de dados*/
-      int newUser(char nome[], char senha[]);
-      
-      /*Carrega agenda de usuario*/
-      int loadCal(User *user);
-      
-      /*Salva agenda*/
-      int saveCal(User *user);
-    \end{lstlisting}
+Listaremos a seguir algumas funções implementadas:
+\begin{itemize}
+\item  Funções de interação com o banco de dados são:
+  \begin{lstlisting}
+    /* Encontra usuario que ja esta cadastrado no servidor e verifica
+    senha*/
+    int findUser(char nome[], char pwd[]);
+    
+    /* Insere novo usuario (nome e senha) no banco de dados*/
+    int newUser(char nome[], char senha[]);
+    
+    /*Carrega agenda de usuario*/
+    int loadCal(User *user);
+    
+    /*Salva agenda*/
+    int saveCal(User *user);
+  \end{lstlisting}
 
-  \item Funções de interação com a agenda  são:
+\item Funções de interação com a agenda  são:
 
-   \begin{lstlisting}
+  \begin{lstlisting}
     /*Cria agenda para usuario*/
     User * agenda_init(char nome[]);
 
@@ -217,8 +217,8 @@ cliente e um servidor.
 
     /*Retorna compromissos do mes de abril em determinado dia*/
     int verDia(int new_fd, User *u, int dia);
- 
-   /*Retorna compromissos do mes de abril em determinado dia e
+    
+    /*Retorna compromissos do mes de abril em determinado dia e
     determinada hora*/
     int verHora(int new_fd, User *u, int dia, int hora);
 
@@ -230,7 +230,7 @@ cliente e um servidor.
 
   \end{lstlisting}
 
-  \item Funções de interação servidor-cliente criadas foram:
+\item Funções de interação servidor-cliente criadas foram:
   \begin{lstlisting}
 
     /*Envia mensagem ao cliente*/
@@ -238,205 +238,211 @@ cliente e um servidor.
 
     /*Le mensagem do cliente*/
     int leOpcao(struct sockaddr_storage their_addr, int sockfd);
-   
+    
     /*Apresenta opcoes de login ou criacao novo usuario*/
     void menu(int new_fd, struct sockaddr_storage their_addr);
-  
+    
     /*Apresenta opcoes de interacao com agenda*/
     void menu2(int new_fd, struct sockaddr_storage their_addr, User *user);
 
     /*Envia mensagem para servidor*/
     void envia_pct( int sockfd, char s[], int size){
 
-  \end{lstlisting}
+    \end{lstlisting}
 
 
-\end{itemize}
+  \end{itemize}
 
 
-\section{Tempos de comunicação e total}
-O round-trip time (RTT) é o tempo que leva-se para um sinal ser
-enviado mais o tempo que se leva para receber um acknowledgment que o
-sinal foi recebido. A ferramenta administrativa para as redes de
-computadores denominada ``Ping''~\cite{Ping} é usada para testar se um host é alcançável e para
-medir o RTT para mensagens enviadas do host remetente para o
-destinatário.
-Utilizado o ping nas máquinas nos quais servidor e cliente foram
-usadas obtivemos um valor de : PREENCHER AQUI!!!!!!
+  \section{Tempos de comunicação e total}
+  O round-trip time (RTT) é o tempo que leva-se para um sinal ser
+  enviado mais o tempo que se leva para receber um acknowledgment que o
+  sinal foi recebido. A ferramenta administrativa para as redes de
+  computadores denominada ``Ping''~\cite{Ping} é usada para testar se um host é alcançável e para
+  medir o RTT para mensagens enviadas do host remetente para o
+  destinatário.
+  Utilizado o ping nas máquinas nos quais servidor e cliente foram
+  usadas obtivemos um valor de : PREENCHER AQUI!!!!!!
 
-Posteriormente, aplicamos o cálculo de tempo ao programa principal de
-forma a obtermos o tempo total,  tempo de comunicação e os tempos da
-execução de cada função.
-Para o tempo total, no cliente pega-se o tempo antes do primeiro send e após o último recv.
-Para o tempo de comunicação, pega-se o tempo total e subtrai-se o tempo de processamento do servidor,
-que é depois do primeiro recv e antes do último send.
+  Posteriormente, aplicamos o cálculo de tempo ao programa principal de
+  forma a obtermos o tempo total,  tempo de comunicação e os tempos da
+  execução de cada função.
+  Para o tempo total, no cliente pega-se o tempo antes do primeiro send e após o último recv.
+  Para o tempo de comunicação, pega-se o tempo total e subtrai-se o tempo de processamento do servidor,
+  que é depois do primeiro recv e antes do último send.
 
-Para o tempo total das funções obteu-se o tempo de inserir um
-compromisso, remover o compromisso, ver a agenda do mês, ver a agenda
-de um dia, ver a agenda de uma hora. Os dados e os testes estão
-exemplificados nas tabelas I, II, III, IV e V.
+  Para o tempo total das funções obteu-se o tempo de inserir um
+  compromisso, remover o compromisso, ver a agenda do mês, ver a agenda
+  de um dia, ver a agenda de uma hora. Os dados e os testes estão
+  exemplificados nas tabelas I, II, III, IV e V.
 
-O resultado obtido para 100 valores foi:
+  O resultado obtido para 100 valores foi:
 
-\begin{table}[h!]
-\caption{Teste 1: conexão e fechamento de conexão com servidor}
-\begin{center}
+  \begin{table}[h!]
+    \begin{center}
 
-\subfloat[Tempo total]{
-  \begin{tabular}{lr}
-    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
-    \hline
-    Max & 185.351 ms\\
-    Min & 45.577 ms\\
-    Média & 55.090 ms \\
-    Desvio & 0.743 ms
-  \end{tabular}
-}
-\subfloat[Tempo de comunidação]{
-  \begin{tabular}{lr}
-    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
-    \hline
-    Max & 1.483 ms\\
-    Min & 0.500 ms\\
-    Média & 0.725 ms \\
-    Desvio & 0.076 ms
-  \end{tabular}
-}
+      \subfloat[Tempo total]{
+        \begin{tabular}{lr}
+          \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+          \hline
+          Max & 185.351 ms\\
+          Min & 45.577 ms\\
+          Média & 55.090 ms \\
+          Desvio & 0.743 ms
+        \end{tabular}
+        \label{total1}
+      }
+      \hspace{30mm}
+      \subfloat[Tempo de comunidação]{
+        \begin{tabular}{lr}
+          \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+          \hline
+          Max & 1.483 ms\\
+          Min & 0.500 ms\\
+          Média & 0.725 ms \\
+          Desvio & 0.076 ms
+        \end{tabular}
+        \label{comu1}
+      }
 
-
-\end{center}
-\end{table}
-
-
-\begin{table}[h!]
-
-\begin{center}
-\subfloat[Tempo de comunidação]{
-  \begin{tabular}{lr}
-    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
-    \hline
-    Max & 0.837 ms\\
-    Min & 0.386 ms\\
-    Média & 0.705 ms \\
-    Desvio & 0.001 ms
-  \end{tabular}
-}
-\subfloat[Tempo total]{
-  \begin{tabular}{lr}
-    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
-    \hline
-    Max & 114.572 ms\\
-    Min & 32.248 ms\\
-    Média & 36.782 ms \\
-    Desvio & 0.069 ms
-  \end{tabular}
-}
-
-\caption{Teste 2: conexão, login na conta, inserção de compromisso e fechamento de conexão com servidor}
-\end{center}
-\end{table}
+    \end{center}
+    \vspace{-5mm}
+    \caption{Conexão e fechamento de conexão com servidor}
+  \end{table}
 
 
-\begin{table}[h!]
-\caption{Teste 3: conexão, login na conta, remoção de compromissos
-  e fechamento de conexão com servidor}
-\begin{center}
-\subfloat[Tempo de comunidação]{
-  \begin{tabular}{lr}
-    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
-    \hline
-    Max & 0.851 ms\\
-    Min & 0.515 ms\\
-    Média & 0.715 ms \\
-    Desvio & 0.004 ms
-  \end{tabular}
-}
-\subfloat[Tempo total]{
-  \begin{tabular}{lr}
-    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
-    \hline
-    Max & 214.583 ms\\
-    Min & 37.724 ms\\
-    Média & 47.599 ms \\
-    Desvio & 0.468 ms
-  \end{tabular}
-}
+  \begin{table}[h!]
 
-\end{center}
-\end{table}
+    \begin{center}
 
-\begin{table}[h!]
-\caption{Teste 4: conexão, login na conta, ver compromissos do
-  determinado dia e hora e fechamento de conexão com servidor}
-\begin{center}
+      \subfloat[Tempo total]{
+        \begin{tabular}{lr}
+          \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+          \hline
+          Max & 114.572 ms\\
+          Min & 32.248 ms\\
+          Média & 36.782 ms \\
+          Desvio & 0.069 ms
+        \end{tabular}
+        \label{total2}
+      }
+      \hspace{30mm}      
+     \subfloat[Tempo de comunidação]{
+        \begin{tabular}{lr}
+          \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+          \hline
+          Max & 0.837 ms\\
+          Min & 0.386 ms\\
+          Média & 0.705 ms \\
+          Desvio & 0.001 ms
+        \end{tabular}
+        \label{comu2}
+      }
 
-\subfloat[Tempo de comunidação]{
-  \begin{tabular}{lr}
-    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
-    \hline
-    Max & 1.472 ms\\
-    Min & 0.523 ms\\
-    Média & 0.727 ms \\
-    Desvio & 0.002 ms
-  \end{tabular}
-}
-\subfloat[Tempo total]{
-  \begin{tabular}{lr}
-    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
-    \hline
-    Max & 168.404 ms\\
-    Min & 32.763 ms\\
-    Média & 38.612 ms \\
-    Desvio & 0.412 ms
-  \end{tabular}
-}
-
-\end{center}
-\end{table}
-
-\begin{table}[h!]
-\caption{Teste 5: conexão, login na conta, ver todos os compromissos do mês e fechamento de conexão com servidor}
-\begin{center}
-
-\subfloat[Tempo de comunidação]{
-  \begin{tabular}{lr}
-    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
-    \hline
-    Max & 0.905 ms\\
-    Min & 0.504 ms\\
-    Média & 0.716 ms \\
-    Desvio & 0.000 ms
-  \end{tabular}
-}
-\subfloat[Tempo de total]{
-  \begin{tabular}{lr}
-    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
-    \hline
-    Max & 76.481 ms\\
-    Min & 28.966 ms\\
-    Média & 32.334 ms \\
-    Desvio & 0.215 ms
-  \end{tabular}
-}
-\end{center}
-\end{table}
+    \end{center}
+    \vspace{-5mm}
+    \caption{Conexão, login na conta, inserção de compromisso e fechamento de conexão com servidor}
+  \end{table}
 
 
+  \begin{table}[h!]
+    \begin{center}
+      \subfloat[Tempo total]{
+        \begin{tabular}{lr}
+          \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+          \hline
+          Max & 214.583 ms\\
+          Min & 37.724 ms\\
+          Média & 47.599 ms \\
+          Desvio & 0.468 ms
+        \end{tabular}
+        \label{total3}
+      }
+      \hspace{30mm}
+      \subfloat[Tempo de comunidação]{
+        \begin{tabular}{lr}
+          \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+          \hline
+          Max & 0.851 ms\\
+          Min & 0.515 ms\\
+          Média & 0.715 ms \\
+          Desvio & 0.004 ms
+        \end{tabular}
+        \label{comu3}
+      }
+    \end{center}
+    \vspace{-5mm}
+    \caption{Conexão, login na conta, remoção de compromissos
+      e fechamento de conexão com servidor}
+  \end{table}
 
-\begin{table}[h!]
-\caption{Teste 2: conexão, login na conta, ver agenda do mês e fechamento de conexão com servidor}
-\begin{center}
-  \begin{tabular}{lr}
-    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
-    \hline
-    Max & 4.959 ms\\
-    Min & 0.190 ms\\
-    Média & 0.638 ms \\
-    Desvio & 0.013 ms
-  \end{tabular}
+  \begin{table}[h!]
+    \begin{center}
 
-\end{center}
-\end{table}
+      \subfloat[Tempo total]{
+        \begin{tabular}{lr}
+          \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+          \hline
+          Max & 168.404 ms\\
+          Min & 32.763 ms\\
+          Média & 38.612 ms \\
+          Desvio & 0.412 ms
+        \end{tabular}
+        \label{total4}
+      }
+      \hspace{30mm}
+      \subfloat[Tempo de comunicação]{
+        \begin{tabular}{lr}
+          \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+          \hline
+          Max & 1.472 ms\\
+          Min & 0.523 ms\\
+          Média & 0.727 ms \\
+          Desvio & 0.002 ms
+        \end{tabular}
+        \label{comu4}
+      }
+
+    \end{center}
+    \vspace{-5mm}
+    \caption{Conexão, login na conta, ver compromissos do
+      determinado dia e hora e fechamento de conexão com servidor}
+  \end{table}
+
+  \begin{table}[h!]
+    \begin{center}
+
+      \subfloat[Tempo de total]{
+        \begin{tabular}{lr}
+          \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+          \hline
+          Max & 76.481 ms\\
+          Min & 28.966 ms\\
+          Média & 32.334 ms \\
+          Desvio & 0.215 ms
+        \end{tabular}
+        \label{total5}
+      }
+      \hspace{30mm}
+      \subfloat[Tempo de comunidação]{
+        \begin{tabular}{lr}
+          \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+          \hline
+          Max & 0.905 ms\\
+          Min & 0.504 ms\\
+          Média & 0.716 ms \\
+          Desvio & 0.000 ms
+        \end{tabular}
+        \label{comu5}
+      }
+
+    \end{center}
+    \vspace{-5mm}
+    \caption{Conexão, login na conta, ver todos os compromissos do mês e fechamento de conexão com servidor}
+  \end{table}
+
+  
+  Note que os tempos das tabelas \ref{total3}, \ref{total4} e \ref{total5} estão, respectivamente, em ordem decrescente de tamanho. Isso se deve ao fato de que a operação 3 o programa busca pelo dia, hora e minuto do compromisso, fazendo com que o número de comparações feitas seja maior que as operaçãoes \ref{total4} e \ref{total5}, tornando aquela operação mais lenta. O mesmo pode afirmar entre as operações 4 e 5.
 
 
 \section{Conclusão}

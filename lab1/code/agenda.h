@@ -15,7 +15,7 @@
 #include <signal.h>
 #include "bd.h" 
 
-#define PORT "34900"  // the port users will be connecting to
+#define PORT "35555"  // the port users will be connecting to
 #define MAXDATASIZE 1000
 #define BACKLOG 10     // how many pending connections queue will hold
 

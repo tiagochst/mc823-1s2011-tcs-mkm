@@ -78,7 +78,7 @@ int loadCal(User *user)
 {
   FILE * pFile;
   char nome[20]="";
-  char dia[5], hora[5], min[5], task[100], arq[100];
+  char dia[5], hora[5], min[5], task[100], arq[100]="";
   Agenda *atual;
   int i = 0; /*numero de compromissos*/
 

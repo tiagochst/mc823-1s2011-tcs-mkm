@@ -1,7 +1,7 @@
 #!/bin/bash
 
 rm asd
-maquina="localhost"
+maquina="cult"
 
 for((i=0;i<100;i++))
 do

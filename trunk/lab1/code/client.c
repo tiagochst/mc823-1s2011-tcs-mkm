@@ -14,7 +14,7 @@
 #include <arpa/inet.h>
 #include <sys/time.h>
 
-#define PORT "34900" // the port client will be connecting to 
+#define PORT "35555" // the port client will be connecting to 
 
 #define MAXDATASIZE 1000 // max number of bytes we can get at once 
 char opcao[256]; 

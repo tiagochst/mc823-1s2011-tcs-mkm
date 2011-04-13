@@ -29,17 +29,17 @@ maquina="cult"
 #mv *.dat 3
 
 
-for((i=0;i<100;i++))
-do
-    ./c $maquina < ./entradas/input4
-done
-
-mv *.dat 4
-
-
 #for((i=0;i<100;i++))
 #do
-#    ./c $maquina < ./entradas/input5
+#    ./c $maquina < ./entradas/input4
 #done
 
-#mv *.dat 5
+#mv *.dat 4
+
+
+for((i=0;i<100;i++))
+do
+    ./c $maquina < ./entradas/input5
+done
+
+mv *.dat 5

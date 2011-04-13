@@ -281,31 +281,58 @@ O resultado obtido para 100 valores foi:
 \begin{table}[h!]
 \caption{Teste 1: conexão e fechamento de conexão com servidor}
 \begin{center}
+
+\subfloat[Tempo total]{
   \begin{tabular}{lr}
     \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
     \hline
-    Max & 0.876 ms\\
-    Min & 0.467 ms\\
-    Média & 0.701 ms \\
-    Desvio & 0.007 ms
+    Max & 185.351 ms\\
+    Min & 45.577 ms\\
+    Média & 55.090 ms \\
+    Desvio & 0.743 ms
   \end{tabular}
+}
+\subfloat[Tempo de comunidação]{
+  \begin{tabular}{lr}
+    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+    \hline
+    Max & 1.483 ms\\
+    Min & 0.500 ms\\
+    Média & 0.725 ms \\
+    Desvio & 0.076 ms
+  \end{tabular}
+}
+
 
 \end{center}
 \end{table}
 
 
 \begin{table}[h!]
-\caption{Teste 2: conexão, login na conta, inserção de compromisso e fechamento de conexão com servidor}
+
 \begin{center}
+\subfloat[Tempo de comunidação]{
   \begin{tabular}{lr}
     \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
     \hline
-    Max & 0.851 ms\\
-    Min & 0.556 ms\\
-    Média & 0.752 ms \\
+    Max & 0.837 ms\\
+    Min & 0.386 ms\\
+    Média & 0.705 ms \\
     Desvio & 0.001 ms
   \end{tabular}
+}
+\subfloat[Tempo total]{
+  \begin{tabular}{lr}
+    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+    \hline
+    Max & 114.572 ms\\
+    Min & 32.248 ms\\
+    Média & 36.782 ms \\
+    Desvio & 0.069 ms
+  \end{tabular}
+}
 
+\caption{Teste 2: conexão, login na conta, inserção de compromisso e fechamento de conexão com servidor}
 \end{center}
 \end{table}
 
@@ -314,14 +341,26 @@ O resultado obtido para 100 valores foi:
 \caption{Teste 3: conexão, login na conta, remoção de compromissos
   e fechamento de conexão com servidor}
 \begin{center}
+\subfloat[Tempo de comunidação]{
   \begin{tabular}{lr}
     \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
     \hline
     Max & 0.851 ms\\
-    Min & 0.556 ms\\
-    Média & 0.752 ms \\
-    Desvio & 0.001 ms
+    Min & 0.515 ms\\
+    Média & 0.715 ms \\
+    Desvio & 0.004 ms
   \end{tabular}
+}
+\subfloat[Tempo total]{
+  \begin{tabular}{lr}
+    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+    \hline
+    Max & 214.583 ms\\
+    Min & 37.724 ms\\
+    Média & 47.599 ms \\
+    Desvio & 0.468 ms
+  \end{tabular}
+}
 
 \end{center}
 \end{table}
@@ -330,31 +369,55 @@ O resultado obtido para 100 valores foi:
 \caption{Teste 4: conexão, login na conta, ver compromissos do
   determinado dia e hora e fechamento de conexão com servidor}
 \begin{center}
+
+\subfloat[Tempo de comunidação]{
   \begin{tabular}{lr}
     \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
     \hline
-    Max & 0.851 ms\\
-    Min & 0.556 ms\\
-    Média & 0.752 ms \\
-    Desvio & 0.001 ms
+    Max & 1.472 ms\\
+    Min & 0.523 ms\\
+    Média & 0.727 ms \\
+    Desvio & 0.002 ms
   \end{tabular}
+}
+\subfloat[Tempo total]{
+  \begin{tabular}{lr}
+    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+    \hline
+    Max & 168.404 ms\\
+    Min & 32.763 ms\\
+    Média & 38.612 ms \\
+    Desvio & 0.412 ms
+  \end{tabular}
+}
 
 \end{center}
 \end{table}
 
 \begin{table}[h!]
-\caption{Teste 5: conexão, login na conta, ver compromissos do mês em
-  determinado dia e fechamento de conexão com servidor}
+\caption{Teste 5: conexão, login na conta, ver todos os compromissos do mês e fechamento de conexão com servidor}
 \begin{center}
+
+\subfloat[Tempo de comunidação]{
   \begin{tabular}{lr}
     \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
     \hline
-    Max & 0.851 ms\\
-    Min & 0.556 ms\\
-    Média & 0.752 ms \\
-    Desvio & 0.001 ms
+    Max & 0.905 ms\\
+    Min & 0.504 ms\\
+    Média & 0.716 ms \\
+    Desvio & 0.000 ms
   \end{tabular}
-
+}
+\subfloat[Tempo de total]{
+  \begin{tabular}{lr}
+    \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+    \hline
+    Max & 76.481 ms\\
+    Min & 28.966 ms\\
+    Média & 32.334 ms \\
+    Desvio & 0.215 ms
+  \end{tabular}
+}
 \end{center}
 \end{table}
 

@@ -573,28 +573,42 @@ necessário uma análise de erros na entrega dos pacotes. No entanto, essa anál
 deve ser feita se utilizássemos o protocolo UDP, atravpes de um código
 de verificação. Portanto o protocolo TCP possibilita uma diminuição do código.
 
+Para que o nosso sistema distribuído fosse transparente ao usuário
+diversas manipulações de dados foram realizadas no servidor, assim
+algumas transparências, como localidade, acesso e concorrência foram
+possíveis.
 
 %Há também a necessidade de se verificar o pacote recebido veio do endereço correto, dado que
 %na conexão UDP os dados são simplesmente enviados para o outro host.
 
-%Já em relação ao nível de abstração utilizado, tivemos que pensar a nível de
-%manipulação de string, pois o envio de dados se dá de forma transparente ao usuário, ou seja, ao
-%receber o dado somente precisávamos nos preocupar com a manipulação do dado e não como
-%ele foi recebido, se ele estava completo.
+Como o TCP é orientado à conexão, é criado um socket para cada cliente
+se comunicar com o servidor. Utilizando a função fork temos um
+processo que fica à escuta de novos pedidos de conexão e outro
+processo trata da conexão com o cliente. 
+Já o UDP não é orientado a
+conexão, portando não há necessidade de se criar um socket para o
+cliente, deve tratar-se o cliente de modo interativo.
+Para o UDP é necessário verificar qual a fonte do pacote, enquanto o
+TCP já cuida disso.
 
-%Em termos de tratamento de cliente, temos que o servidor TCP é bloquado na função
-%accept, esperando por novas conexões, já no UDP, como não há o estabelecimento de conexão,
-%não há a necessidade de gerar um novo socket para cada cliente, podemos simplesmente tratar
-%os clientes de forma iterativa, ao invés de concorrente como é o funcionamento do servidor TCP.
+% não tenho certeza disso.
+% Pelo fato de o TCP criar diversos processos,
+%cada conexão faz uso do processamento do servidor de modo
+%concorrente. Já o UDP como só trata um cliente por instante, ou seja,
+%ele avalia o pacote de um cliente e trabalha nele enquanto lê o
+%próximo segmento que chegará. 
 
-%No tempo de comunicação esperamos que o UDP tenha um tempo inferior ao do TCP,
-%%dado que não há tratamento de erros no mesmo, portanto sendo feito de forma simplificada e
-%ficando a cargo do programa tratar eventuais perdas e reordenamento de mensagens. O tempo
-%de processamento deve ser o mesmo dado que não há nenhuma conexão entre essa parte e a
-%modificação entre a manipulação da agenda (responsável pelo tempo de processamento) e a
-%parte de comunicação entre cliente e servidor (responsável pelo tempo de comunicação), e tendo
-%em mente que a manipulação da agenda não será alterada, o tempo eseprado é teoricamente o
-%mesmo. Em termos de tempo total, temos que a espectativa de mudança será responsável pela
+Devido as diferentes características do UDP como, por exemplo, o não há tratamento de
+erros e  não ser orientado a conexão, é esperado que ele tenha
+um tempo inferior ao TCP. Mas, deve-se lembrar que os erros deverão
+ser verificados pelo programa principal, assim como o ordenamento das mensagens.
+
+O tempo de processamento (manipulação da agenda) teoricamente não deve
+alterar pela utilização dos diferentes protocolos.
+
+Portanto, é esperado o tempo total será alterado devido ao tempo de comunicação.
+
+%Em termos de tempo total, temos que a espectativa de mudança será responsável pela
 %parcela modificada resultante da comunicação, dado que o tempo total é resultante da soma do
 %tempo de comunicação e do tempo tempo de processamento.
 

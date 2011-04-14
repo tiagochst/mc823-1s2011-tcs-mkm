@@ -341,7 +341,7 @@ Listaremos a seguir algumas funções implementadas de interação:
   medir o RTT para mensagens enviadas do host remetente para o
   destinatário.
   Utilizado o ping nas máquinas nos quais servidor e cliente foram
-  usadas obtivemos um valor de: 
+  usadas obtivemos os valores apresentados na tabela \ref{pingtime}.
 
   \begin{table}[h!]
     \begin{center}
@@ -353,10 +353,9 @@ Listaremos a seguir algumas funções implementadas de interação:
           Média & 0.513 ms \\
           Desvio & 0.086 ms
         \end{tabular}
-        \label{pingtime}
     \end{center}
     \vspace{-5mm}
-    \caption{Tempo do ping}
+    \caption{Tempo do ping}        \label{pingtime}
   \end{table}
 
   Posteriormente,  foi calculado o tempo que o servidor leva para se
@@ -388,7 +387,8 @@ Aplicamos o cálculo de tempo ao programa principal de
   Para o tempo total das funções obteu-se o tempo de inserir um
   compromisso, remover o compromisso, ver a agenda do mês, ver a agenda
   de um dia, ver a agenda de uma hora. Os dados e os testes estão
-  exemplificados nas tabelas III, IV, V, VI e VII.
+  exemplificados nas tabelas \ref{op1}, \ref{op2}, \ref{op3},
+  \ref{op4} e \ref{op5}.
 
   O resultado obtido para 100 valores foi:
 
@@ -421,7 +421,7 @@ Aplicamos o cálculo de tempo ao programa principal de
 
     \end{center}
     \vspace{-5mm}
-    \caption{Conexão e fechamento de conexão com servidor}
+    \caption{Conexão e fechamento de conexão com servidor} \label{op1}
   \end{table}
 
 
@@ -455,7 +455,8 @@ Aplicamos o cálculo de tempo ao programa principal de
 
     \end{center}
     \vspace{-5mm}
-    \caption{Conexão, login na conta, inserção de compromisso e fechamento de conexão com servidor}
+    \caption{Conexão, login na conta, inserção de compromisso e
+      fechamento de conexão com servidor} \label{op2}
   \end{table}
 
 
@@ -487,7 +488,7 @@ Aplicamos o cálculo de tempo ao programa principal de
     \end{center}
     \vspace{-5mm}
     \caption{Conexão, login na conta, ver compromissos de determinado
-      dia, hora e minuto e fechamento de conexão com servidor}
+      dia, hora e minuto e fechamento de conexão com servidor} \label{op3}
  \end{table}
 
   \begin{table}[h!]
@@ -519,7 +520,8 @@ Aplicamos o cálculo de tempo ao programa principal de
 
     \end{center}
     \vspace{-5mm}
-    \caption{Conexão, login na conta, ver compromissos de determinado dia e hora e fechamento de conexão com servidor}
+    \caption{Conexão, login na conta, ver compromissos de determinado
+      dia e hora e fechamento de conexão com servidor} \label{op4}
   \end{table}
 
   \begin{table}[h!]
@@ -551,11 +553,19 @@ Aplicamos o cálculo de tempo ao programa principal de
 
     \end{center}
     \vspace{-5mm}
-    \caption{Conexão, login na conta, ver todos os compromissos do mês e fechamento de conexão com servidor}
+    \caption{Conexão, login na conta, ver todos os compromissos do mês
+      e fechamento de conexão com servidor} \label{op5}
   \end{table}
 
   
-  Note que os tempos das tabelas \ref{total3}, \ref{total4} e \ref{total5} estão, respectivamente, em ordem decrescente de tamanho. Isso se deve ao fato de que a operação 3 o programa busca pelo dia, hora e minuto do compromisso, fazendo com que o número de comparações feitas seja maior que as operaçãoes \ref{total4} e \ref{total5}, tornando aquela operação mais lenta. O mesmo pode afirmar entre as operações 4 e 5.
+  Note que os tempos das tabelas \ref{total3}, \ref{total4} e
+  \ref{total5} estão, respectivamente, em ordem decrescente de
+  tamanho. Isso se deve ao fato de que a operação 3 (tabela
+  \ref{total3}) o programa busca pelo dia, hora e minuto do
+  compromisso, fazendo com que o número de comparações feitas seja
+  maior que as operaçãoes \ref{total4} e \ref{total5}, tornando aquela
+  operação mais lenta. O mesmo pode afirmar entre as operações 4 e 5,
+  correspondentes às tabelas \ref{total4} e \ref{total5}, respectivamente.
 
 \subsection{Comparação de tecnologias}
 

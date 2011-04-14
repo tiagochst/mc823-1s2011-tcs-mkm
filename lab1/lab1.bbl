@@ -1,5 +1,10 @@
 \begin{thebibliography}{10}
 
+\bibitem{AST}
+Tanenbaum, Andrew S. e Maarten Van Steen 
+\newblock{ Distributed Systems: Principles and Paradigms}.
+\newblock Prentice Hall.
+
 \bibitem{Beej}
 Brian "Beej Jorgensen" Hall
 \newblock {Beej's Guide to Network Programming
@@ -17,6 +22,7 @@ J.~Kurose e K.~Ross.
 \newblock {\em {Computer Networking: A Top-Down Approach Featuring the
   Internet}}.
 \newblock Pearson Addison Wesley, 3 ed., 2005.
+
 
 
 \end{thebibliography}

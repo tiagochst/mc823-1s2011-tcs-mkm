@@ -1,7 +1,7 @@
 #!/bin/bash
 
-rm asd
-maquina="cult"
+#rm asd
+maquina="atlas"
 
 #for((i=0;i<100;i++))
 #do
@@ -39,7 +39,7 @@ maquina="cult"
 
 for((i=0;i<100;i++))
 do
-    ./c $maquina < ./entradas/input5
+    ./c $maquina < ./entradas/input
 done
 
-mv *.dat 5
+

@@ -334,16 +334,50 @@ Listaremos a seguir algumas funções implementadas de interação:
 
 
   \section{Tempos de comunicação e total}
-%  O round-trip time (RTT) é o tempo que leva-se para um sinal ser
-%  enviado mais o tempo que se leva para receber um acknowledgment que o
-%  sinal foi recebido. A ferramenta administrativa para as redes de
-%  computadores denominada ``Ping''~\cite{Ping} é usada para testar se um host é alcançável e para
-%  medir o RTT para mensagens enviadas do host remetente para o
-%  destinatário.
-%  Utilizado o ping nas máquinas nos quais servidor e cliente foram
-%  usadas obtivemos um valor de : PREENCHER AQUI!!!!!!
+  O round-trip time (RTT) é o tempo que leva-se para um sinal ser
+  enviado mais o tempo que se leva para receber um acknowledgment que o
+  sinal foi recebido. A ferramenta administrativa para as redes de
+  computadores denominada ``Ping''~\cite{Ping} é usada para testar se um host é alcançável e para
+  medir o RTT para mensagens enviadas do host remetente para o
+  destinatário.
+  Utilizado o ping nas máquinas nos quais servidor e cliente foram
+  usadas obtivemos um valor de :
 
-%  Posteriormente, 
+  \begin{table}[h!]
+    \begin{center}
+        \begin{tabular}{lr}
+          \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+          \hline
+          Max & 0.688 ms\\
+          Min & 0.309 ms\\
+          Média & 0.513 ms \\
+          Desvio & 0.086 ms
+        \end{tabular}
+        \label{pingtime}
+    \end{center}
+    \vspace{-5mm}
+    \caption{Tempo do ping}
+  \end{table}
+
+  Posteriormente,  foi calculado o tempo que o servidor leva para se
+  conectar com o servidor, como é mostrado na tabela \ref{conntime}. Os valores foram obtidos de um
+  conjunto de 100 medições.
+
+  \begin{table}[h!]
+    \begin{center}
+        \begin{tabular}{lr}
+          \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+          \hline
+          Max & 0.634 ms\\
+          Min & 0.192 ms\\
+          Média & 0.517 ms \\
+          Desvio & 0.081 ms
+        \end{tabular}
+    \end{center}
+    \vspace{-5mm}
+    \caption{Tempo de conexão com o servidor}        \label{conntime}
+  \end{table}
+
 Aplicamos o cálculo de tempo ao programa principal de
   forma a obtermos o tempo total,  tempo de comunicação e os tempos da
   execução de cada função.
@@ -354,7 +388,7 @@ Aplicamos o cálculo de tempo ao programa principal de
   Para o tempo total das funções obteu-se o tempo de inserir um
   compromisso, remover o compromisso, ver a agenda do mês, ver a agenda
   de um dia, ver a agenda de uma hora. Os dados e os testes estão
-  exemplificados nas tabelas I, II, III, IV e V.
+  exemplificados nas tabelas III, IV, V, VI e VII.
 
   O resultado obtido para 100 valores foi:
 
@@ -452,9 +486,9 @@ Aplicamos o cálculo de tempo ao programa principal de
       }
     \end{center}
     \vspace{-5mm}
-    \caption{Conexão, login na conta, remoção de compromissos
-      e fechamento de conexão com servidor}
-  \end{table}
+    \caption{Conexão, login na conta, ver compromissos de determinado
+      dia, hora e minuto e fechamento de conexão com servidor}
+ \end{table}
 
   \begin{table}[h!]
     \begin{center}
@@ -485,8 +519,7 @@ Aplicamos o cálculo de tempo ao programa principal de
 
     \end{center}
     \vspace{-5mm}
-    \caption{Conexão, login na conta, ver compromissos do
-      determinado dia e hora e fechamento de conexão com servidor}
+    \caption{Conexão, login na conta, ver compromissos de determinado dia e hora e fechamento de conexão com servidor}
   \end{table}
 
   \begin{table}[h!]
@@ -504,7 +537,7 @@ Aplicamos o cálculo de tempo ao programa principal de
         \label{total5}
       }
       \hspace{30mm}
-      \subfloat[Tempo de comunidação]{
+      \subfloat[Tempo de comunicação]{
         \begin{tabular}{lr}
           \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
           \hline

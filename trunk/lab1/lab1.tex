@@ -166,8 +166,33 @@ assim como as opções de interações com os dados que são apresentadas
 aos clientes em formas de um menu.
 O cliente só escolhe alguma opção de interação com os dados de
 acordo com menu.
-No menu inicial pode-se logar com um usuário ou criar um usuário. E cada
-usuário possui sua agenda. Assim, dentre as possibilidades de interações para um usuário logado tem-se:
+
+
+\subsection{Menu inicial}
+No menu inicial pode-se:
+
+\begin{itemize}
+\item Logar
+\item Criar novo usuário
+\item Sair
+\end{itemize}
+
+\subsubsection{Login}
+O servidor pede ao usuário o nome de usuário, caso o nome estiver no
+banco de dados ele pede uma senha que é comparada ao valor do banco de
+dados, se o usuário não existir é avisado sobre a inexistência, se a
+senha não conferir é avisado que a senha não confere, caso contrário o
+usuário consegue logar no sistema, e o servidor recupera sua agenda (cada
+usuário possui sua agenda).
+
+
+\subsubsection{Novo usuário}
+O servidor pede um nome de usuário, o servidor verifica se o nome já
+não existe, se não existir pede a senha e armazena o usuário no
+sistema, assim como cria uma agenda vazia para o mesmo.
+
+\subsection{Menu usuário}
+Dentre as possibilidades de interações para um usuário logado tem-se:
 
 \begin{itemize}
 \item Inserção de um compromisso que possui um nome, dia, hora, e minuto. 
@@ -177,7 +202,7 @@ usuário possui sua agenda. Assim, dentre as possibilidades de interações para
 \item Ver todos os compromisso de mês de abril
 \end{itemize}
 
-\subsection{Inserção de compromisso}
+\subsubsection{Inserção de compromisso}
 O usuário deve fornecer o nome do compromisso, o dia, a hora e o
 minutos em que ele ocorrerá.
 Caso o compromisso seja possível de ser alocado o servidor avisa com
@@ -185,7 +210,7 @@ um ``OK'', se não for possível também é avisado de tal impossibilidade.
 Um compromisso é inserido ordenado na agenda se não existir um
 compromisso com mesmo horário.
 
-\subsection{Remoção de compromisso}
+\subsubsection{Remoção de compromisso}
 O usuário deve fornecer o nome do compromisso que deve ser removido.
 Caso o compromisso seja encontrado ele é removido, caso contrário é
 dito que tal compromisso não existe.
@@ -193,7 +218,7 @@ Se existirem dois compromissos de mesmo nome, o primeiro é removido.
 Logo é esperado que compromissos possuam nomes diferentes.
 
 
-\subsection{Pesquisas}
+\subsubsection{Pesquisas}
 O servidor faz um requerimento interativo, ou seja, se for selecionado
 a pesquisa por dia e hora, o servidor pergunta primeiramente o dia e
 depois a hora. Logo é uma pesquisa em etapas no qual o servidor

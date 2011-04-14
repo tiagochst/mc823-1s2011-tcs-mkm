@@ -23,6 +23,30 @@ char opcao[256];
 struct timeval  first, second, lapsed;
 struct timezone tzp;
 
+void connecttime(struct timeval first,struct timeval second){
+
+  double t1=first.tv_sec+(first.tv_usec/1000000.0); 
+  double t4=second.tv_sec+(second.tv_usec/1000000.0); 
+
+  FILE * pFile;
+  pFile = fopen("conntime.dat", "a"); /*arquivo com tempos do servidor*/
+
+  if (pFile == NULL) 
+    return ;
+  
+  /* if (first.tv_usec > second.tv_usec) { 
+    second.tv_usec += 1000000; 
+    second.tv_sec--; 
+  } */
+ 
+  fseek(pFile, 0, SEEK_END);
+  fprintf(pFile,"%f \n" ,t4-t1);
+  fclose(pFile);
+
+  return;
+}
+
+
 void clienteTimeRecv(struct timeval first,struct timeval second){
 
   double t1=first.tv_sec+(first.tv_usec/1000000.0); 
@@ -86,7 +110,7 @@ int main(int argc, char *argv[])
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
         return 1;
     }
-
+   gettimeofday (&first, &tzp); 
     // loop through all the results and connect to the first we can
     for(p = servinfo; p != NULL; p = p->ai_next) {
         if ((sockfd = socket(p->ai_family, p->ai_socktype,
@@ -112,6 +136,8 @@ int main(int argc, char *argv[])
     inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr),
             s, sizeof s);
     printf("client: connecting to %s\n", s);
+   gettimeofday (&second, &tzp); 
+   connecttime(first,second);
 
     freeaddrinfo(servinfo); // all done with this structure
     int size;

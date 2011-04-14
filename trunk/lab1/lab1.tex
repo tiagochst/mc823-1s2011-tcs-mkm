@@ -168,6 +168,7 @@ O cliente só escolhe alguma opção de interação com os dados de
 acordo com menu.
 No menu inicial pode-se logar com um usuário ou criar um usuário. E cada
 usuário possui sua agenda. Assim, dentre as possibilidades de interações para um usuário logado tem-se:
+
 \begin{itemize}
 \item Inserção de um compromisso que possui um nome, dia, hora, e minuto. 
 \item Remoção de um compromisso através de seu nome
@@ -176,6 +177,13 @@ usuário possui sua agenda. Assim, dentre as possibilidades de interações para
 \item Ver todos os compromisso de mês de abril
 \end{itemize}
 
+\subsection{Inserção de compromisso}
+O usuário deve fornecer o nome do compromisso, o dia, a hora e o
+minutos em que ele ocorrerá.
+Caso o compromisso seja possível de ser alocado o servidor avisa com
+um OK, se não for possível também é avisado de tal impossibilidade.
+Um compromisso é inserido ordenadamente na agenda se não existir um
+compromisso com mesmo horário.
 
 % -----------------------------------------------------------------------------%
 \section{Ambiente de implementação}
@@ -476,6 +484,8 @@ Aplicamos o cálculo de tempo ao programa principal de
 
   
   Note que os tempos das tabelas \ref{total3}, \ref{total4} e \ref{total5} estão, respectivamente, em ordem decrescente de tamanho. Isso se deve ao fato de que a operação 3 o programa busca pelo dia, hora e minuto do compromisso, fazendo com que o número de comparações feitas seja maior que as operaçãoes \ref{total4} e \ref{total5}, tornando aquela operação mais lenta. O mesmo pode afirmar entre as operações 4 e 5.
+
+\subsection{Comparação de tecnologias}
 
 
 \section{Conclusão}

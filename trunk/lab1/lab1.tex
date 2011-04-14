@@ -568,7 +568,35 @@ Aplicamos o cálculo de tempo ao programa principal de
   correspondentes às tabelas \ref{total4} e \ref{total5}, respectivamente.
 
 \subsection{Comparação de tecnologias}
+Como uma das características do TCP é a tranferência garantida não foi
+necessário uma análise de erros na entrega dos pacotes. No entanto, essa análise
+deve ser feita se utilizássemos o protocolo UDP, atravpes de um código
+de verificação. Portanto o protocolo TCP possibilita uma diminuição do código.
 
+
+%Há também a necessidade de se verificar o pacote recebido veio do endereço correto, dado que
+%na conexão UDP os dados são simplesmente enviados para o outro host.
+
+%Já em relação ao nível de abstração utilizado, tivemos que pensar a nível de
+%manipulação de string, pois o envio de dados se dá de forma transparente ao usuário, ou seja, ao
+%receber o dado somente precisávamos nos preocupar com a manipulação do dado e não como
+%ele foi recebido, se ele estava completo.
+
+%Em termos de tratamento de cliente, temos que o servidor TCP é bloquado na função
+%accept, esperando por novas conexões, já no UDP, como não há o estabelecimento de conexão,
+%não há a necessidade de gerar um novo socket para cada cliente, podemos simplesmente tratar
+%os clientes de forma iterativa, ao invés de concorrente como é o funcionamento do servidor TCP.
+
+%No tempo de comunicação esperamos que o UDP tenha um tempo inferior ao do TCP,
+%%dado que não há tratamento de erros no mesmo, portanto sendo feito de forma simplificada e
+%ficando a cargo do programa tratar eventuais perdas e reordenamento de mensagens. O tempo
+%de processamento deve ser o mesmo dado que não há nenhuma conexão entre essa parte e a
+%modificação entre a manipulação da agenda (responsável pelo tempo de processamento) e a
+%parte de comunicação entre cliente e servidor (responsável pelo tempo de comunicação), e tendo
+%em mente que a manipulação da agenda não será alterada, o tempo eseprado é teoricamente o
+%mesmo. Em termos de tempo total, temos que a espectativa de mudança será responsável pela
+%parcela modificada resultante da comunicação, dado que o tempo total é resultante da soma do
+%tempo de comunicação e do tempo tempo de processamento.
 
 \section{Conclusão}
 

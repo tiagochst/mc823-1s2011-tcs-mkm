@@ -181,9 +181,23 @@ usuário possui sua agenda. Assim, dentre as possibilidades de interações para
 O usuário deve fornecer o nome do compromisso, o dia, a hora e o
 minutos em que ele ocorrerá.
 Caso o compromisso seja possível de ser alocado o servidor avisa com
-um OK, se não for possível também é avisado de tal impossibilidade.
-Um compromisso é inserido ordenadamente na agenda se não existir um
+um ``OK'', se não for possível também é avisado de tal impossibilidade.
+Um compromisso é inserido ordenado na agenda se não existir um
 compromisso com mesmo horário.
+
+\subsection{Remoção de compromisso}
+O usuário deve fornecer o nome do compromisso que deve ser removido.
+Caso o compromisso seja encontrado ele é removido, caso contrário é
+dito que tal compromisso não existe.
+Se existirem dois compromissos de mesmo nome, o primeiro é removido.
+Logo é esperado que compromissos possuam nomes diferentes.
+
+
+\subsection{Pesquisas}
+O servidor faz um requerimento interativo, ou seja, se for selecionado
+a pesquisa por dia e hora, o servidor pergunta primeiramente o dia e
+depois a hora. Logo é uma pesquisa em etapas no qual o servidor
+interage com nosso usuário.
 
 % -----------------------------------------------------------------------------%
 \section{Ambiente de implementação}

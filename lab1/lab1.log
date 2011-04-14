@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2010.11.30)  13 APR 2011 19:24
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2010.5.28)  13 APR 2011 20:08
 entering extended mode
  %&-line parsing enabled.
 **lab1.tex
@@ -359,11 +359,10 @@ Package: geometry 2002/07/08 v3.2 Page Geometry
 \Gm@odd@mp=\dimen110
 \Gm@even@mp=\dimen111
 \Gm@dimlist=\toks17
-
-(/usr/share/texmf/tex/xelatex/xetexconfig/geometry.cfg))
-(/usr/share/texmf/tex/latex/html/url.sty
-Package: url 1999/03/02  ver 1.4  Verb mode for urls, email addresses, and file
- names
+)
+(/usr/share/texmf/tex/latex/ltxmisc/url.sty
+\Urlmuskip=\muskip10
+Package: url 2005/06/27  ver 3.2  Verb mode for urls, etc.
 )
 (/usr/share/texmf/tex/latex/base/textcomp.sty
 Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
@@ -767,9 +766,6 @@ LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <8> not available
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
 (./lab1.bbl
 Underfull \hbox (badness 2197) in paragraph at lines 4--8
 []\T1/ptm/m/n/9 Brian "Beej Jor-gen-sen"Hall  Beej's Guide to Network Pro-gram-
@@ -778,12 +774,12 @@ ming - Using In-ter-net Soc-kets .  Dis-po-ní-vel em
 
 [4]) [5] (./lab1.aux) ) 
 Here is how much of TeX's memory you used:
- 5232 strings out of 256217
- 70407 string characters out of 1917094
- 174028 words of memory out of 1500000
- 8414 multiletter control sequences out of 10000+200000
+ 5257 strings out of 256217
+ 70617 string characters out of 1917095
+ 174326 words of memory out of 1500000
+ 8442 multiletter control sequences out of 10000+200000
  39095 words of font info for 50 fonts, out of 1200000 for 2000
  645 hyphenation exceptions out of 8191
- 43i,13n,49p,448b,1687s stack positions out of 5000i,500n,6000p,200000b,15000s
+ 43i,13n,49p,450b,1687s stack positions out of 5000i,500n,6000p,200000b,15000s
 
-Output written on lab1.dvi (6 pages, 26200 bytes).
+Output written on lab1.dvi (6 pages, 25556 bytes).

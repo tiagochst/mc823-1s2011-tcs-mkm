@@ -578,9 +578,6 @@ diversas manipulações de dados foram realizadas no servidor, assim
 algumas transparências, como localidade, acesso e concorrência foram
 possíveis.
 
-%Há também a necessidade de se verificar o pacote recebido veio do endereço correto, dado que
-%na conexão UDP os dados são simplesmente enviados para o outro host.
-
 Como o TCP é orientado à conexão, é criado um socket para cada cliente
 se comunicar com o servidor. Utilizando a função fork temos um
 processo que fica à escuta de novos pedidos de conexão e outro
@@ -607,10 +604,6 @@ O tempo de processamento (manipulação da agenda) teoricamente não deve
 alterar pela utilização dos diferentes protocolos.
 
 Portanto, é esperado o tempo total será alterado devido ao tempo de comunicação.
-
-%Em termos de tempo total, temos que a espectativa de mudança será responsável pela
-%parcela modificada resultante da comunicação, dado que o tempo total é resultante da soma do
-%tempo de comunicação e do tempo tempo de processamento.
 
 \section{Conclusão}
 

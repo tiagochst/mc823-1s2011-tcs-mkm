@@ -176,20 +176,6 @@ usuário possui sua agenda. Assim, dentre as possibilidades de interações para
 \item Ver todos os compromisso de mês de abril
 \end{itemize}
 
-O servidor aceita diversas conexões de clientes, funcionando
-perfeitamente para interações em diferentes agendas, pois cada
-cliente possui além de um processo único, que foi criado em um fork,
-possui um ponteiro para sua agenda. Assim, o servidor consegue
-alterar todas as agendas independemente.
-
- O nosso sistema, além disso, apresenta
-transparência ao usuário. Os tipos de transparência a serem destacados
-são:
-\begin{itemize}
-\item Acesso: Esconde as diferenças nas representações de dados e na invocação de funções ou métodos para facilitar a comunicação entre objetos da rede.
-\item Localização: Esconde o local em que o objeto se encontra.
-\item Concorrência: Esconde como as atividades são coordenadas entre os objetos para obter consistência em um nível mais alto.
- \end{itemize}
 
 % -----------------------------------------------------------------------------%
 \section{Ambiente de implementação}
@@ -199,12 +185,31 @@ O sistema de agenda foi implementado e executado nos seguintes sistemas operacio
 \item FC14 - Fedora Laughlin Linux 2.6.35.11
 \end{itemize}
 
-O sistema de agenda foi implementado na linguagem C. Os dados da
-agenda foram armazenados em arquivos, onde o servidor lê quando um
-usuário loga no sistema de agenda e os armazena em memória. 
-A cada alteração na agenda o servidor atualiza as informações dos arquivos.
+O sistema de agenda foi implementado na linguagem C.
+Para o armazenamento dos dados, utilizou-se arquivos. Cada usuário
+possui um arquivo, a sua agenda, no qual armazena-se o nome do
+compromisso, o dia, a hora e o minuto do mesmo.
+O sistema lê esse arquivo quando o usuário loga e transfere-o à
+memória principal, e a cada alteração na agenda o servidor atualiza as informações dos arquivos.
 
-Listaremos a seguir algumas funções implementadas:
+O servidor aceita diversas conexões de clientes, funcionando
+perfeitamente para interações em diferentes agendas, pois cada
+cliente possui além de um processo único, que foi criado em um fork,
+possui um ponteiro para sua agenda. Assim, o servidor consegue
+alterar todas as agendas independemente.
+
+ O nosso sistema, além disso,apresenta
+transparência ao usuário. Os tipos de transparência a serem destacados
+são:
+
+\begin{description}
+\item [Acesso:] Esconde as diferenças nas representações de dados e na invocação de funções ou métodos para facilitar a comunicação entre objetos da rede.
+\item [Localização:] Esconde o local em que o objeto se encontra.
+\item [Concorrência:] Esconde como as atividades são coordenadas entre os objetos para obter consistência em um nível mais alto.
+\end{description}
+
+
+Listaremos a seguir algumas funções implementadas de interação:
 \begin{itemize}
 \item  Funções de interação com o banco de dados são:
   \begin{lstlisting}
@@ -277,6 +282,8 @@ Listaremos a seguir algumas funções implementadas:
 
 
   \end{itemize}
+
+
 
 
   \section{Tempos de comunicação e total}

@@ -160,7 +160,7 @@ cliente e um servidor.
 \section{Servidor de agenda}
 % -----------------------------------------------------------------------------%
 O sistema implementado, uma agenda distribuída, se baseia numa comunicação
-cliente-servidor. Na qual o servidor possui todas as informações da
+cliente-servidor. Nele o servidor possui todas as informações da
 agenda que estão armazenadas em um banco de dados,
 assim como as opções de interações com os dados que são apresentadas
 aos clientes em formas de um menu.
@@ -175,6 +175,21 @@ usuário possui sua agenda. Assim, dentre as possibilidades de interações para
 \item Pesquisa de compromisso por dia e hora
 \item Ver todos os compromisso de mês de abril
 \end{itemize}
+
+O servidor aceita diversas conexões de clientes, funcionando
+perfeitamente para interações em diferentes agendas, pois cada
+cliente possui além de um processo único, que foi criado em um fork,
+possui um ponteiro para sua agenda. Assim, o servidor consegue
+alterar todas as agendas independemente.
+
+ O nosso sistema, além disso, apresenta
+transparência ao usuário. Os tipos de transparência a serem destacados
+são:
+\begin{itemize}
+\item Acesso: Esconde as diferenças nas representações de dados e na invocação de funções ou métodos para facilitar a comunicação entre objetos da rede.
+\item Localização: Esconde o local em que o objeto se encontra.
+\item Concorrência: Esconde como as atividades são coordenadas entre os objetos para obter consistência em um nível mais alto.
+ \end{itemize}
 
 % -----------------------------------------------------------------------------%
 \section{Ambiente de implementação}

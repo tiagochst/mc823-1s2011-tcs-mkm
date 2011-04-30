@@ -60,7 +60,7 @@ int main(void)
 
   memset(&hints, 0, sizeof hints);
   hints.ai_family = AF_UNSPEC;
-  hints.ai_socktype = SOCK_STREAM;// TCP stream sockets
+  hints.ai_socktype = SOCK_DGRAM;// UDP datagram sockets
   hints.ai_flags = AI_PASSIVE; // use my IP
 
   if ((rv = getaddrinfo(NULL, PORT, &hints, &servinfo)) != 0) {
@@ -153,17 +153,17 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
     sendStr(new_fd,"Escolha uma opcao:\n\
                   Opcao 1 - Entrar como um usuario\n\
                   Opcao 2 - Criar um usuario\n\
-                  Opcao q - Sair\n\0");
+                  Opcao q - Sair\n\0",their_addr);
     switch(leOpcao(their_addr, new_fd)){
     case 1:
       /* Ler usuario */
-      sendStr(new_fd, "Digite o nome do usuario a ser buscado:\0");
+      sendStr(new_fd, "Digite o nome do usuario a ser buscado:\0",their_addr);
       leString(their_addr, new_fd, nome);
 
       /* Busca nome no banco de dados */
       if(findUser(nome,pwd)){     
 	/*verifica senha*/
-	sendStr(new_fd, "Digite a senha do usuario:\0");
+	sendStr(new_fd, "Digite a senha do usuario:\0",their_addr);
 	leString(their_addr, new_fd, senha);
 
 	if(!strcmp(senha,pwd)){
@@ -171,14 +171,14 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
 	  menu2(new_fd, their_addr, user);
 	}
 	else{
-	  sendStr(new_fd, "Senha nao confere! Digite m para voltar ou q para sair:\0");
+	  sendStr(new_fd, "Senha nao confere! Digite m para voltar ou q para sair:\0",their_addr);
 	  leString(their_addr, new_fd, again);
 	  if(strcmp("q",again)==0) 
 	    exit(1);
 	}
       }
       else{
-	sendStr(new_fd, "Usuario inexistente! Digite m para voltar ou q para sair:\0");
+	sendStr(new_fd, "Usuario inexistente! Digite m para voltar ou q para sair:\0",their_addr);
 	leString(their_addr, new_fd, again);
 
 	/*saida do programa*/
@@ -193,9 +193,9 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
     case 2:
 
       /* Criar um usuario */
-      sendStr(new_fd, "Digite o nome do usuario a ser criado:\0");
+      sendStr(new_fd, "Digite o nome do usuario a ser criado:\0",their_addr);
       leString(their_addr, new_fd, nome);
-      sendStr(new_fd, "Digite a senha do usuario:\0");
+      sendStr(new_fd, "Digite a senha do usuario:\0",their_addr);
       leString(their_addr, new_fd, senha);
 
       /* Verifica se nome ja existe */
@@ -204,7 +204,7 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
 	menu2(new_fd, their_addr,user);
       }
       else{
-	sendStr(new_fd, "Usuario já existente! Digite m para voltar ou q para sair:\0");
+	sendStr(new_fd, "Usuario já existente! Digite m para voltar ou q para sair:\0",their_addr);
 	leString(their_addr, new_fd, again);
 
 	/*saida do programa */
@@ -243,17 +243,17 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
                   Opcao 3 - Obter um compromisso marcado para um horario de um dia\n\
                   Opcao 4 - Obter todos os compromissos marcados para um dia\n\
                   Opcao 5 - Obter todos os compromissos do mes\n\
-                  Opcao 6 - Voltar\0");
+                  Opcao 6 - Voltar\0",their_addr);
     switch(leOpcao(their_addr, new_fd)){
     case 1:
       /* Marcar um compromisso */
-      sendStr(new_fd, "Digite o nome do compromisso:\0");
+      sendStr(new_fd, "Digite o nome do compromisso:\0",their_addr);
       leString(their_addr, new_fd, task);
-      sendStr(new_fd, "Digite o dia do compromisso:\0");
+      sendStr(new_fd, "Digite o dia do compromisso:\0",their_addr);
       leString(their_addr, new_fd, dia);
-      sendStr(new_fd, "Digite o hora do compromisso:\0");
+      sendStr(new_fd, "Digite o hora do compromisso:\0",their_addr);
       leString(their_addr, new_fd, hora);
-      sendStr(new_fd, "Digite os minutos do compromisso:\0");
+      sendStr(new_fd, "Digite os minutos do compromisso:\0",their_addr);
       leString(their_addr, new_fd, minuto);
       set_task(atoi(dia), atoi(hora), atoi(minuto), task, user);
       
@@ -270,12 +270,12 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       break;
     case 2:
       /* Desmarcar um compromisso */
-      sendStr(new_fd, "Digite o nome do compromisso a ser desmarcado:\0");
+      sendStr(new_fd, "Digite o nome do compromisso a ser desmarcado:\0",their_addr);
       leString(their_addr, new_fd, str);
       if(delTask(user, str))
-        sendStr(new_fd, "\nCompromisso desmarcado\nDigite m para voltar ao menu anterior ou q para sair\n\0");
+        sendStr(new_fd, "\nCompromisso desmarcado\nDigite m para voltar ao menu anterior ou q para sair\n\0",their_addr);
       else
-        sendStr(new_fd, "\nNao foi encontrado nenhum compromisso registrado com esse nome\nDigite m para voltar ao menu anterior ou q para sair\n\0");
+        sendStr(new_fd, "\nNao foi encontrado nenhum compromisso registrado com esse nome\nDigite m para voltar ao menu anterior ou q para sair\n\0",their_addr);
 
       /*Se m retorna ao menu, se q salva agenda sai*/
       leString(their_addr, new_fd,again);
@@ -288,9 +288,9 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       break;
     case 3:
       /* Obter compromissos de um dia em determinada hora */
-      sendStr(new_fd, "Digite o dia:\0");
+      sendStr(new_fd, "Digite o dia:\0",their_addr);
       leString(their_addr, new_fd, dia);
-      sendStr(new_fd, "Digite as horas:\0");
+      sendStr(new_fd, "Digite as horas:\0",their_addr);
       leString(their_addr, new_fd, hora);
       verHora(new_fd,user,atoi(dia),atoi(hora));
       
@@ -305,7 +305,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       break;
     case 4:
       /* Obter todos os compromissos marcados para um dia */
-      sendStr(new_fd, "Digite o dia:\0");
+      sendStr(new_fd, "Digite o dia:\0",,their_addr);
       leString(their_addr, new_fd, dia);
       verDia(new_fd,user,atoi(dia));
 
@@ -383,7 +383,14 @@ int leOpcao(struct sockaddr_storage their_addr, int sockfd ){
   return atoi(buf);
 }
 
-void sendStr(int new_fd, char str[]){
-  if (send(new_fd, str , strlen(str) + 1, 0) == -1)
+
+/*Vamos alterar da função send para sendto por
+  causa do protocolo UDP*/
+void sendStr(int new_fd, char str[],struct sockaddr their_addr){
+ socklen_t addr_len;
+ addr_len = sizeof their_addr;
+
+  if (sendto(new_fd, str , strlen(str) + 1, 0,  (struct sockaddr *)&their_addr, &addr_len) == -1)
     perror("send");
+ 
 }

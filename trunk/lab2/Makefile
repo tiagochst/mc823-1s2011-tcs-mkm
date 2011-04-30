@@ -1,9 +1,6 @@
-file=lab1
+file=lab2
 make:
-	latex $(file).tex
-	latex $(file).tex
-	dvips $(file).dvi -o
-	ps2pdf13 $(file).ps
+	pdflatex $(file).tex
 show:
 	evince $(file).pdf
 clean:

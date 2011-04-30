@@ -71,8 +71,11 @@ void clienteTimeRecv(struct timeval first,struct timeval second){
 }
 
 
-void envia_pct( int sockfd, char s[], int size){
-  if (( send(sockfd, s ,size, 0)) == -1) {
+
+/*Vamos alterar da função send para sendto 
+  por causa do protocolo UDP*/
+void envia_pct( int sockfd, char s[], int size, struct addrinfo *p)){
+  if (( sendto(sockfd, s ,size, 0, p->ai_addr, p->ai_addrlen)) == -1) {
     perror("talker: sendto");
     exit(1);
   }
@@ -104,7 +107,7 @@ int main(int argc, char *argv[])
 
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_UNSPEC;
-    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_socktype = SOCK_DGRAM; // UDP datagram sockets
 
     if ((rv = getaddrinfo(argv[1], PORT, &hints, &servinfo)) != 0) {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
@@ -163,7 +166,7 @@ int main(int argc, char *argv[])
       scanf("%[^\n]", opcao );
       getchar();
 
-      envia_pct(sockfd, opcao ,strlen(opcao) + 1);
+      envia_pct(sockfd, opcao ,strlen(opcao) + 1,p);
 
       if(strcmp("q",opcao)==0){
 	break;

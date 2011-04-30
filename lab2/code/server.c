@@ -49,99 +49,70 @@ void *get_in_addr(struct sockaddr *sa)
 
 int main(void)
 {
-  int sockfd, new_fd;  // listen on sock_fd, new connection on new_fd
-  struct addrinfo hints, *servinfo, *p;
-  struct sockaddr_storage their_addr; // connector's address information
-  socklen_t sin_size;
-  struct sigaction sa;
-  int yes=1;
-  char s[INET6_ADDRSTRLEN],tempo[5],str[5];
-  int rv;
+  int sockfd,new_fd;
+ struct addrinfo hints, *servinfo, *p;
+ int rv;
+ int numbytes;
+ struct sockaddr_storage their_addr;
+ char buf[MAXDATASIZE];
+ socklen_t addr_len;
+ socklen_t sin_size;
+ struct sigaction sa;
+ int yes=1;
+ char s[INET6_ADDRSTRLEN],tempo[5],str[5];
 
-  memset(&hints, 0, sizeof hints);
-  hints.ai_family = AF_UNSPEC;
-  hints.ai_socktype = SOCK_DGRAM;// UDP datagram sockets
-  hints.ai_flags = AI_PASSIVE; // use my IP
 
-  if ((rv = getaddrinfo(NULL, PORT, &hints, &servinfo)) != 0) {
-    fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
-    return 1;
-  }
+ memset(&hints, 0, sizeof hints);
+ hints.ai_family = AF_UNSPEC; // set to AF_INET to force IPv4
+ hints.ai_socktype = SOCK_DGRAM;
+ hints.ai_flags = AI_PASSIVE; // use my IP
 
-  // loop through all the results and bind to the first we can
-  for(p = servinfo; p != NULL; p = p->ai_next) {
-    if ((sockfd = socket(p->ai_family, p->ai_socktype,
-			 p->ai_protocol)) == -1) {
-      perror("server: socket");
-      continue;
-    }
+ if ((rv = getaddrinfo(NULL, PORT, &hints, &servinfo)) != 0) {
+   fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
+   return 1;
+ }
+ 
+ // loop through all the results and bind to the first we can
+ for(p = servinfo; p != NULL; p = p->ai_next) {
+   if ((sockfd = socket(p->ai_family, p->ai_socktype,
+			p->ai_protocol)) == -1) {
+     perror("listener: socket");
+     continue;
+   }
+   
+   if (bind(sockfd, p->ai_addr, p->ai_addrlen) == -1) {
+     close(sockfd);
+     perror("listener: bind");
+     continue;
+   }
+   break;
+ }
+ 
+ if (p == NULL) {
+   fprintf(stderr, "listener: failed to bind socket\n");
+   return 2;
+ }
+ 
+ printf("server: waiting for connections...\n");
+ if ((numbytes = recvfrom(sockfd, buf, MAXDATASIZE-1 , 0,
+			  (struct sockaddr *)&their_addr, &addr_len)) == -1) {
+   perror("recvfrom");
+   exit(1);
+ } 
+ 
+ printf("listener: got packet from %s\n",
+        inet_ntop(their_addr.ss_family,
+		  get_in_addr((struct sockaddr *)&their_addr),
+		  s, sizeof s));
+ printf("listener: packet is %d bytes long\n", numbytes);
+ buf[numbytes] = '\0';
+ printf("listener: packet contains \"%s\"\n", buf);
+ 
+ printf("\n%d",sockfd); 
+ menu(sockfd, their_addr);
 
-    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &yes,
-		   sizeof(int)) == -1) {
-      perror("setsockopt");
-      exit(1);
-    }
-
-    if (bind(sockfd, p->ai_addr, p->ai_addrlen) == -1) {
-      close(sockfd);
-      perror("server: bind");
-      continue;
-    }
-
-    break;
-  }
-
-  if (p == NULL)  {
-    fprintf(stderr, "server: failed to bind\n");
-    return 2;
-  }
-
-  freeaddrinfo(servinfo); // all done with this structure
-
-  if (listen(sockfd, BACKLOG) == -1) {
-    perror("listen");
-    exit(1);
-  }
-
-  sa.sa_handler = sigchld_handler; // reap all dead processes
-  sigemptyset(&sa.sa_mask);
-  sa.sa_flags = SA_RESTART;
-  if (sigaction(SIGCHLD, &sa, NULL) == -1) {
-    perror("sigaction");
-    exit(1);
-  }
-
-  printf("server: waiting for connections...\n");
-
-  while(1) {  // main accept() loop
-    sin_size = sizeof their_addr;
-    new_fd = accept(sockfd, (struct sockaddr *)&their_addr, &sin_size);
-    if (new_fd == -1) {
-      perror("accept");
-      continue;
-    }
-
-    inet_ntop(their_addr.ss_family,
-	      get_in_addr((struct sockaddr *)&their_addr),
-	      s, sizeof s);
-    printf("server: got connection from %s\n", s);
-
-    if (!fork()) { // this is the child process
-      /*Recebe inteiro para teste de tempo*/
-      strcpy(str,"0123");//tamanho de um inteiro bytes
-      recv(new_fd, tempo, 5, 0); 
-      gettimeofday (&first, &tzp); 
-      menu(new_fd, their_addr);
-      gettimeofday (&second, &tzp); 
-      send(new_fd, str , strlen(str), 0);
-      serverTimeRecv(first,second);
-      close(new_fd);
-      exit(0);
-    }
-    close(new_fd);  // parent doesn't need this
-  }
-
-  return 0;
+ freeaddrinfo(servinfo);
+ return 0;
 }
 
 
@@ -149,11 +120,17 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
   User *user;
   char nome[20],senha[20],pwd[20],again[1];
   char str[1000];
+
+
   while(1){
+    printf("Vou mandar o menu");
+    printf("FD = %d",new_fd);
+
     sendStr(new_fd,"Escolha uma opcao:\n\
                   Opcao 1 - Entrar como um usuario\n\
                   Opcao 2 - Criar um usuario\n\
                   Opcao q - Sair\n\0",their_addr);
+
     switch(leOpcao(their_addr, new_fd)){
     case 1:
       /* Ler usuario */
@@ -305,7 +282,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       break;
     case 4:
       /* Obter todos os compromissos marcados para um dia */
-      sendStr(new_fd, "Digite o dia:\0",,their_addr);
+      sendStr(new_fd, "Digite o dia:\0",their_addr);
       leString(their_addr, new_fd, dia);
       verDia(new_fd,user,atoi(dia));
 
@@ -345,11 +322,16 @@ void leString(struct sockaddr_storage their_addr, int sockfd, char string[]){
   int numbytes;
   char s[INET6_ADDRSTRLEN];
   socklen_t addr_len = sizeof their_addr;
-
-  if ((numbytes = recvfrom(sockfd, string, MAXDATASIZE-1 , 0,
-			   (struct sockaddr *)&their_addr, &addr_len)) == -1) {
-    perror("recvfrom");
-    exit(1);
+  int rcv=0;    
+  
+  while(rcv< 148){
+    
+    if ((numbytes = recvfrom(sockfd, string, MAXDATASIZE-1 , 0,
+			     (struct sockaddr *)&their_addr, &addr_len)) == -1) {
+      perror("recvfrom");
+      exit(1);
+    }
+    rcv+=numbytes;
   }
   printf("listener: got packet from %s\n",
 	 inet_ntop(their_addr.ss_family,
@@ -358,7 +340,7 @@ void leString(struct sockaddr_storage their_addr, int sockfd, char string[]){
   printf("listener: packet is %d bytes long\n", numbytes);
   printf("listener: packet contains \"%s\"\n", string);
   return;
-
+  
 }
 
 int leOpcao(struct sockaddr_storage their_addr, int sockfd ){
@@ -367,11 +349,18 @@ int leOpcao(struct sockaddr_storage their_addr, int sockfd ){
   char s[INET6_ADDRSTRLEN];
   socklen_t addr_len = sizeof their_addr;
 
+  int rcv=0;    
+  
+  while(rcv< 148){
+
   if ((numbytes = recvfrom(sockfd, buf, MAXDATASIZE-1 , 0,
 			   (struct sockaddr *)&their_addr, &addr_len)) == -1) {
     perror("recvfrom");
     exit(1);
   }
+    rcv+=numbytes;
+  }
+
   printf("listener: got packet from %s\n",
 	 inet_ntop(their_addr.ss_family,
 		   get_in_addr((struct sockaddr *)&their_addr),
@@ -386,11 +375,30 @@ int leOpcao(struct sockaddr_storage their_addr, int sockfd ){
 
 /*Vamos alterar da função send para sendto por
   causa do protocolo UDP*/
-void sendStr(int new_fd, char str[],struct sockaddr their_addr){
- socklen_t addr_len;
- addr_len = sizeof their_addr;
+void sendStr(int fd, char str[],struct sockaddr_storage their_addr){
+   size_t nleft;
+   ssize_t nsendto;
+   nleft = strlen(str);
 
-  if (sendto(new_fd, str , strlen(str) + 1, 0,  (struct sockaddr *)&their_addr, &addr_len) == -1)
-    perror("send");
- 
+   socklen_t addr_len;
+   addr_len = sizeof(their_addr);
+   printf("%s",fd);
+   while(nleft > 0){
+     nsendto = sendto(fd, str , nleft + 1, 0, 
+		      (struct sockaddr *)&their_addr, addr_len);
+     if (nsendto ==-1){
+       printf("\nEnviei %d\n",nsendto);
+       printf("\nError::sendStr\n");
+       return;	/* error */
+     }
+     else{
+     //printf("\nEnviei %d\n",nsendto);
+     nleft -= nsendto;
+     printf("\nFalta %d\n",nleft);
+     }
+   }
+   printf("SAINDO");
+   return;  
 }
+
+

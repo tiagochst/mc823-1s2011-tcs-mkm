@@ -18,14 +18,14 @@ maquina="snake"
 #done
 
 #cp asd~ asd
-#
+
 #mv *.dat 2
 
 #for((i=0;i<100;i++))
 #do
 #    ./c $maquina < ./entradas/input3
 #done
-#
+
 #mv *.dat 3
 
 
@@ -39,5 +39,5 @@ maquina="snake"
 
 for((i=0;i<100;i++))
 do
-    ./c $maquina < ./entradas/input
+    ./c $maquina < ./entradas/input4
 done

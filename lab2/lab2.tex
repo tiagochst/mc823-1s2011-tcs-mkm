@@ -578,9 +578,67 @@ Aplicamos o cálculo de tempo ao programa principal de
 
 
   \subsection{Comparação de tecnologias}
+Como uma das características do TCP é a transferência garantida não foi necessário uma análise de erros na entrega
+dos pacotes. No entanto, essa análise foi feita ao utilizar o protocolo UDP, através de um código de verificação.
+Portanto o protocolo TCP possibilita uma diminuição do código.
+
+Para que o nosso sistema distribuído fosse transparente ao usuário diversas manipulações de dados foram realizadas
+no servidor, assim algumas transparências, como localidade, acesso e concorrência foram possíveis.
+
+Como o TCP é orientado à conexão, é criado um socket para cada cliente se comunicar com o servidor e ele é livre
+de erros. Utilizando a função fork temos um processo que fica à escuta de novos pedidos de conexão e outro processo
+trata da conexão com o cliente. Já o UDP não é orientado a conexão, não é confiável e o envio de pacotes pode chegar em
+diferentes ordens.
+
+Devido as diferentes características do UDP como, por exemplo, o não há tratamento de erros e não ser orientado a
+conexão, é esperado que ele tenha um tempo inferior ao TCP. Mas, deve-se lembrar que os erros deverão ser verificados
+pelo programa principal, assim como o ordenamento das mensagens.
+O tempo de processamento (manipulação da agenda) teoricamente não deve alterar pela utilização dos diferentes
+protocolos.
+Portanto, é esperado o tempo total será alterado devido ao tempo de comunicação.
+
+Após a utilização de ambas tecnologias, colocamos os tempo médios totais para todas as funções, apresentadas nas tabelas na seção 4.
+\begin{table}[h!]
+  \begin{center}
+    \begin{tabular}{ccc}
+      
+      Função& TCP&  UDP \\
+      \hline
+      F0 & 3.865 ms & 4.911 ms\\
+      F1 & 36.782 & 50.218 ms\\
+      F2 & 35.707 ms & 41.636 ms\\
+      F3 & 35.774 ms & 43.995 ms\\
+      F4 & 38.612 ms & 35.707 ms\\
+      F5 & 32.334 ms & 35.774 ms
+    \end{tabular}
+  \end{center}
+\end{table}
+
+\begin{table}[h!]
+  \begin{center}
+    \begin{tabular}{ccc}
+      
+      Função& TCP&  UDP \\
+      \hline
+      F0 & 0.705 ms & 0.200 ms\\
+      F1 & 0.725 & 0.215 ms\\
+      F2 & 0.705 ms & 0.200 ms\\
+      F3 & 0.715 ms & 0.074 ms\\
+      F4 & 0.727 ms & 0.251 ms\\
+      F5 & 0.716 ms & 0.241 ms
+    \end{tabular}
+  \end{center}
+\end{table}
+
+Para a maioria das funções o protocolo TCP foi mais rápido que o TCP.
 
 \section{Conclusão}
+Segundo nossas medições, os tempos de processamento são significativamente (cerca de duas ordens de grandeza)
+maiores que os tempos de conexão, ou seja, há uma transparência de localidade para o cliente, já que o tempo de comu-
+nicação é tão pequeno que a agenda será aparentemente local para o cliente.
 
+Comparando as duas tecnologias (TCP e UDP), a utilização do UDP porporcionou  tempo total maior que o TCP. 
+Mas o tempo de comunicação foi ingferior como esperado.
 % ******************************************************
 % REFERENCIAS BIBLIOGRÁFICAS
 % ******************************************************

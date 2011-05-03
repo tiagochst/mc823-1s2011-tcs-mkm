@@ -172,7 +172,6 @@ int main(int argc, char *argv[])
  
     //recv(sockfd, tempo, MAXDATASIZE-1, 0);
     gettimeofday (&second, &tzp); 
-  
     clienteTimeRecv(first,second);
         
     close(sockfd);

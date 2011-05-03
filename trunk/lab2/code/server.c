@@ -109,7 +109,7 @@ int numbytes;
 	      s, sizeof s);
     printf("server: got connection from %s\n", s);
 
-//      strcpy(str,"0123");//tamanho de um inteiro bytes
+      strcpy(str,"0123");//tamanho de um inteiro bytes
 //      recv(new_fd, tempo, 5, 0); 
       gettimeofday (&first, &tzp); 
       menu(sockfd, their_addr);

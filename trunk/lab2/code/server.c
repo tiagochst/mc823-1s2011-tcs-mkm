@@ -114,7 +114,7 @@ int numbytes;
 //      gettimeofday (&first, &tzp); 
       menu(sockfd, their_addr);
 //      gettimeofday (&second, &tzp); 
-//  sendto(sockfd, str , strlen(str), 0,(struct sockaddr *)&their_addr, addr_len);
+    //  sendto(sockfd, str , strlen(str), 0,(struct sockaddr *)&their_addr, addr_len);
 //      serverTimeRecv(first,second);
     }
     close(new_fd);  // parent doesn't need this

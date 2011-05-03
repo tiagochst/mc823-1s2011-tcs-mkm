@@ -3,11 +3,11 @@
 #rm asd
 maquina="localhost"
 
-for((i=0;i<100;i++))
-do
-    ./c $maquina < ./entradas/input1
-    mv asd asd~
-done
+#for((i=0;i<100;i++))
+#do
+#    ./c $maquina < ./entradas/input1
+#    mv asd asd~
+#done
 
 #mv *.dat 1
 
@@ -37,7 +37,7 @@ done
 #mv *.dat 4
 
 
-#for((i=0;i<100;i++))
-#do
-#    ./c $maquina < ./entradas/input5
-#done
+for((i=0;i<100;i++))
+do
+    ./c $maquina < ./entradas/input
+done

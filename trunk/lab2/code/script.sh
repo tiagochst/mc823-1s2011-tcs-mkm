@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #rm asd
-maquina="snake"
+maquina="localhost"
 
 #for((i=0;i<100;i++))
 #do
@@ -39,5 +39,5 @@ maquina="snake"
 
 for((i=0;i<100;i++))
 do
-    ./c $maquina < ./entradas/input4
+    ./c $maquina < ./entradas/input5
 done

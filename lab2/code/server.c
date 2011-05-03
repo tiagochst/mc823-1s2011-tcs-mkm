@@ -362,6 +362,12 @@ int leOpcao(struct sockaddr_storage their_addr, int sockfd ){
 }
 
 void sendMsg(int new_fd, char str[],struct sockaddr_storage their_addr){
-  if (sendto(new_fd, str , strlen(str) + 1, 0,(struct sockaddr *)&their_addr,  sizeof their_addr) == -1)
-    perror("send");
+int numBytes;
+ while(1){
+   numBytes=sendto(new_fd, str , strlen(str) + 1, 0,(struct sockaddr *)&their_addr,  sizeof their_addr);
+   if(numBytes==-1)		 
+     perror("send");
+   if(numBytes>0) /*sera que o datagrama foi perdido?*/
+     break;
+ }
 }

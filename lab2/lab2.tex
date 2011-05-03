@@ -630,15 +630,23 @@ Após a utilização de ambas tecnologias, colocamos os tempo médios totais par
   \end{center}
 \end{table}
 
-Para a maioria das funções o protocolo TCP foi mais rápido que o TCP.
+Para a maioria das funções, baseado no tempo total, o protocolo TCP
+foi mais rápido que o UDP. Mas, se for analisado o tempo de
+comunicação o UDP é mais rápido.
+
 
 \section{Conclusão}
 Segundo nossas medições, os tempos de processamento são significativamente (cerca de duas ordens de grandeza)
-maiores que os tempos de conexão, ou seja, há uma transparência de localidade para o cliente, já que o tempo de comu-
-nicação é tão pequeno que a agenda será aparentemente local para o cliente.
+maiores que os tempos de conexão, ou seja, há uma transparência de localidade para o cliente, já que o tempo de comunicação é tão pequeno que a agenda será aparentemente local para o cliente.
 
 Comparando as duas tecnologias (TCP e UDP), a utilização do UDP porporcionou  tempo total maior que o TCP. 
-Mas o tempo de comunicação foi ingferior como esperado.
+Por outro lado, o tempo de comunicação, utilizando o UDP, foi inferior, conforme
+esperado.
+
+Assim, se quisessemos algo em tempo real, o UDP seria melhor, já que
+não perde tempo com a comunicação, perde sim com a verificação de
+erros, que dependendo da aplicação não é o mais importante.
+
 % ******************************************************
 % REFERENCIAS BIBLIOGRÁFICAS
 % ******************************************************
@@ -647,7 +655,7 @@ Mas o tempo de comunicação foi ingferior como esperado.
 \begin{small}
   \bibliography{referencias}
 \end{small}
-
+\newpage
 \section{Anexo}
 
 \lstset{

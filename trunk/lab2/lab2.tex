@@ -3,6 +3,7 @@
 \usepackage[brazil]{babel}
 \usepackage[utf8]{inputenc}
 
+\newcommand{\red}[1]{\textcolor{red}{#1}}
 
 \usepackage{ae,aecompl}
 \usepackage{pslatex}
@@ -60,8 +61,8 @@
 
 \geometry{ 
   a4paper,	% Formato do papel
-  tmargin=40mm,	% Margem superior
-  bmargin=40mm,	% Margem inferior
+  tmargin=30mm,	% Margem superior
+  bmargin=30mm,	% Margem inferior
   lmargin=20mm,	% Margem esquerda
   rmargin=20mm,	% Margem direita
   footskip=20mm	% Espaço entre o rodapé e o fim do texto
@@ -125,6 +126,7 @@ tempos de  processamento são significativamente maiores que os tempos de conex�
 \end{titlepage} 
   % Sumário
   \tableofcontents
+
 \newpage
 
 
@@ -307,14 +309,14 @@ Listaremos a seguir algumas funções implementadas de interação:
     Agenda * task_init(int dia,int hora, int min,char task[]);
 
     /*Retorna compromissos do mes de abril*/
-    int verMes(int new_fd, User *u);
+    int verMes(int new_fd, User *u,struct sockaddr_storage their_addr);
 
     /*Retorna compromissos do mes de abril em determinado dia*/
-    int verDia(int new_fd, User *u, int dia);
+     int verDia(int new_fd, User *u, int dia,struct sockaddr_storage their_addr);
     
     /*Retorna compromissos do mes de abril em determinado dia e
     determinada hora*/
-    int verHora(int new_fd, User *u, int dia, int hora);
+    int verHora(int new_fd, User *u, int dia, int hora,struct sockaddr_storage their_addr);
 
     /*Remove compromisso da agenda pelo nome*/
     int delTask( User *u, char nome[]);
@@ -328,8 +330,8 @@ Listaremos a seguir algumas funções implementadas de interação:
   \begin{lstlisting}
 
     /*Envia mensagem ao cliente*/
-    void sendStr(int sockfd, char str[]);
-
+	void sendMsg(int new_fd, char str[],struct sockaddr_storage their_addr);
+	
     /*Le mensagem do cliente*/
     int leOpcao(struct sockaddr_storage their_addr, int sockfd);
     
@@ -372,12 +374,13 @@ Aplicamos o cálculo de tempo ao programa principal de
         \begin{tabular}{lr}
           \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
           \hline
-          Max & ?? ms\\
-          Min & ?? ms\\
-          Média & ?? ms \\
-          Desvio & ?? ms
+          Max & 7.636 ms\\
+		Min & 4.290 ms\\
+		Media & 4.911 ms\\
+		Desvio & 0.026 ms
+
         \end{tabular}
-        \label{total1}
+        \label{total}
       }
       \hspace{30mm}
       \subfloat[Tempo de comunicação]{
@@ -389,12 +392,12 @@ Aplicamos o cálculo de tempo ao programa principal de
           Média & 0.200 ms \\
           Desvio & 0.002 ms
         \end{tabular}
-        \label{comu1}
+        \label{comu}
       }
 
     \end{center}
     \vspace{-5mm}
-    \caption{Conexão e fechamento de conexão com servidor} \label{op1}
+    \caption{Conexão e fechamento de conexão com servidor} \label{op}
   \end{table}
 
 
@@ -406,30 +409,30 @@ Aplicamos o cálculo de tempo ao programa principal de
         \begin{tabular}{lr}
           \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
           \hline
-          Max & ?? ms\\
-          Min & ?? ms\\
-          Média & ?? ms \\
-          Desvio & ?? ms
+		Max & 57.486 ms\\
+		Min & 46.765 ms\\
+		Media & 50.218 ms\\
+		Desvio & 0.188 ms
         \end{tabular}
-        \label{total2}
+        \label{total1}
       }
       \hspace{30mm}      
      \subfloat[Tempo de comunicação]{
         \begin{tabular}{lr}
           \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
           \hline
-          Max & 0.502 ms\\
-          Min & 0.113 ms\\
-          Média & 0.200 ms \\
-          Desvio & 0.001 ms
+		Max & 1.021 ms\\
+		Min & 0.119 ms\\
+		Media & 0.215 ms\\
+		Desvio & 0.010 ms
         \end{tabular}
-        \label{comu2}
+        \label{comu1}
       }
 
     \end{center}
     \vspace{-5mm}
     \caption{Conexão, login na conta, inserção de compromisso e
-      fechamento de conexão com servidor} \label{op2}
+      fechamento de conexão com servidor} \label{op1}
   \end{table}
 
 
@@ -439,29 +442,28 @@ Aplicamos o cálculo de tempo ao programa principal de
         \begin{tabular}{lr}
           \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
           \hline
-          Max & ?? ms\\
-          Min & ?? ms\\
-          Média & ?? ms \\
-          Desvio & ?? ms
+          Max & 84.467 ms\\
+		Min & 35.519 ms\\
+		Media & 41.636 ms\\
+		Desvio & 0.112 ms
         \end{tabular}
-        \label{total3}
+        \label{total2}
       }
       \hspace{30mm}
       \subfloat[Tempo de comunicação]{
         \begin{tabular}{lr}
           \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
           \hline
-          Max & 1.124 ms\\
-          Min & 0.111 ms\\
-          Média & 0.207 ms \\
-          Desvio & 0.009 ms
+		Max & 0.502 ms\\
+		Min & 0.113 ms\\
+		Media & 0.200 ms\\
+		Desvio & 0.001 ms
         \end{tabular}
-        \label{comu3}
+        \label{comu2}
       }
     \end{center}
     \vspace{-5mm}
-    \caption{Conexão, login na conta, ver compromissos de determinado
-      dia, hora e minuto e fechamento de conexão com servidor} \label{op3}
+    \caption{Conexão, login na conta, remoção de compromisso} \label{op2}
  \end{table}
 
   \begin{table}[h!]
@@ -471,10 +473,43 @@ Aplicamos o cálculo de tempo ao programa principal de
         \begin{tabular}{lr}
           \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
           \hline
-          Max & ?? ms\\
-          Min & ?? ms\\
-          Média & ?? ms \\
-          Desvio & ?? ms
+          Max & 84.261 ms\\
+		Min & 35.159 ms\\
+		Media & 43.995 ms\\
+		Desvio & 0.259 ms
+        \end{tabular}
+        \label{total3}
+      }
+      \hspace{30mm}
+      \subfloat[Tempo de comunicação]{
+        \begin{tabular}{lr}
+          \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+          \hline
+		Max & 0.126 ms\\
+		Min & 0.045 ms\\
+		Media & 0.074 ms\\
+		Desvio & 0.002 ms
+        \end{tabular}
+        \label{comu3}
+      }
+
+    \end{center}
+    \vspace{-5mm}
+    \caption{Conexão, login na conta, ver compromissos de determinado
+      dia e hora e fechamento de conexão com servidor} \label{op3}
+  \end{table}
+
+  \begin{table}[h!]
+    \begin{center}
+
+      \subfloat[Tempo de total]{
+        \begin{tabular}{lr}
+          \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
+          \hline
+		Max & 38.274 ms\\
+		Min & 33.887 ms\\
+		Media & 35.707 ms\\
+		Desvio & 0.182 ms
         \end{tabular}
         \label{total4}
       }
@@ -493,30 +528,32 @@ Aplicamos o cálculo de tempo ao programa principal de
 
     \end{center}
     \vspace{-5mm}
-    \caption{Conexão, login na conta, ver compromissos de determinado
-      dia e hora e fechamento de conexão com servidor} \label{op4}
+    \caption{Conexão, login na conta, ver todos os compromisso do dia
+      e fechamento de conexão com servidor} \label{op4}
   \end{table}
 
+
   \begin{table}[h!]
+
     \begin{center}
 
-      \subfloat[Tempo de total]{
+      \subfloat[Tempo total]{
         \begin{tabular}{lr}
           \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
           \hline
-          Max & ?? ms\\
-          Min & ?? ms\\
-          Média & ?? ms \\
-          Desvio & ?? ms
+          Max & 50.721 ms\\
+		Min & 31.098 ms\\
+		Media & 35.774 ms\\
+		Desvio & 0.162 ms
         \end{tabular}
         \label{total5}
       }
-      \hspace{30mm}
-      \subfloat[Tempo de comunicação]{
+      \hspace{30mm}      
+     \subfloat[Tempo de comunicação]{
         \begin{tabular}{lr}
           \multicolumn{1}{c}{Valor} & \multicolumn{1}{c}{Tempo}\\
           \hline
-          Max &  3.834  ms\\
+          Max & 3.834 ms\\
           Min & 0.117 ms\\
           Média & 0.241 ms \\
           Desvio & 0.001 ms
@@ -529,7 +566,6 @@ Aplicamos o cálculo de tempo ao programa principal de
     \caption{Conexão, login na conta, ver todos os compromissos do mês
       e fechamento de conexão com servidor} \label{op5}
   \end{table}
-
   
   Note que os tempos das tabelas \ref{total3}, \ref{total4} e
   \ref{total5} estão, respectivamente, em ordem decrescente de

@@ -41,8 +41,8 @@ typedef struct user {
 /* Funcoes */
 void menu(int new_fd, struct sockaddr_storage their_addr);
 void menu2(int new_fd, struct sockaddr_storage their_addr, User *user);
-
-void sendStr(int sockfd, char str[],struct sockaddr_storage their_addr);
+void sendStr(int sockfd, char str[]);
+//void sendStr(int sockfd, char str[],struct sockaddr_storage their_addr);
 int leOpcao(struct sockaddr_storage their_addr, int sockfd);
 void leString(struct sockaddr_storage their_addr, int sockfd , char string[]);
 User * agenda_init(char nome[]);
@@ -51,9 +51,9 @@ int agenda_vazia(User *a);
 int compData(Agenda *newTasks,Agenda *tasks);
 int set_task(int dia,int hora, int min,char task[], User *u);
 Agenda * task_init(int dia,int hora, int min,char task[]);
-int verMes(int new_fd, User *u);
-int verDia(int new_fd, User *u, int dia);
-int verHora(int new_fd, User *u, int dia, int hora);
+int verMes(int new_fd, User *u,struct sockaddr_storage their_addr);
+int verDia(int new_fd, User *u, int dia,struct sockaddr_storage their_addr);
+int verHora(int new_fd, User *u, int dia, int hora,struct sockaddr_storage their_addr);
 int delTask( User *u, char nome[]);
 void cpComp(Agenda *a, char comp[]);
 #endif /*CONJUNTO_H_*/

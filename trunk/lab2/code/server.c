@@ -109,12 +109,12 @@ int numbytes;
 	      s, sizeof s);
     printf("server: got connection from %s\n", s);
 
-      strcpy(str,"0123");//tamanho de um inteiro bytes
+//      strcpy(str,"0123");//tamanho de um inteiro bytes
 //      recv(new_fd, tempo, 5, 0); 
 //      gettimeofday (&first, &tzp); 
       menu(sockfd, their_addr);
 //      gettimeofday (&second, &tzp); 
-    //  sendto(sockfd, str , strlen(str), 0,(struct sockaddr *)&their_addr, addr_len);
+//  sendto(sockfd, str , strlen(str), 0,(struct sockaddr *)&their_addr, addr_len);
 //      serverTimeRecv(first,second);
     }
     close(new_fd);  // parent doesn't need this
@@ -159,7 +159,7 @@ void menu(int new_fd, struct sockaddr_storage their_addr){
 	leString(their_addr, new_fd, again);
 
 	/*saida do 
-programa*/
+         programa*/
 	if(strcmp("q",again)==0) 
 	exit(1);
 
@@ -361,11 +361,6 @@ int leOpcao(struct sockaddr_storage their_addr, int sockfd ){
   return atoi(buf);
 }
 
-
-void sendStr(int new_fd, char str[]){
-  if (send(new_fd, str , strlen(str) + 1, 0) == -1)
-    perror("send");
-}
 void sendMsg(int new_fd, char str[],struct sockaddr_storage their_addr){
   if (sendto(new_fd, str , strlen(str) + 1, 0,(struct sockaddr *)&their_addr,  sizeof their_addr) == -1)
     perror("send");

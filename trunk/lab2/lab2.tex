@@ -1,0 +1,401 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+
+
+\usepackage{ae,aecompl}
+\usepackage{pslatex}
+\usepackage{epsfig}
+\usepackage{geometry}
+\usepackage{url}
+\usepackage{textcomp}
+\usepackage{ae}
+\usepackage{subfig}
+\usepackage{indentfirst}
+\usepackage{textcomp}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{verbatim}
+\usepackage{multicol}
+
+\usepackage{listings}
+\lstset{language=C}
+\usepackage{listings}
+\lstset{
+  basicstyle=\footnotesize\ttfamily, % Standardschrift
+  numbers=left,               % Ort der Zeilennummern
+  numberstyle=\tiny,          % Stil der Zeilennummern
+  % stepnumber=2,               % Abstand zwischen den Zeilennummern
+  numbersep=5pt,              % Abstand der Nummern zum Text
+  tabsize=2,                  % Groesse von Tabs
+  extendedchars=true,         %
+  breaklines=true,            % Zeilen werden Umgebrochen
+  classoffset=0,
+  keywordstyle=\color{blue},
+  classoffset=1,
+  morekeywords={factor},keywordstyle=\color{red},
+  classoffset=0,
+  % frame=b,         
+  % keywordstyle=[1]\textbf,    % Stil der Keywords
+  % keywordstyle=[2]\textbf,    %
+  % keywordstyle=[3]\textbf,    %
+  % keywordstyle=[4]\textbf,   \sqrt{\sqrt{}} %
+  stringstyle=\color{green}\ttfamily, % Farbe der String
+  showspaces=false,           % Leerzeichen anzeigen ?
+  showtabs=false,             % Tabs anzeigen ?
+  xleftmargin=17pt,
+  framexleftmargin=17pt,
+  framexrightmargin=5pt,
+  framexbottommargin=4pt,
+  % backgroundcolor=\color{lightgray},
+  showstringspaces=false      % Leerzeichen in Strings anzeigen ?        
+}
+\lstloadlanguages{C
+}
+
+% Definindo o espaçamento entre linhas para 1.5
+% Relatório parcial deve ter espaçamento simples
+\linespread{1.5}
+
+\geometry{ 
+  a4paper,	% Formato do papel
+  tmargin=40mm,	% Margem superior
+  bmargin=40mm,	% Margem inferior
+  lmargin=20mm,	% Margem esquerda
+  rmargin=20mm,	% Margem direita
+  footskip=20mm	% Espaço entre o rodapé e o fim do texto
+}
+\include{abaco} 
+\renewcommand{\thetable}{\Roman{table}}
+\newcommand{\x} {$\bullet$}
+
+
+\begin{document}
+
+% CAPA
+\begin{titlepage}
+  \thispagestyle{empty}
+  \begin{center} {\large \textbf{UNIVERSIDADE~ESTADUAL~DE~CAMPINAS}} \end{center}
+  \begin{center} {\large INSTITUTO~DE~COMPUTAÇÃO}                    \end{center}
+  \vspace{0.1cm}
+  \begin{center}
+    \begin{minipage}[tl]{31mm}
+      \ABACO{1}{9}{6}{9}{1}
+    \end{minipage}
+  \end{center}
+  \vspace{0.3cm}
+  \begin{center} 
+    {\large \textsc{Servidor de Agenda baseado em socket UDP
+      }} 
+    \\\vspace{0.5cm}
+    {\textsl{Relatório do segundo laboratório de MC823}}
+    \\\vspace{1cm}
+    \begin{tabular}{ll}
+      \textbf{Aluno}:        Marcelo~Keith~Matsumoto   &  \textbf{RA}:       085937 \\
+      \textbf{Aluno}:        Tiago~Chedraoui~Silva    &   \textbf{RA}:       082941 \\
+      
+    \end{tabular}
+  \end{center}
+  \vspace{0.5cm}
+
+  \begin{abstract}
+O protocolo UDP (User Datagram Protocol) é um protocolo do nível da camada de
+transporte. Ele é apropriado para aplicações
+tempo real, como telefonia e transferência de áudio e
+vídeo sobre a Internet. Dentre usas principais características temos:
+Não orientado à conexão, sem transferência de dados garantida, não
+guarda o estado de conexão.
+
+Utilizando esse protocolo desenvolveu-se uma aplicação distribuída
+que simulava uma agenda para o mês de abril, com diversas funções (inserção de dados na agenda, recuperação de
+dados, remoção de dados), através da qual foi
+possível observar o
+funcionamento de uma comunicação via UDP entre um
+cliente e um servidor em máquinas diferentes. Para isso, a interação
+entre ambos ocorria  através do envio de dados  do
+cliente para o servidor, assim como na outra direção, utilizando
+sockets criados.
+
+Por fim, foi realizado uma análise dos tempo de de comunicação,
+processamento e total do programa, no qual concluiu-se que os
+tempos de  processamento são significativamente maiores que os tempos de conexão.
+  \end{abstract}
+
+\end{titlepage} 
+  % Sumário
+  \tableofcontents
+\newpage
+
+
+% -----------------------------------------------------------------------------%
+\section{Motivação}
+% -----------------------------------------------------------------------------%
+Atualmente, com o crescente aumento de dispositivos móveis e computadores conectados à rede, o conhecimento da comunicação tem se tornado cada vez mais importante para quem trabalha na área de tecnologia. Um dos maiores exemplos da importância da comunicação entre computadores é em um sistema distribuído.
+
+Um sistema distribuído é uma "coleção de computadores independentes que se apresenta ao usuário como um sistema único e consistente"\cite{AST}. Para que isso seja possível, diversos computadores estão interligados por uma rede de computadores, através da qual compartilham entre si objetos (como arquivos, informações, processamento, etc) e são responsáveis por manter uma consistência nesses objetos. 
+Portanto, hoje, um servidor não é apenas um computador, mas sim vários
+computadores em locais diferentes que aparentam ser, para um usuário,
+um único sistema.
+
+Com o objetivo de otimizar a comunicação entre computadores que venham
+a requerir os dados na rede, esse trabalho visa estudar o tempo de
+comunicação entre máquinas que utilizam sockets para tal finalidade.
+
+\subsection{Teoria}
+O UDP (User Datagram Protocol) é um protocolo do nível da camada de
+transporte~\cite{Kurose05}. Dentre usas principais características temos:
+
+\begin{description}
+\item[Não orientado à conexão]  Não há abertura de conexão para o envio de dados. Não introduzindo, portanto, atrasos para esta tarefa.
+\item[Sem transferência de dados garantida] Não há garantia de entrega
+  de dados livre de erros entre o processo emissor e receptor; 
+\item[Não estado de conexão] Não mantém estado da conexão, que implicaria em buffers de envio e recepção,números de seqüência e reconhecimento.
+\item[informações de controle] Tem informações de controle pequeno no cabeçalho.
+\item[ Sem controle de fluxo] Taxa de envio sem regulação ou controle de fluxo.
+
+\end{description}
+
+Cada um dos segmentos da camada transporte tem em seu cabeçalho campos
+denominado número de portas que indicam a qual processo o mesmo deve
+ser entregue, existindo um número de porta do emissor e o número de porta do
+receptor. 
+
+Possuindo as duas portas, pode-se realizar uma conexão entre elas
+conhecida por socket. Com o socket é possível diferenciar os canais
+utilizados por cada processo de aplicação.
+
+O protocolo UDP é apropriado para aplicações
+tempo real, como telefonia e transferência de áudio e
+vídeo sobre a Internet.
+
+Devido a importância do protocolo, este laboratório tem o objetivo de
+medir o tempo total e de comunicação de uma conexão TCP entre um
+cliente e um servidor.
+
+% -----------------------------------------------------------------------------%
+\section{Servidor de agenda}
+% -----------------------------------------------------------------------------%
+O sistema implementado, uma agenda distribuída, se baseia numa comunicação
+cliente-servidor. Nele o servidor possui todas as informações da
+agenda que estão armazenadas em um banco de dados,
+assim como as opções de interações com os dados que são apresentadas
+aos clientes em formas de um menu.
+O cliente só escolhe alguma opção de interação com os dados de
+acordo com menu.
+
+
+\subsection{Menu inicial}
+No menu inicial pode-se:
+
+\begin{itemize}
+\item Logar
+\item Criar novo usuário
+\item Sair
+\end{itemize}
+
+\subsubsection{Login}
+O servidor pede ao usuário o nome de usuário, caso o nome estiver no
+banco de dados ele pede uma senha que é comparada ao valor do banco de
+dados, se o usuário não existir é avisado sobre a inexistência, se a
+senha não conferir é avisado que a senha não confere, caso contrário o
+usuário consegue logar no sistema, e o servidor recupera sua agenda (cada
+usuário possui sua agenda).
+
+
+\subsubsection{Novo usuário}
+O servidor pede um nome de usuário, o servidor verifica se o nome já
+não existe, se não existir pede a senha e armazena o usuário no
+sistema, assim como cria uma agenda vazia para o mesmo.
+
+\subsection{Menu usuário}
+Dentre as possibilidades de interações para um usuário logado tem-se:
+
+\begin{itemize}
+\item Inserção de um compromisso que possui um nome, dia, hora, e minuto. 
+\item Remoção de um compromisso através de seu nome
+\item Pesquisa de compromisso por dia
+\item Pesquisa de compromisso por dia e hora
+\item Ver todos os compromisso de mês de abril
+\end{itemize}
+
+\subsubsection{Inserção de compromisso}
+O usuário deve fornecer o nome do compromisso, o dia, a hora e o
+minutos em que ele ocorrerá.
+Caso o compromisso seja possível de ser alocado o servidor avisa com
+um ``OK'', se não for possível também é avisado de tal impossibilidade.
+Um compromisso é inserido ordenado na agenda se não existir um
+compromisso com mesmo horário.
+
+\subsubsection{Remoção de compromisso}
+O usuário deve fornecer o nome do compromisso que deve ser removido.
+Caso o compromisso seja encontrado ele é removido, caso contrário é
+dito que tal compromisso não existe.
+Se existirem dois compromissos de mesmo nome, o primeiro é removido.
+Logo é esperado que compromissos possuam nomes diferentes.
+
+
+\subsubsection{Pesquisas}
+O servidor faz um requerimento interativo, ou seja, se for selecionado
+a pesquisa por dia e hora, o servidor pergunta primeiramente o dia e
+depois a hora. Logo, é uma pesquisa em etapas no qual o servidor
+interage com nosso usuário.
+
+% -----------------------------------------------------------------------------%
+\section{Ambiente de implementação}
+% -----------------------------------------------------------------------------%
+O sistema de agenda foi implementado e executado nos seguintes sistemas operacionais :
+\begin{itemize}
+\item FC14 - Fedora Laughlin Linux 2.6.35.11
+\end{itemize}
+
+O sistema de agenda foi implementado na linguagem C.
+Para o armazenamento dos dados, utilizou-se arquivos. Cada usuário
+possui um arquivo, a sua agenda, no qual armazena-se o nome do
+compromisso, o dia, a hora e o minuto do mesmo.
+O sistema lê esse arquivo quando o usuário loga e transfere-o à
+memória principal, e a cada alteração na agenda o servidor atualiza as informações dos arquivos.
+
+O servidor aceita diversas conexões de clientes, funcionando
+perfeitamente para interações em diferentes agendas, pois cada
+cliente possui além de um processo único, que foi criado em um fork,
+possui um ponteiro para sua agenda. Assim, o servidor consegue
+alterar todas as agendas independentemente.
+
+ O nosso sistema, além disso,apresenta
+transparência ao usuário. Os tipos de transparência a serem destacados
+são:
+
+\begin{description}
+\item [Acesso:] Esconde as diferenças nas representações de dados e na invocação de funções ou métodos para facilitar a comunicação entre objetos da rede.
+\item [Localização:] Esconde o local em que o objeto se encontra.
+\item [Concorrência:] Esconde como as atividades são coordenadas entre os objetos para obter consistência em um nível mais alto.
+\end{description}
+
+
+Listaremos a seguir algumas funções implementadas de interação:
+\begin{itemize}
+\item  Funções de interação com o banco de dados são:
+  \begin{lstlisting}
+    /* Encontra usuario que ja esta cadastrado no servidor e verifica
+    senha*/
+    int findUser(char nome[], char pwd[]);
+    
+    /* Insere novo usuario (nome e senha) no banco de dados*/
+    int newUser(char nome[], char senha[]);
+    
+    /*Carrega agenda de usuario*/
+    int loadCal(User *user);
+    
+    /*Salva agenda*/
+    int saveCal(User *user);
+  \end{lstlisting}
+
+\item Funções de interação com a agenda  são:
+
+  \begin{lstlisting}
+    /*Cria agenda para usuario*/
+    User * agenda_init(char nome[]);
+
+    /*Apaga agenda da memoria principal do servidor */
+    void user_destroy(User *u);
+
+    /*Insere compromisso na agenda*/
+    int set_task(int dia,int hora, int min,char task[], User *u);
+
+    /*Cria compromisso */
+    Agenda * task_init(int dia,int hora, int min,char task[]);
+
+    /*Retorna compromissos do mes de abril*/
+    int verMes(int new_fd, User *u);
+
+    /*Retorna compromissos do mes de abril em determinado dia*/
+    int verDia(int new_fd, User *u, int dia);
+    
+    /*Retorna compromissos do mes de abril em determinado dia e
+    determinada hora*/
+    int verHora(int new_fd, User *u, int dia, int hora);
+
+    /*Remove compromisso da agenda pelo nome*/
+    int delTask( User *u, char nome[]);
+
+    /*Comapara data de compromissos*/
+    int compData(Agenda *newTasks,Agenda *tasks);
+
+  \end{lstlisting}
+
+\item Funções de interação servidor-cliente criadas foram:
+  \begin{lstlisting}
+
+    /*Envia mensagem ao cliente*/
+    void sendStr(int sockfd, char str[]);
+
+    /*Le mensagem do cliente*/
+    int leOpcao(struct sockaddr_storage their_addr, int sockfd);
+    
+    /*Apresenta opcoes de login ou criacao novo usuario*/
+    void menu(int new_fd, struct sockaddr_storage their_addr);
+    
+    /*Apresenta opcoes de interacao com agenda*/
+    void menu2(int new_fd, struct sockaddr_storage their_addr, User *user);
+
+    /*Envia mensagem para servidor*/
+    void envia_pct( int sockfd, char s[], int size){
+
+    \end{lstlisting}
+
+
+  \end{itemize}
+
+
+  \section{Tempos de comunicação e total}
+  \subsection{Comparação de tecnologias}
+
+\section{Conclusão}
+
+% ******************************************************
+% REFERENCIAS BIBLIOGRÁFICAS
+% ******************************************************
+% \section{Referências}
+\bibliographystyle{plain}
+\begin{small}
+  \bibliography{referencias}
+\end{small}
+
+\section{Anexo}
+
+\lstset{
+  basicstyle=\tiny\ttfamily, % Standardschrift
+  numbers=left,               % Ort der Zeilennummern
+  numberstyle=\tiny,          % Stil der Zeilennummern
+  numbersep=5pt,              % Abstand der Nummern zum Text
+  tabsize=2,                  % Groesse von Tabs
+  extendedchars=true,         %
+  breaklines=true,            % Zeilen werden Umgebrochen
+  classoffset=0,
+  keywordstyle=\color{blue},
+  classoffset=1,
+  morekeywords={factor},keywordstyle=\color{red},
+  classoffset=0,
+  stringstyle=\color{green}\ttfamily, % Farbe der String
+  showspaces=false,           % Leerzeichen anzeigen ?
+  showtabs=false,             % Tabs anzeigen ?
+  xleftmargin=17pt,
+  framexleftmargin=17pt,
+  framexrightmargin=5pt,
+  framexbottommargin=4pt,
+  showstringspaces=false      % Leerzeichen in Strings anzeigen ?        
+}
+\lstloadlanguages{C
+}
+
+\begin{multicols}{2}
+\lstinputlisting[language=c,caption={Agenda }]{code/rel/agenda.c}
+\lstinputlisting[language=c,caption={banco de dados}]{code/rel/bd.c}
+\lstinputlisting[language=c,caption={Servidor }]{code/rel/server.c}
+\lstinputlisting[language=c,caption={Cliente  }]{code/rel/client.c}
+\lstinputlisting[language=c,caption={Cabeçalhos Banco de dados}]{code/rel/bd.h}
+\lstinputlisting[language=c,caption={Cabeçalhos Agenda}]{code/rel/agenda.h}
+\lstinputlisting[language=c,caption={Makefile}]{code/rel/Makefile}
+\end{multicols}
+\end{document}

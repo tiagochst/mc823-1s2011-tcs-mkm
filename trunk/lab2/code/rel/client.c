@@ -72,9 +72,14 @@ void clienteTimeRecv(struct timeval first,struct timeval second){
 
 
 void envia_pct( int sockfd, char s[], int size){
-  if (( send(sockfd, s ,size, 0)) == -1) {
-    perror("talker: sendto");
-    exit(1);
+  int numbytes;
+  while(1){
+    if (( numbytes=send(sockfd, s ,size, 0)) == -1) {
+      perror("talker: sendto");
+      exit(1);
+    }
+    if(numbytes>0) /*sera que o datagrama foi perdido?*/
+      break;
   }
  return;
 }
@@ -96,6 +101,7 @@ int main(int argc, char *argv[])
     struct addrinfo hints, *servinfo, *p;
     int rv;
     char s[INET6_ADDRSTRLEN]="",tempo[5],str[5];
+    int size,num=1;
 
     if (argc != 2) {
         fprintf(stderr,"usage: client hostname\n");
@@ -140,7 +146,6 @@ int main(int argc, char *argv[])
    connecttime(first,second);
 
     freeaddrinfo(servinfo); // all done with this structure
-    int size;
 
     /* Teste de tempo */
    strcpy(str,"0123");//tamanho de um inteiro bytes
@@ -162,17 +167,15 @@ int main(int argc, char *argv[])
       strcpy(opcao,"");
       scanf("%[^\n]", opcao );
       getchar();
-
+      
       envia_pct(sockfd, opcao ,strlen(opcao) + 1);
-
       if(strcmp("q",opcao)==0){
 	break;
       }
     }
- 
+    
     recv(sockfd, tempo, MAXDATASIZE-1, 0);
     gettimeofday (&second, &tzp); 
-  
     clienteTimeRecv(first,second);
         
     close(sockfd);

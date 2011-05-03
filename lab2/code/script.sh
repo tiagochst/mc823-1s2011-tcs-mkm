@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #rm asd
-maquina="atlas"
+maquina="snake"
 
 #for((i=0;i<100;i++))
 #do
@@ -41,5 +41,3 @@ for((i=0;i<100;i++))
 do
     ./c $maquina < ./entradas/input
 done
-
-

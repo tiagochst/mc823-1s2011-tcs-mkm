@@ -111,12 +111,12 @@ int numbytes;
 
 //      strcpy(str,"0123");//tamanho de um inteiro bytes
 //      recv(new_fd, tempo, 5, 0); 
-//      gettimeofday (&first, &tzp); 
+      gettimeofday (&first, &tzp); 
       menu(sockfd, their_addr);
-//      gettimeofday (&second, &tzp); 
-    //  sendto(sockfd, str , strlen(str), 0,(struct sockaddr *)&their_addr, addr_len);
-//      serverTimeRecv(first,second);
-    }
+      gettimeofday (&second, &tzp); 
+      sendto(sockfd, str , strlen(str), 0,(struct sockaddr *)&their_addr, addr_len);
+      serverTimeRecv(first,second);
+  }
     close(new_fd);  // parent doesn't need this
   return 0;
 }

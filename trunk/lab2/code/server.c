@@ -235,7 +235,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       leString(their_addr, new_fd, minuto);
       set_task(atoi(dia), atoi(hora), atoi(minuto), task, user);
       
-      verMes(new_fd,user);
+      verMes(new_fd,user,their_addr);
       
       /*Se m retorna ao menu, se q salva agenda sai*/
       leString(their_addr, new_fd,again);
@@ -270,7 +270,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       leString(their_addr, new_fd, dia);
       sendMsg(new_fd, "Digite as horas:\0", their_addr);
       leString(their_addr, new_fd, hora);
-      verHora(new_fd,user,atoi(dia),atoi(hora));
+      verHora(new_fd,user,atoi(dia),atoi(hora),their_addr);
       
       /*Se m retorna ao menu, se q salva agenda sai*/
       leString(their_addr, new_fd,again);
@@ -285,7 +285,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       /* Obter todos os compromissos marcados para um dia */
       sendMsg(new_fd, "Digite o dia:\0", their_addr);
       leString(their_addr, new_fd, dia);
-      verDia(new_fd,user,atoi(dia));
+      verDia(new_fd,user,atoi(dia),their_addr);
 
       /*Se m retorna ao menu, se q salva agenda sai*/
       leString(their_addr, new_fd,again);
@@ -298,7 +298,7 @@ void menu2(int new_fd, struct sockaddr_storage their_addr, User *user){
       break;
     case 5:
       /* Obter todos os compromissos do mes */
-      verMes(new_fd,user);
+      verMes(new_fd,user,their_addr);
 
       /*Se m retorna ao menu, se q salva agenda sai*/
       leString(their_addr, new_fd,again);

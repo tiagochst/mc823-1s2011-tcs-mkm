@@ -71,11 +71,8 @@ void clienteTimeRecv(struct timeval first,struct timeval second){
 }
 
 
-
-/*Vamos alterar da função send para sendto 
-  por causa do protocolo UDP*/
-void envia_pct( int sockfd, char s[], int size, struct addrinfo *p){
-  if (( sendto(sockfd, s ,size, 0, p->ai_addr, p->ai_addrlen)) == -1) {
+void envia_pct( int sockfd, char s[], int size){
+  if (( send(sockfd, s ,size, 0)) == -1) {
     perror("talker: sendto");
     exit(1);
   }
@@ -107,78 +104,80 @@ int main(int argc, char *argv[])
 
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_UNSPEC;
-    hints.ai_socktype = SOCK_DGRAM; // UDP datagram sockets
+    hints.ai_socktype = SOCK_DGRAM;
 
     if ((rv = getaddrinfo(argv[1], PORT, &hints, &servinfo)) != 0) {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
         return 1;
     }
-
+   gettimeofday (&first, &tzp); 
     // loop through all the results and connect to the first we can
     for(p = servinfo; p != NULL; p = p->ai_next) {
-      if ((sockfd = socket(p->ai_family, p->ai_socktype,
-	    p->ai_protocol)) == -1) {
-	perror("client: socket");
-	continue;
-      }
-     
-      break;
-    }
-    
-    if (p == NULL) {
-      fprintf(stderr, "client: failed to connect\n");
-      return 2;
+        if ((sockfd = socket(p->ai_family, p->ai_socktype,
+                p->ai_protocol)) == -1) {
+            perror("client: socket");
+            continue;
+        }
+
+        if (connect(sockfd, p->ai_addr, p->ai_addrlen) == -1) {
+            close(sockfd);
+            perror("client: connect");
+            continue;
+        }
+
+        break;
     }
 
-  if ((numbytes = sendto(sockfd, "Conectado", strlen("Conectado"), 0,
-             p->ai_addr, p->ai_addrlen)) == -1) {
-        perror("talker: sendto");
-        exit(1);
+    if (p == NULL) {
+        fprintf(stderr, "client: failed to connect\n");
+        return 2;
     }
-   
+
+    inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr),
+            s, sizeof s);
+    printf("client: connecting to %s\n", s);
+   gettimeofday (&second, &tzp); 
+   connecttime(first,second);
+
+    freeaddrinfo(servinfo); // all done with this structure
     int size;
-    int rcv=0;    
+
+    /* Teste de tempo */
+   strcpy(str,"0123");//tamanho de um inteiro bytes
+   gettimeofday (&first, &tzp); 
+   send(sockfd, str , strlen(str), 0);
+   
     while(1){
       /* Esperando resposta do servidor*/
-      printf("\nEsperando o servidor...,sock=%d\n",sockfd); //client received
-
-      while(rcv< 148){
-     printf("\nEsperando o servidor...\n"); //client received
-
-	if((numbytes = recvfrom(sockfd, buf, 1000, 0,    p->ai_addr,  &p->ai_addrlen)) == -1) {
-	  perror("recv");
-	  printf("\n%d\n",numbytes); //client received
+      if((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
+        perror("recv");
+        exit(1);
 	
-	  exit(1);
-	}
-	rcv +=numbytes;
-	printf("\n%s\n",buf); //client received
       }
+
       system("clear");
       printf("\n%s\n",buf); //client received
-      
+
       /* Espera resposta do servidor*/
       strcpy(opcao,"");
       scanf("%[^\n]", opcao );
       getchar();
-      
-      envia_pct(sockfd, opcao ,strlen(opcao) + 1,p);
-      
+
+      envia_pct(sockfd, opcao ,strlen(opcao) + 1);
+
       if(strcmp("q",opcao)==0){
 	break;
       }
     }
-    
+ 
     recv(sockfd, tempo, MAXDATASIZE-1, 0);
     gettimeofday (&second, &tzp); 
-    
+  
     clienteTimeRecv(first,second);
-
-    freeaddrinfo(servinfo); // all done with this structure
-    
+        
     close(sockfd);
     
     return 0;
 }
 
-
+   

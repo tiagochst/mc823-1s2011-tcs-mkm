@@ -143,7 +143,7 @@ Agenda * task_init(int dia,int hora,int min,char task[]) {
 }
 
 /* Imprime todos os compromissos do mes envia para o cliente */
-int verMes(int new_fd, User *u){
+int verMes(int new_fd, User *u,struct sockaddr_storage their_addr){
   Agenda *next,*a;
   char mes[1000]="=== Mes de ABRIL ===\n"; 
   char comp[1000],num[5];
@@ -158,13 +158,13 @@ int verMes(int new_fd, User *u){
   }
   printf("%s",mes);
   strcat(mes,"\nDigite m para voltar ao menu anterior ou q para sair\n");
-  sendStr(new_fd, mes); /* Envia para o cliente toda as informacoes */
+  sendMsg(new_fd, mes,their_addr); /* Envia para o cliente toda as informacoes */
 
   return 0;
 }
 
 /* Dado um dia, a funcao retorna todos os compromissos daquele dia */
-int verDia(int new_fd, User *u, int dia){
+int verDia(int new_fd, User *u, int dia,struct sockaddr_storage their_addr){
   Agenda *next,*a;
   char mes[1000]="=== Mes de ABRIL ===\n"; 
   char comp[1000];
@@ -182,13 +182,13 @@ int verDia(int new_fd, User *u, int dia){
   }
 
   strcat(mes,"\nDigite m para voltar ao menu anterior ou q para sair\n");
-  sendStr(new_fd, mes); /* Envia para o cliente os compromissos */
+  sendMsg(new_fd, mes,their_addr); /* Envia para o cliente os compromissos */
 
   return 0;
 }
 
 /* Dado um dia e uma hora, retorna para o cliente todos os compromissos correspondentes */
-int verHora(int new_fd, User *u, int dia, int hora){
+int verHora(int new_fd, User *u, int dia, int hora,struct sockaddr_storage their_addr){
   Agenda *next,*a;
   char mes[1000]="=== Mes de ABRIL ===\n"; 
   char comp[1000];
@@ -208,7 +208,7 @@ int verHora(int new_fd, User *u, int dia, int hora){
   }
 
   strcat(mes,"\nDigite m para voltar ao menu anterior ou q para sair\n");
-  sendStr(new_fd, mes); /* Envia para o cliente */
+  sendMsg(new_fd, mes,their_addr); /* Envia para o cliente */
   return 0;
 
 }

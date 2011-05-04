@@ -172,7 +172,7 @@ tempo real, como telefonia e transferência de áudio e
 vídeo sobre a Internet.
 
 Devido a importância do protocolo, este laboratório tem o objetivo de
-medir o tempo total e de comunicação de uma conexão TCP entre um
+medir o tempo total e de comunicação de uma conexão UDP entre um
 cliente e um servidor.
 
 % -----------------------------------------------------------------------------%
@@ -566,24 +566,16 @@ Aplicamos o cálculo de tempo ao programa principal de
     \caption{Conexão, login na conta, ver todos os compromissos do mês
       e fechamento de conexão com servidor} \label{op5}
   \end{table}
-  
-  Note que os tempos das tabelas \ref{total3}, \ref{total4} e
-  \ref{total5} estão, respectivamente, em ordem decrescente de
-  tamanho. Isso se deve ao fato de que a operação 3 (tabela
-  \ref{total3}) o programa busca pelo dia, hora e minuto do
-  compromisso, fazendo com que o número de comparações feitas seja
-  maior que as operações \ref{total4} e \ref{total5}, tornando aquela
-  operação mais lenta. O mesmo pode afirmar entre as operações 4 e 5,
-  correspondentes às tabelas \ref{total4} e \ref{total5}, respectivamente.
 
+\clearpage
 
   \subsection{Comparação de tecnologias}
-Como uma das características do TCP é a transferência garantida não foi necessário uma análise de erros na entrega
+Como uma das características do TCP é a transferência garantida ,não foi necessário uma análise de erros na entrega
 dos pacotes. No entanto, essa análise foi feita ao utilizar o protocolo UDP, através de um código de verificação.
-Portanto o protocolo TCP possibilita uma diminuição do código.
+Portanto o protocolo TCP possibilita uma redução no tamanho do código.
 
-Para que o nosso sistema distribuído fosse transparente ao usuário diversas manipulações de dados foram realizadas
-no servidor, assim algumas transparências, como localidade, acesso e concorrência foram possíveis.
+Para que o nosso sistema distribuído fosse transparente ao usuário, diversas manipulações de dados foram realizadas
+no servidor, assim, algumas transparências, como localidade, acesso e concorrência, foram possíveis.
 
 Como o TCP é orientado à conexão, é criado um socket para cada cliente se comunicar com o servidor e ele é livre
 de erros. Utilizando a função fork temos um processo que fica à escuta de novos pedidos de conexão e outro processo
@@ -597,7 +589,7 @@ O tempo de processamento (manipulação da agenda) teoricamente não deve altera
 protocolos.
 Portanto, é esperado o tempo total será alterado devido ao tempo de comunicação.
 
-Após a utilização de ambas tecnologias, colocamos os tempo médios totais para todas as funções, apresentadas nas tabelas na seção 4.
+Após a utilização de ambas tecnologias, colocamos os tempo médios totais para todas as funções, apresentadas nas tabelas \ref{comptot} e \ref{compcom}.
 \begin{table}[h!]
   \begin{center}
     \begin{tabular}{ccc}
@@ -612,10 +604,13 @@ Após a utilização de ambas tecnologias, colocamos os tempo médios totais par
       F5 & 32.334 ms & 35.774 ms
     \end{tabular}
   \end{center}
+      \vspace{-5mm}
+    \caption{Comparação de tempos totais} \label{comptot}
 \end{table}
 
 \begin{table}[h!]
   \begin{center}
+  
     \begin{tabular}{ccc}
       
       Função& TCP&  UDP \\
@@ -628,26 +623,31 @@ Após a utilização de ambas tecnologias, colocamos os tempo médios totais par
       F5 & 0.716 ms & 0.241 ms
     \end{tabular}
   \end{center}
+      \vspace{-5mm}
+    \caption{Comparação de tempos de comunicação} \label{compcom}
 \end{table}
 
 Para a maioria das funções, baseado no tempo total, o protocolo TCP
 foi mais rápido que o UDP; houve um aumento de 10\% a 40\% nos tempos
 das funções . Mas, se for analisado o tempo de
-comunicação o UDP é mais rápido, em média 0.5 ms, houve uma diminuição
-de aproximadamente 70\%.
+comunicação, o UDP é, em média, 0.5ms mais rápido, correspondendo à uma diminuição
+de aproximadamente 70\% do tempo.
 
 
 \section{Conclusão}
 Segundo nossas medições, os tempos de processamento são significativamente (cerca de duas ordens de grandeza)
 maiores que os tempos de conexão, ou seja, há uma transparência de localidade para o cliente, já que o tempo de comunicação é tão pequeno que a agenda será aparentemente local para o cliente.
 
-Comparando as duas tecnologias (TCP e UDP), a utilização do UDP porporcionou  tempo total maior que o TCP. 
+Comparando as duas tecnologias (TCP e UDP), a utilização do UDP proporcionou  tempo total maior que o TCP. 
 Por outro lado, o tempo de comunicação, utilizando o UDP, foi inferior, conforme
 esperado.
 
-Assim, se quisessemos algo em tempo real, o UDP seria melhor, já que
-não perde tempo com a comunicação, perde sim com a verificação de
-erros, que dependendo da aplicação não é o mais importante.
+Assim, para aplicações em tempo real, o UDP acaba levando vantagem, já que
+não há perda de tempo com a comunicação. Por outro lado, o gasto
+de tempo com a verificação de erros é maior, que é dispensável, dependendo
+da aplicação. Em uma distribuição de video em \textit{streaming}, por exemplo,
+ erros e perdas de dados são ignoradas para não se abrir mão da
+ reprodução de video em tempo real.
 
 % ******************************************************
 % REFERENCIAS BIBLIOGRÁFICAS

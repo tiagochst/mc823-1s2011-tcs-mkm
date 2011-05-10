@@ -1,0 +1,265 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+\usepackage{ae,aecompl}
+\usepackage{pslatex}
+\usepackage{epsfig}
+\usepackage{geometry}
+\usepackage{url}
+\usepackage{textcomp}
+\usepackage{ae}
+\usepackage{subfig}
+\usepackage{indentfirst}
+\usepackage{textcomp}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{verbatim}
+\usepackage{multicol}
+
+\usepackage{listings}
+\lstset{language=C}
+\usepackage{listings}
+\lstset{
+  basicstyle=\footnotesize\ttfamily, % Standardschrift
+  numbers=left,               % Ort der Zeilennummern
+  numberstyle=\tiny,          % Stil der Zeilennummern
+  % stepnumber=2,               % Abstand zwischen den Zeilennummern
+  numbersep=5pt,              % Abstand der Nummern zum Text
+  tabsize=2,                  % Groesse von Tabs
+  extendedchars=true,         %
+  breaklines=true,            % Zeilen werden Umgebrochen
+  classoffset=0,
+  keywordstyle=\color{blue},
+  classoffset=1,
+  morekeywords={factor},keywordstyle=\color{red},
+  classoffset=0,
+  % frame=b,         
+  % keywordstyle=[1]\textbf,    % Stil der Keywords
+  % keywordstyle=[2]\textbf,    %
+  % keywordstyle=[3]\textbf,    %
+  % keywordstyle=[4]\textbf,   \sqrt{\sqrt{}} %
+  stringstyle=\color{green}\ttfamily, % Farbe der String
+  showspaces=false,           % Leerzeichen anzeigen ?
+  showtabs=false,             % Tabs anzeigen ?
+  xleftmargin=17pt,
+  framexleftmargin=17pt,
+  framexrightmargin=5pt,
+  framexbottommargin=4pt,
+  % backgroundcolor=\color{lightgray},
+  showstringspaces=false      % Leerzeichen in Strings anzeigen ?        
+}
+\lstloadlanguages{C
+}
+
+% Definindo o espaçamento entre linhas para 1.5
+% Relatório parcial deve ter espaçamento simples
+\linespread{1.5}
+
+\geometry{ 
+  a4paper,	% Formato do papel
+  tmargin=30mm,	% Margem superior
+  bmargin=30mm,	% Margem inferior
+  lmargin=20mm,	% Margem esquerda
+  rmargin=20mm,	% Margem direita
+  footskip=20mm	% Espaço entre o rodapé e o fim do texto
+}
+\include{abaco} 
+\renewcommand{\thetable}{\Roman{table}}
+\newcommand{\x} {$\bullet$}
+
+
+\begin{document}
+
+% CAPA
+\begin{titlepage}
+  \thispagestyle{empty}
+  \begin{center} {\large \textbf{UNIVERSIDADE~ESTADUAL~DE~CAMPINAS}} \end{center}
+  \begin{center} {\large INSTITUTO~DE~COMPUTAÇÃO}                    \end{center}
+  \vspace{0.1cm}
+  \begin{center}
+    \begin{minipage}[tl]{31mm}
+      \ABACO{1}{9}{6}{9}{1}
+    \end{minipage}
+  \end{center}
+  \vspace{0.3cm}
+  \begin{center} 
+    {\large \textsc{Servidor de Agenda baseado em socket UDP
+      }} 
+    \\\vspace{0.5cm}
+    {\textsl{Relatório do segundo laboratório de MC823}}
+    \\\vspace{1cm}
+    \begin{tabular}{ll}
+      \textbf{Aluno}:        Marcelo~Keith~Matsumoto   &  \textbf{RA}:       085937 \\
+      \textbf{Aluno}:        Tiago~Chedraoui~Silva    &   \textbf{RA}:       082941 \\
+      
+    \end{tabular}
+  \end{center}
+  \vspace{0.5cm}
+
+  \begin{abstract}
+  \end{abstract}
+
+\end{titlepage} 
+  % Sumário
+  \tableofcontents
+
+\newpage
+
+
+% -----------------------------------------------------------------------------%
+\section{Objetivo}
+% -----------------------------------------------------------------------------%
+O objetivoterceiro projeto de laboratório de teleprocessamento e redes é
+comparar duas implementações distintas do modelo cliente-servidor: Java
+RMI (Remote Method Invocation) e socket TCP. 
+É de suma importância que utilizando a tecnologia Java RMI, cria-se
+uma agenda, para possibilitar uma comparação
+com a mesma agenda em socket TCP, criada anteriormente no projeto 1.
+
+\subsection{Teoria}
+Java RMI é uma das abordagens da tecnologia Java, construída para prover as
+funcionalidade de uma plataforma de objetos distribuídos e com sua API (Application
+Programming Interface) especificada pelo pacote java.rmi e seus subpacotes. A
+arquitetura RMI viabiliza a interação de um objeto ativo em uma máquina virtual Java com
+objetos de outras máquinas virtuais Java.
+
+Para o funcionamento de uma plataforma de objetos distribuídos, a mesma precisa
+da disponibilidade das seguintes ações: localização de objetos remotos (realizado pelo
+RMI registry), comunicação com objetos remotos (controlado pelo Java RMI) e
+carregamento de definições de classes para objetos móveis.
+
+Para o desenvolvimento de uma aplicação cliente-servidor em Java RMI, são
+necessários dois programas separados, um para o cliente e um para o servidor, e a
+execução do serviço de registro de RMI (RMI registry). Um servidor, em geral, instancia
+objetos remotos, referencia estes objetos e liga-os em uma determinada porta através de
+um bind, aguardando nesta porta os clientes invocarem os métodos destes objetos. Um
+cliente, em geral, referência remotamente um ou mais objetos remotos de um servidor, e
+invoca os métodos destes objetos. Os mecanismos pelos quais o cliente e o servidor se
+comunicam e trocam dados são fornecidos pelo Java RMI. O serviço de registro de RMI é
+uma implementação de um serviço de nomes para RMI, no qual cada serviço
+disponibilizado na plataforma é registrado através de um nome de serviço, ou seja, uma
+string única para cada objeto o qual implementa serviços em RMI.
+
+% -----------------------------------------------------------------------------%
+\section{Servidor de agenda}
+% -----------------------------------------------------------------------------%
+O sistema implementado, uma agenda distribuída, se baseia numa comunicação
+cliente-servidor. Nele o servidor possui todas as informações da
+agenda que estão armazenadas em um banco de dados,
+assim como as opções de interações com os dados que são apresentadas
+aos clientes em formas de um menu.
+O cliente só escolhe alguma opção de interação com os dados de
+acordo com menu.
+
+
+\subsection{Menu inicial}
+No menu inicial pode-se:
+
+\begin{itemize}
+\item Logar
+\item Criar novo usuário
+\item Sair
+\end{itemize}
+
+\subsubsection{Login}
+O servidor pede ao usuário o nome de usuário, caso o nome estiver no
+banco de dados ele pede uma senha que é comparada ao valor do banco de
+dados, se o usuário não existir é avisado sobre a inexistência, se a
+senha não conferir é avisado que a senha não confere, caso contrário o
+usuário consegue logar no sistema, e o servidor recupera sua agenda (cada
+usuário possui sua agenda).
+
+
+\subsubsection{Novo usuário}
+O servidor pede um nome de usuário, o servidor verifica se o nome já
+não existe, se não existir pede a senha e armazena o usuário no
+sistema, assim como cria uma agenda vazia para o mesmo.
+
+\subsection{Menu usuário}
+Dentre as possibilidades de interações para um usuário logado tem-se:
+
+\begin{itemize}
+\item Inserção de um compromisso que possui um nome, dia, hora, e minuto. 
+\item Remoção de um compromisso através de seu nome
+\item Pesquisa de compromisso por dia
+\item Pesquisa de compromisso por dia e hora
+\item Ver todos os compromisso de mês de abril
+\end{itemize}
+
+\subsubsection{Inserção de compromisso}
+O usuário deve fornecer o nome do compromisso, o dia, a hora e o
+minutos em que ele ocorrerá.
+Caso o compromisso seja possível de ser alocado o servidor avisa com
+um ``OK'', se não for possível também é avisado de tal impossibilidade.
+Um compromisso é inserido ordenado na agenda se não existir um
+compromisso com mesmo horário.
+
+\subsubsection{Remoção de compromisso}
+O usuário deve fornecer o nome do compromisso que deve ser removido.
+Caso o compromisso seja encontrado ele é removido, caso contrário é
+dito que tal compromisso não existe.
+Se existirem dois compromissos de mesmo nome, o primeiro é removido.
+Logo é esperado que compromissos possuam nomes diferentes.
+
+
+\subsubsection{Pesquisas}
+O servidor faz um requerimento interativo, ou seja, se for selecionado
+a pesquisa por dia e hora, o servidor pergunta primeiramente o dia e
+depois a hora. Logo, é uma pesquisa em etapas no qual o servidor
+interage com nosso usuário.
+
+% -----------------------------------------------------------------------------%
+\section{Ambiente de implementação}
+% -----------------------------------------------------------------------------%
+
+
+  \section{Tempos de comunicação e total}
+
+
+  \subsection{Comparação de tecnologias}
+
+\section{Conclusão}
+
+% ******************************************************
+% REFERENCIAS BIBLIOGRÁFICAS
+% ******************************************************
+% \section{Referências}
+\bibliographystyle{plain}
+\begin{small}
+  \bibliography{referencias}
+\end{small}
+\newpage
+\section{Anexo}
+
+\lstset{
+  basicstyle=\tiny\ttfamily, % Standardschrift
+  numbers=left,               % Ort der Zeilennummern
+  numberstyle=\scriptsize,          % Stil der Zeilennummern
+  numbersep=5pt,              % Abstand der Nummern zum Text
+  tabsize=2,                  % Groesse von Tabs
+  extendedchars=true,         %
+  breaklines=true,            % Zeilen werden Umgebrochen
+  classoffset=0,
+  keywordstyle=\color{blue},
+  classoffset=1,
+  morekeywords={factor},keywordstyle=\color{red},
+  classoffset=0,
+  stringstyle=\color{green}\ttfamily, % Farbe der String
+  showspaces=false,           % Leerzeichen anzeigen ?
+  showtabs=false,             % Tabs anzeigen ?
+  xleftmargin=17pt,
+  framexleftmargin=17pt,
+  framexrightmargin=5pt,
+  framexbottommargin=4pt,
+  showstringspaces=false      % Leerzeichen in Strings anzeigen ?        
+}
+\lstloadlanguages{Java}
+
+\begin{multicols}{2}
+%\lstinputlisting[language=java,caption={Agenda }]{code/rel/agenda.c}
+\end{multicols}
+\end{document}

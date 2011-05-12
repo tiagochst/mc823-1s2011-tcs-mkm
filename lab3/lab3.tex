@@ -101,6 +101,9 @@
   \vspace{0.5cm}
 
   \begin{abstract}
+
+The Java Remote Method Invocation (RMI) system allows an object running in one Java virtual machine to invoke methods on an object running in another Java virtual machine. RMI provides for remote communication between programs written in the Java programming language.
+
   \end{abstract}
 
 \end{titlepage} 
@@ -127,14 +130,22 @@ Programming Interface) especificada pelo pacote java.rmi e seus subpacotes. A
 arquitetura RMI viabiliza a interação de um objeto ativo em uma máquina virtual Java com
 objetos de outras máquinas virtuais Java.
 
-Para o funcionamento de uma plataforma de objetos distribuídos, a mesma precisa
-da disponibilidade das seguintes ações: localização de objetos remotos (realizado pelo
-RMI registry), comunicação com objetos remotos (controlado pelo Java RMI) e
-carregamento de definições de classes para objetos móveis.
+Aplicações que utilizam objetos distribuídos precisam das realizar as seguintes ações:
+\begin{description}
+\item[Localização de objetos remotos] aplicações podem usar vários
+  métodos para obter referências a objetos remotos. Ex: utilizar  RMI registry
+\item [Comunicação com objetos remotos] Detalhes da comunicação entre
+  objeto remotos são gerenciados pelo RMI, ou seja para o programador
+  chamadas remotas são similares a chamadas de métodos.
+\item [Carregamento de definições de classes para objetos móveis]
+  RMI prove mecanismos para carregar a definição de classes para um
+  objeto assim como para transmitir seus dados
+\end{description}
 
 Para o desenvolvimento de uma aplicação cliente-servidor em Java RMI, são
-necessários dois programas separados, um para o cliente e um para o servidor, e a
-execução do serviço de registro de RMI (RMI registry). Um servidor, em geral, instancia
+necessários um cliente e um para o servidor e a
+execução do serviço de registro de RMI (RMI registry)(Ver figura
+figura \ref{f1}). Um servidor, em geral, instancia
 objetos remotos, referencia estes objetos e liga-os em uma determinada porta através de
 um bind, aguardando nesta porta os clientes invocarem os métodos destes objetos. Um
 cliente, em geral, referência remotamente um ou mais objetos remotos de um servidor, e
@@ -144,9 +155,24 @@ uma implementação de um serviço de nomes para RMI, no qual cada serviço
 disponibilizado na plataforma é registrado através de um nome de serviço, ou seja, uma
 string única para cada objeto o qual implementa serviços em RMI.
 
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.7]{rmi-img.png}
+\caption{Aplicação distribuida RMI que usa o RMI registry para obter a
+  referência para um objeto remoto.}
+\label{f1}
+\end{center}
+\end{figure}
+
+
 % -----------------------------------------------------------------------------%
 \section{Servidor de agenda}
 % -----------------------------------------------------------------------------%
+Para criar uma aplicação distribuída usando a tecnologia RMI deve-se
+projetar e implementar as componentes da aplicação.
+Primeiro define as interfaces,depois, baseado nas interfaces,
+implementa-se os objetos e posteriormente o cliente.
+
 O sistema implementado, uma agenda distribuída, se baseia numa comunicação
 cliente-servidor. Nele o servidor possui todas as informações da
 agenda que estão armazenadas em um banco de dados,

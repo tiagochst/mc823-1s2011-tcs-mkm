@@ -1,9 +1,10 @@
+package client;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class Client {
 
-    private StructOperacao op;
+    private Opr op;
     private BufferedReader leitor;
 
     /*___________________________________________________________
@@ -76,7 +77,7 @@ public class Client {
 	}
 	
 	System.out.println("\nUsuário logado: "+this.op.getLogin());
-	System.out.println("\nSenha: "+this.op.getPassWord());
+	System.out.println("\nSenha: "+this.op.getPassword());
 	return true;
     }
 	
@@ -102,7 +103,7 @@ public class Client {
 	System.out.println("*************************************************************************");
     }
 	
-    public void NewComp(IServer stub) {
+    public void NewComp(MC823Server stub) {
 
 	BufferedReader leitor = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -128,7 +129,7 @@ public class Client {
 		System.out.print("\nErro!!! Server Exception.\nPressione ENTER para continuar...");
 		leitor.readLine();
 	    }
-	    temp.pararTempo();
+	    //temp.pararTempo();
 	} catch (Exception e) {
 	    System.err.println("Client exception: " + e.toString());
 	    e.printStackTrace();
@@ -136,7 +137,7 @@ public class Client {
 		
     }
 	
-    public void DelComp(IServer stub) {
+    public void DelComp(MC823Server stub) {
 
 	try {
 	    System.out.print("\nDigite o dia do compromisso: ");
@@ -158,7 +159,7 @@ public class Client {
 		System.out.print("\nErro!!! Server Exception.\nPressione ENTER para continuar...");
 		leitor.readLine();
 	    }
-	    temp.pararTempo();
+	    //temp.pararTempo();
 	} catch (Exception e) {
 	    System.err.println("Client exception: " + e.toString());
 	    e.printStackTrace();
@@ -166,7 +167,7 @@ public class Client {
 		
     }
 	
-    public void ShowHour (IServer stub) {
+    public void ShowHour (MC823Server stub) {
 
 	try {
 	    System.out.print("\nDigite o dia do compromisso: ");
@@ -184,7 +185,7 @@ public class Client {
 			
 	    //Recebe uma string de erro caso aconteca exception on server
 	    op.setString(stub.obterCompromissoHora(op));
-	    temp.pararTempo();
+	    // temp.pararTempo();
 	} catch (Exception e) {
 	    System.err.println("Client exception: " + e.toString());
 	    e.printStackTrace();
@@ -203,7 +204,7 @@ public class Client {
 
     }
 	
-    public void ShowDay(IServer stub) {
+    public void ShowDay(MC823Server stub) {
 	int i;
 
 	try {
@@ -220,7 +221,7 @@ public class Client {
 			
 	    //Recebe uma string de erro caso aconteca exception on server
 	    op.setString(stub.obterCompromissoDia(op));
-	    temp.pararTempo();
+	    //   temp.pararTempo();
 	} catch (Exception e) {
 	    System.err.println("Client exception: " + e.toString());
 	    e.printStackTrace();
@@ -244,14 +245,14 @@ public class Client {
 	}
     }
 	
-    public void ShowMonth(IServer stub) {
+    public void ShowMonth(MC823Server stub) {
 
 	try {
 	    //	    MarcarTempo temp = new MarcarTempo(op.getLogin()+"obterMes");
 			
 	    //Recebe uma string de erro caso aconteca exception on server
 	    op.setString(stub.obterCompromissoMes(op));
-	    temp.pararTempo();
+	    //   temp.pararTempo();
 	} catch (Exception e) {
 	    System.err.println("Client exception: " + e.toString());
 	    e.printStackTrace();

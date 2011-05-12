@@ -1,32 +1,34 @@
-all:
-	make interfaces
-	make server
-	make client
 
+# compilando interfaces
 interfaces:
-	# compilando interfaces
-	javac compute/Compute.java compute/Task.java
-	jar cvf classes/compute.jar compute/*.class
+	javac client/Opr.java client/MC823Server.java
+	jar cvf client/MC823Server.jar client/*.class
 
+# compilando cliente
 client:
-	# compilando cliente
-	javac -cp classes/compute.jar client/ComputePi.java client/Pi.java
+	javac -cp client/MC823Server.jar client/CMain.java client/Client.java
 
+# compilando servidor
 server:
-	# compilando servidor
-	javac -cp classes/compute.jar                                                             engine/ComputeEngine.java
+	javac -cp client/MC823Server.jar \
+	       client/Server.java
 
 PWD := $(shell pwd)
-JAR := $(PWD)/classes/computer.jar	
+JAR := $(PWD)/client/MC823Server.jar	
+
 srun:
 	java -cp $(PWD):$(JAR) \
 	-Djava.rmi.server.codebase=file:///$(JAR) \
 	-Djava.rmi.server.hostname=localhost	\
 	-Djava.security.policy=$(PWD)/server.policy \
-	engine.ComputeEngine
+	client.Server
 
 crun:
 	java -cp $(PWD):$(JAR) \
 	-Djava.rmi.server.codebase=file:///$(PWD)/client/ \
         -Djava.security.policy=$(PWD)/client.policy  \
-         client.ComputePi localhost 45
+         client.CMain localhost 
+all:
+	make interfaces
+	make server
+	make client

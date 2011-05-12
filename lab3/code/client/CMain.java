@@ -1,3 +1,5 @@
+package client;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.rmi.registry.LocateRegistry;
@@ -15,13 +17,13 @@ public class CMain {
 	Client user = new Client();
 	BufferedReader leitor = new BufferedReader(new InputStreamReader(System.in));
 	int opSelect;
-	IServer stub = null;
+	MC823Server stub = null;
 
 	/* Recebo o nome/ip do servidor para a conexão */		
 	String host = (args.length < 1) ? null : args[0];
 	try {
 	    Registry registry = LocateRegistry.getRegistry(host);
-	    stub = (IServer) registry.lookup("MC823Server");
+	    stub = (MC823Server) registry.lookup("MC823Server");
 	} catch (Exception e) {
 	    System.err.println("Client exception: " + e.toString());
 	    e.printStackTrace();
@@ -63,7 +65,7 @@ public class CMain {
 		System.exit(0);
 	    default:
 	    }
-	    if(1)
+	    if(true)
 		break;
 	}
 

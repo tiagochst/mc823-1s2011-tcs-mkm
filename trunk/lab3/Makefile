@@ -1,6 +1,7 @@
 file=lab3
 make:
 	pdflatex $(file).tex
+	pdflatex $(file).tex
 	make clean
 show:
 	evince $(file).pdf

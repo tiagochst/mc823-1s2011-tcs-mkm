@@ -22,7 +22,12 @@ public class CMain {
 	/* Recebo o nome/ip do servidor para a conexão */		
 	String host = (args.length < 1) ? null : args[0];
 	try {
+	    /*Procura pelo registro usado pelo host,
+	      o registro é usado para referenciar um objeto remoto */
 	    Registry registry = LocateRegistry.getRegistry(host);
+	    /* Cria o stub para processos distribuidos:
+	      toda comunicacao passa por ele. 
+	      Cria a abstracao da comunicao */
 	    stub = (MC823Server) registry.lookup("MC823Server");
 	} catch (Exception e) {
 	    System.err.println("Client exception: " + e.toString());
@@ -32,7 +37,7 @@ public class CMain {
 	/* Inicia com usuário não cadastrado*/	
 	user.NonUserMenu();
 	opSelect = 0;
-	System.out.print("\n    Digite a opçao desejada: ");
+	System.out.print("\n Digite a opçao desejada: ");
 	
 	for(;;){
 	    try {

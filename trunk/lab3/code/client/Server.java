@@ -114,6 +114,28 @@ public class Server implements MC823Server{
 	return false;
     }
 
+    public boolean NewUsr(Opr op) throws RemoteException{
+	File file = new File("users.dat");
+	try{
+	    
+	    RandomAccessFile f = new RandomAccessFile("users.dat","rw");
+	    String usr,psw;
+
+	    /*Vou até o final do arquivo*/
+	    f.seek(f.length());
+	    f.writeBytes(op.getLogin());
+	    f.writeBytes("\n");
+	    f.writeBytes(op.getPassword());
+	    f.writeBytes("\n");
+	    f.close();	    
+	} catch (Exception e) {
+	    System.err.println("File exception: " + e.toString());
+	    return false;
+	}
+	
+	return true;
+    }
+
     public boolean desmarcarCompromisso(Opr op) throws RemoteException{
 		
 	int i;

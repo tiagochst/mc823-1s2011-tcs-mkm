@@ -31,5 +31,5 @@ crun:
          client.CMain localhost 
 all:
 	make interfaces
-	make server
-	make client
+	make -B server
+	make -B client

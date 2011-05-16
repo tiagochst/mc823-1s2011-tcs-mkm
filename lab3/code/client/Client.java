@@ -152,9 +152,13 @@ public class Client {
 	    System.out.print("\nDigite o dia do compromisso: ");
 	    op.setDia(Integer.parseInt(leitor.readLine())); 
 
-	    System.out.print("\nDigite o horário do compromisso: ");
+	    System.out.print("\nDigite o hora do compromisso: ");
 	    op.setHora(Integer.parseInt(leitor.readLine())); 
-	
+
+	    System.out.print("\nDigite os minutos do compromisso: ");
+	    op.setMinuto(Integer.parseInt(leitor.readLine())); 
+		
+
 	} catch (Exception e) {
 	    System.err.println("Read exception: " + e.toString());
 	}

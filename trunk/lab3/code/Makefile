@@ -17,6 +17,7 @@ PWD := $(shell pwd)
 JAR := $(PWD)/client/MC823Server.jar	
 
 srun:
+	rmiregistry &
 	java -cp $(PWD):$(JAR) \
 	-Djava.rmi.server.codebase=file:///$(JAR) \
 	-Djava.rmi.server.hostname=localhost	\

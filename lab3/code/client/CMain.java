@@ -17,6 +17,7 @@ public class CMain {
 	Client user = new Client();
 	BufferedReader leitor = new BufferedReader(new InputStreamReader(System.in));
 	int opSelect;
+	boolean done = false ;
 	MC823Server stub = null;
 
 	/* Recebo o nome/ip do servidor para a conexão */		
@@ -34,34 +35,36 @@ public class CMain {
 	    e.printStackTrace();
 	}
 
-	/* Limpando a tela*/
-	System.out.println((char) 27+ "[2J");
-	/* Inicia com usuário não cadastrado*/	
-	user.NonUserMenu();
-	opSelect = 0;
-	System.out.print("\n Digite a opçao desejada: ");
 	
 	for(;;){
-	    try {
-		String inBuffer = leitor.readLine();
-		if(inBuffer.length() == 1){
-		    opSelect = inBuffer.charAt(0);
-		}
-	    } catch (Exception e) {
-		System.err.println("Read exception: " + e.toString());
-	    }
+	    /* Limpando a tela*/
+	    System.out.println((char) 27+ "[2J");
+	    /* Inicia com usuário não cadastrado*/	
+	    user.NonUserMenu();
+	    opSelect = 0;
+	    System.out.print("\n Digite a opçao desejada: ");
 	    
-	    if ((opSelect < '1') || (opSelect > '3'))
-		System.out.println("\n    Opcao invalida, digite a opcao novamente.");
-	    else
-		break;
-	}
+	    for(;;){
+		try {
+		    String inBuffer = leitor.readLine();
+		    if(inBuffer.length() == 1){
+			opSelect = inBuffer.charAt(0);
+		    }
+		} catch (Exception e) {
+		System.err.println("Read exception: " + e.toString());
+		}
+		
+		if ((opSelect < '1') || (opSelect > '3'))
+		    System.out.println("\n    Opcao invalida, digite a opcao novamente.");
+		else
+		    break;
+	    }
 	    switch(opSelect){
 	    case '1':
-		user.Login();
+		done = user.Login();
 		break;
 	    case '2':
-		user.NewCal();
+		done = user.NewCal();
 		break;
 	    case '3':
 		try{
@@ -71,13 +74,16 @@ public class CMain {
 		}
 		System.exit(0);
 	    default:
+		done = false;
 	    }
-	
+	    if(done == true)
+		break;
+	}
 
 	for(;;){
+	    /* Usuário logado, fornecer menu agenda */
 	    user.UserMenu();
 	    
-	    //Leitura da operacao com blindagem de erros
 	    for(;;){
 		opSelect = 0;
 		System.out.print("\n    Digite a opçao desejada: ");

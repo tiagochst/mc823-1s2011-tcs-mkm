@@ -108,14 +108,15 @@ public class Client {
 	BufferedReader leitor = new BufferedReader(new InputStreamReader(System.in));
 		
 	try {
+	    System.out.print("\nDigite o nome do compromisso: ");
+	    op.setString(leitor.readLine());
+
 	    System.out.print("\nDigite o dia do compromisso: ");
 	    op.setDia(Integer.parseInt(leitor.readLine())); 
 
 	    System.out.print("\nDigite o horário do compromisso: ");
 	    op.setHora(Integer.parseInt(leitor.readLine())); 
 	
-	    System.out.print("\nDigite o nome do compromisso: ");
-	    op.setString(leitor.readLine());
 	} catch (Exception e) {
 	    System.err.println("Read exception: " + e.toString());
 	}
@@ -140,11 +141,8 @@ public class Client {
     public void DelComp(MC823Server stub) {
 
 	try {
-	    System.out.print("\nDigite o dia do compromisso: ");
-	    op.setDia(Integer.parseInt(leitor.readLine()));
-
-	    System.out.print("\nDigite o horario do compromisso: ");
-	    op.setHora(Integer.parseInt(leitor.readLine()));
+	    System.out.print("\nDigite o nome do compromisso: ");
+	    op.setString(leitor.readLine());
 
 	} catch (Exception e) {
 	    System.err.println("Read exception: " + e.toString());

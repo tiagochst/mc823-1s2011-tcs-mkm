@@ -36,47 +36,31 @@ public class Server implements MC823Server{
 
     }
 
-    //Inicializa a agenda de um usuario caso ainda nao existir
-    public void inicializaAgenda (File f) {
-	int i;
-
-	try {
-	    FileWriter writer = new FileWriter(f);
-	    PrintWriter saida = new PrintWriter(writer);
-
-	    for (i=1;i<72000;i++) {
-		if (i%100==0)
-		    saida.println();
-		else if(((i%100)-1) == 0)
-		    saida.print('\0');
-		else
-		    saida.print(" ");
-	    }
-
-	    saida.close();
-	    writer.close();
-
-	} catch (Exception e) {
-	    System.err.println("File exception: " + e.toString());
-	}
-    }
-
-
     public boolean marcarCompromisso(Opr op) throws RemoteException{
-	System.out.println("Agenda de usuário a ser criada:"+op.getLogin());	
-	File file = new File(op.getLogin() + ".dat");
+
+	RandomAccessFile f;
 	
 	try {
 	    //Verifica a existencia da agenda
-	    if(!file.exists()){
-		inicializaAgenda(file);
-	    }
-	    RandomAccessFile f = new RandomAccessFile(op.getLogin() + ".dat","rw");
-			
-	    f.seek((op.getDia()-1)*2400+(op.getHora()*100));
+	    f = new RandomAccessFile(op.getLogin() + ".dat","rw");
+	    
+	    /*Vou até o final do arquivo*/
+	    f.seek(f.length());
+	    /*Insere nome compromisso*/
 	    f.writeBytes(op.getString());
-	    f.close();
-			
+	    f.writeBytes("\n");
+	    /*Insere dia compromisso*/
+	    f.writeBytes(Integer.toString(op.getDia()));
+	    f.writeBytes("\n");
+	    /*Insere hora compromisso*/
+	    f.writeBytes(Integer.toString(op.getHora()));
+	    f.writeBytes("\n");
+	    /*Insere minuto compromisso*/
+	    f.writeBytes(Integer.toString(op.getMinuto()));
+	    f.writeBytes("\n");
+
+	    f.close();	    
+		
 	    return true;
 
 	} catch (Exception e) {
@@ -87,7 +71,6 @@ public class Server implements MC823Server{
     }
     
     public boolean IsUsr(Opr op) throws RemoteException{
-	File file = new File("users.dat");
 	try{
 	    
 	    RandomAccessFile f = new RandomAccessFile("users.dat","r");
@@ -115,10 +98,11 @@ public class Server implements MC823Server{
     }
 
     public boolean NewUsr(Opr op) throws RemoteException{
-	File file = new File("users.dat");
+	RandomAccessFile f;
+	  
 	try{
 	    
-	    RandomAccessFile f = new RandomAccessFile("users.dat","rw");
+	    f = new RandomAccessFile("users.dat","rw");
 	    String usr,psw;
 
 	    /*Vou até o final do arquivo*/
@@ -128,6 +112,12 @@ public class Server implements MC823Server{
 	    f.writeBytes(op.getPassword());
 	    f.writeBytes("\n");
 	    f.close();	    
+
+	    /*Devo criar agenda para o usuário*/
+	    File file = new File(op.getLogin()+".dat");
+	    f = new RandomAccessFile(op.getLogin()+".dat","rw");
+	    f.close();	    
+
 	} catch (Exception e) {
 	    System.err.println("File exception: " + e.toString());
 	    return false;
@@ -139,13 +129,8 @@ public class Server implements MC823Server{
     public boolean desmarcarCompromisso(Opr op) throws RemoteException{
 		
 	int i;
-	File file = new File(op.getLogin() + ".dat");
 		
 	try {
-	    //Verifica a existencia da agenda
-	    if(!file.exists()){
-		inicializaAgenda(file);
-	    }
 	    RandomAccessFile f = new RandomAccessFile(op.getLogin() + ".dat","rw");
 
 
@@ -170,13 +155,8 @@ public class Server implements MC823Server{
     }
 
     public String obterCompromissoHora(Opr op) throws RemoteException{
-	File file = new File(op.getLogin() + ".dat");
 		
 	try {
-	    //Verifica a existencia da agenda
-	    if(!file.exists()){
-		inicializaAgenda(file);
-	    }
 	    RandomAccessFile f = new RandomAccessFile(op.getLogin() + ".dat","rw");
 	    f.seek((op.getDia()-1)*2400+(op.getHora()*100));
 	    op.setString(f.readLine());
@@ -198,12 +178,8 @@ public class Server implements MC823Server{
     public String obterCompromissoDia(Opr op) throws RemoteException{
 		
 	int i;
-	File file = new File(op.getLogin() + ".dat");
 		
 	try {
-	    if(!file.exists()){
-		inicializaAgenda(file);
-	    }
 	    RandomAccessFile f = new RandomAccessFile(op.getLogin() + ".dat","rw");
 	    f.seek((op.getDia()-1)*2400);
 			
@@ -232,12 +208,8 @@ public class Server implements MC823Server{
     }
     public String obterCompromissoMes(Opr op) throws RemoteException{
 	int i;
-	File file = new File(op.getLogin() + ".dat");
 		
 	try {
-	    if(!file.exists()){
-		inicializaAgenda(file);
-	    }
 	    RandomAccessFile f = new RandomAccessFile(op.getLogin() + ".dat","rw");
 			
 	    StringBuffer sb = new StringBuffer();

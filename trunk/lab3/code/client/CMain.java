@@ -38,7 +38,7 @@ public class CMain {
 	
 	for(;;){
 	    /* Limpando a tela*/
-	    System.out.println((char) 27+ "[2J");
+	    //System.out.println((char) 27+ "[2J");
 	    /* Inicia com usuário não cadastrado*/	
 	    user.NonUserMenu();
 	    opSelect = 0;
@@ -61,10 +61,10 @@ public class CMain {
 	    }
 	    switch(opSelect){
 	    case '1':
-		done = user.Login();
+		done = user.Login(stub);
 		break;
 	    case '2':
-		done = user.NewCal();
+		done = user.NewCal(stub);
 		break;
 	    case '3':
 		try{
@@ -73,6 +73,7 @@ public class CMain {
 		    System.err.println("Read exception: " + e.toString());
 		}
 		System.exit(0);
+		done = true;
 	    default:
 		done = false;
 	    }

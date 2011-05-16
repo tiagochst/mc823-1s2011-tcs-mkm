@@ -91,11 +91,19 @@ public class Server implements MC823Server{
 	try{
 	    
 	    RandomAccessFile f = new RandomAccessFile("users.dat","r");
-	    String usr;
+	    String usr,psw;
 	    while((usr = f.readLine())!= null){
-		if(usr.equals(op.getLogin()))
-		    return true;
+		psw = f.readLine();
+		/*verifico usuario*/
+		if(usr.equals(op.getLogin())){
+		    /*verifico senha do usuario*/
+		    System.out.println("Encontrei:\n");
+		    System.out.println(op.getPassword());
+		    if(psw.equals(op.getPassword()))
+			return true;
+		}
 		System.out.println(usr);
+		System.out.println(psw);
 	    }
 	
 	} catch (Exception e) {

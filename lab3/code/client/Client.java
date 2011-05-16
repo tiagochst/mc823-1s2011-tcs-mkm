@@ -52,7 +52,7 @@ public class Client {
 
 	System.out.print("\nDigite a senha do usuario:");
 	try {
-	    this.op.setLogin(leitor.readLine());
+	    this.op.setPassword(leitor.readLine());
 	} catch (Exception e){
 	    System.err.println("Read exception: " + e.toString());
 	    return false;

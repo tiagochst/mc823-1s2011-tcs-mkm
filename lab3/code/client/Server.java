@@ -85,6 +85,27 @@ public class Server implements MC823Server{
 	}
 		
     }
+    
+    public boolean IsUsr(Opr op) throws RemoteException{
+	File file = new File("users.dat");
+	try{
+	    
+	    RandomAccessFile f = new RandomAccessFile("users.dat","r");
+	    String usr;
+	    while((usr = f.readLine())!= null){
+		if(usr.equals(op.getLogin()))
+		    return true;
+		System.out.println(usr);
+	    }
+	
+	} catch (Exception e) {
+	    System.err.println("File exception: " + e.toString());
+	    return false;
+	}
+	
+	return false;
+    }
+
     public boolean desmarcarCompromisso(Opr op) throws RemoteException{
 		
 	int i;
@@ -98,7 +119,9 @@ public class Server implements MC823Server{
 	    RandomAccessFile f = new RandomAccessFile(op.getLogin() + ".dat","rw");
 
 
-	    //Apaga o compromisso
+	    /*Apaga o compromisso, cada dia tem um campo de 24 compromisso
+	     cada um com 100 bytes, ou seja nossa agenda tem tamanho fixo 
+	     dos compromissos */
 	    f.seek((op.getDia()-1)*2400+(op.getHora()*100));
 	    f.writeByte('\0');
 

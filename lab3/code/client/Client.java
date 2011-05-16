@@ -36,7 +36,7 @@ public class Client {
     /* Função: Login do usuário 
        Descrição: compara PassWord e UserName com os do banco de dados
     */
-    public boolean Login() {
+    public boolean Login(MC823Server stub) {
 		
 	BufferedReader leitor = new BufferedReader(new InputStreamReader(System.in));
 	
@@ -49,12 +49,36 @@ public class Client {
 	    System.err.println("Read exception: " + e.toString());
 	    return false;
 	}
-	System.out.println("\nUsuário logado: "+this.op.getLogin());
-	return true;
+
+	System.out.print("\nDigite a senha do usuario:");
+	try {
+	    this.op.setLogin(leitor.readLine());
+	} catch (Exception e){
+	    System.err.println("Read exception: " + e.toString());
+	    return false;
+	}
+
+
+	/*Vou verificar se usuario tem agenda no sistema*/
+	/*E se usuario possui a senha correta*/
+	boolean Ok=false;
+	try{
+	    Ok = stub.IsUsr(op);
+	    if(Ok == false){
+		System.out.println("\nSenha ou usuários incorretos\n");
+		return false;
+	    }
+	} catch (Exception e) {
+	    System.err.println("Client exception: " + e.toString());
+	    e.printStackTrace();
+	}
+	
+	    System.out.println("\nUsuário logado: "+this.op.getLogin());
+	    return true;
     }
 
     /*Cria agenda de um novo usuário*/
-    public boolean NewCal() {
+    public boolean NewCal(MC823Server stub) {
 		
 	BufferedReader leitor = new BufferedReader(new InputStreamReader(System.in));
 	

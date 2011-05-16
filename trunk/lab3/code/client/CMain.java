@@ -34,6 +34,8 @@ public class CMain {
 	    e.printStackTrace();
 	}
 
+	/* Limpando a tela*/
+	System.out.println((char) 27+ "[2J");
 	/* Inicia com usuário não cadastrado*/	
 	user.NonUserMenu();
 	opSelect = 0;
@@ -53,7 +55,7 @@ public class CMain {
 		System.out.println("\n    Opcao invalida, digite a opcao novamente.");
 	    else
 		break;
-	
+	}
 	    switch(opSelect){
 	    case '1':
 		user.Login();
@@ -70,9 +72,7 @@ public class CMain {
 		System.exit(0);
 	    default:
 	    }
-	    if(true)
-		break;
-	}
+	
 
 	for(;;){
 	    user.UserMenu();

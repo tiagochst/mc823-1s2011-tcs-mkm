@@ -134,15 +134,24 @@ public class Server implements MC823Server{
 	    RandomAccessFile f = new RandomAccessFile(op.getLogin() + ".dat","rw");
 
 
-	    /*Apaga o compromisso, cada dia tem um campo de 24 compromisso
-	     cada um com 100 bytes, ou seja nossa agenda tem tamanho fixo 
-	     dos compromissos */
-	    f.seek((op.getDia()-1)*2400+(op.getHora()*100));
-	    f.writeByte('\0');
-
-	    for (i=0;i<98;i++)
-		f.writeByte(' ');
-			
+	    /*Procura compromisso pelo nome*/
+	    String name,trash;
+	    while((name = f.readLine())!= null){
+		/*Ignoro dia hora minuto*/
+		trash = f.readLine();
+		trash = f.readLine();
+		trash = f.readLine();
+		
+		/*verifico se nome procurado é o mesmo*/
+		if(name.equals(op.getString())){
+		    /*verifico senha do usuario*/
+		    System.out.println("Encontrei:\n");
+		    /*Vou apagar*/
+		    /*TO BE DONE*/
+		    return true;
+		}
+	    }
+	    
 	    f.close();
 			
 	    return true;
@@ -155,25 +164,44 @@ public class Server implements MC823Server{
     }
 
     public String obterCompromissoHora(Opr op) throws RemoteException{
-		
+
+	/*Lista de compromissos*/
+	StringBuffer sb = new StringBuffer();
+	op.setString("Nenhuma");
+	
 	try {
 	    RandomAccessFile f = new RandomAccessFile(op.getLogin() + ".dat","rw");
-	    f.seek((op.getDia()-1)*2400+(op.getHora()*100));
-	    op.setString(f.readLine());
-			
-	    //Retorna uma string com o compromisso
-	    f.close();
-			
-	    return op.getString();
+	    
+	    /*Procura compromisso pelo nome*/
+	    String name,dia,hora,minuto;
+	    while((name = f.readLine())!= null){
+		/*Ignoro dia hora minuto*/
+		dia = f.readLine();
+		hora = f.readLine();
+		minuto = f.readLine();
+		
+		/*verifico se nome procurado é o mesmo*/
+		if(dia.equals(Integer.toString(op.getDia()))){
+		    if(hora.equals(Integer.toString(op.getHora()))){
+			/*Preciso retornar lista de compromissos*/
+			sb.append(name + "\n");
+			op.setString(sb.toString());
 
+		    }
+		}
+	    }
+	    f.close();
+	    
+	    return op.getString();
+	    
 	} catch (Exception e) {
 	    System.err.println("File exception: " + e.toString());
-			
+	    
 	    //retorna a string com o erro
 	    return "File exception: " + e.toString();
 	}
-
-
+	
+	
     }
     public String obterCompromissoDia(Opr op) throws RemoteException{
 		

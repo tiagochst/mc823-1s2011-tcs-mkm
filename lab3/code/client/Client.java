@@ -94,11 +94,25 @@ public class Client {
 
 	System.out.print("\nDigite a senha do novo usuario:");
 	try {
-	    this.op.setLogin(leitor.readLine());
+	    this.op.setPassword(leitor.readLine());
 	} catch (Exception e){
 	    System.err.println("Read exception: " + e.toString());
 	    return false;
 	}
+
+	/*Vou criar agenda de usuario no sistema*/
+	boolean Ok=false;
+	try{
+	    Ok = stub.NewUsr(op);
+	    if(Ok == false){
+		System.out.println("\nNão consegui criar usuários\n");
+		return false;
+	    }
+	} catch (Exception e) {
+	    System.err.println("Client exception: " + e.toString());
+	    e.printStackTrace();
+	}
+	
 	
 	System.out.println("\nUsuário logado: "+this.op.getLogin());
 	System.out.println("\nSenha: "+this.op.getPassword());

@@ -1,3 +1,4 @@
+package client;
 import java.io.Serializable;
 
 /* Armazena as informaçoes necessarias na classe Opr */
@@ -30,7 +31,7 @@ public class Opr implements Serializable{
 	public String getPassword() {
 		return password;
 	}
-	public void getPassword(String wassword) {
+	public void setPassword(String wassword) {
 		this.password = password;
 	}
 	public int getOperacao() {

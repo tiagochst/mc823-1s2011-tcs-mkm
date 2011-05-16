@@ -63,8 +63,9 @@ public class Server implements MC823Server{
 
 
     public boolean marcarCompromisso(Opr op) throws RemoteException{
+	System.out.println("Agenda de usuário a ser criada:"+op.getLogin());	
 	File file = new File(op.getLogin() + ".dat");
-		
+	
 	try {
 	    //Verifica a existencia da agenda
 	    if(!file.exists()){
@@ -87,7 +88,7 @@ public class Server implements MC823Server{
     public boolean desmarcarCompromisso(Opr op) throws RemoteException{
 		
 	int i;
-	File file = new File(op.getLogin() + ".txt");
+	File file = new File(op.getLogin() + ".dat");
 		
 	try {
 	    //Verifica a existencia da agenda
@@ -116,7 +117,7 @@ public class Server implements MC823Server{
     }
 
     public String obterCompromissoHora(Opr op) throws RemoteException{
-	File file = new File(op.getLogin() + ".txt");
+	File file = new File(op.getLogin() + ".dat");
 		
 	try {
 	    //Verifica a existencia da agenda

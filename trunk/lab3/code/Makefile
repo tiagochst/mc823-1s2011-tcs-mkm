@@ -1,4 +1,7 @@
-
+all:
+	make interfaces
+	make -B server
+	make -B client
 # compilando interfaces
 interfaces:
 	javac client/Opr.java client/MC823Server.java
@@ -29,7 +32,4 @@ crun:
 	-Djava.rmi.server.codebase=file:///$(PWD)/client/ \
         -Djava.security.policy=$(PWD)/client.policy  \
          client.CMain localhost 
-all:
-	make interfaces
-	make -B server
-	make -B client
+

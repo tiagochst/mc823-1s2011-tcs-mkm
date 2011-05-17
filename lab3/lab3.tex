@@ -52,8 +52,9 @@
   % backgroundcolor=\color{lightgray},
   showstringspaces=false      % Leerzeichen in Strings anzeigen ?        
 }
-\lstloadlanguages{C
-}
+\lstloadlanguages{Java}
+
+
 
 % Definindo o espaçamento entre linhas para 1.5
 % Relatório parcial deve ter espaçamento simples
@@ -102,13 +103,13 @@
 
   \begin{abstract}
 
-The Java Remote Method Invocation (RMI) system allows an object running in one Java virtual machine to invoke methods on an object running in another Java virtual machine. RMI provides for remote communication between programs written in the Java programming language.
+    The Java Remote Method Invocation (RMI) system allows an object running in one Java virtual machine to invoke methods on an object running in another Java virtual machine. RMI provides for remote communication between programs written in the Java programming language.
 
   \end{abstract}
 
 \end{titlepage} 
-  % Sumário
-  \tableofcontents
+% Sumário
+\tableofcontents
 
 \newpage
 
@@ -156,12 +157,12 @@ disponibilizado na plataforma é registrado através de um nome de serviço, ou 
 string única para cada objeto o qual implementa serviços em RMI.
 
 \begin{figure}[h!]
-\begin{center}
-\includegraphics[scale=0.7]{rmi-img.png}
-\caption{Aplicação distribuida RMI que usa o RMI registry para obter a
-  referência para um objeto remoto.}
-\label{f1}
-\end{center}
+  \begin{center}
+    \includegraphics[scale=0.7]{rmi-img.png}
+    \caption{Aplicação distribuida RMI que usa o RMI registry para obter a
+      referência para um objeto remoto.}
+    \label{f1}
+  \end{center}
 \end{figure}
 
 
@@ -254,10 +255,10 @@ mesmo. O sistema lê a agenda a cada função chamada o servidor atualiza as inf
 O nosso sistema, além disso,apresenta transparência ao usuário. Os tipos de transparência a serem destacados são:
 \begin{description}
 \item[Acesso:] Esconde as diferenças nas representações de dados e na invocação de funções ou métodos para facilitar a comunicação
-entre objetos da rede.
+  entre objetos da rede.
 \item[Localização:] Esconde o local em que o objeto se encontra.
 \item[Concorrência:] Esconde como as atividades são coordenadas entre os objetos para obter consistência em um nível mais
-alto.
+  alto.
 \end{description}
 
 
@@ -266,20 +267,246 @@ Aplicamos o cálculo de tempo ao programa principal de forma a obtermos o tempo 
 os tempos da execução de cada função. Para o tempo total, no cliente pega-se o tempo antes da chamada da função do servidor e após o
 retorno dessa função.
 
- Para o tempo de comunicação, pega-se o tempo total e subtrai-se o tempo de processamento do servidor, que
+Para o tempo de comunicação, pega-se o tempo total e subtrai-se o tempo de processamento do servidor, que
 é depois da chamada da função e antes do retorno da função.
 Para o tempo total das funções obteu-se o tempo de inserir um compromisso, remover o compromisso, ver a agenda
 do mês, ver a agenda de um dia, ver a agenda de uma hora. Os dados e os testes estão exemplificados nas tabelas seguintes:
 
-  \subsection{Comparação de tecnologias}
+\begin{center}
+  \begin{table}[h!]
+    \begin{centering}
+      \subfloat[Tempo total]{\begin{centering}
+          \begin{tabular}{|c|c|}
+            \hline 
+            Valor & Tempo\tabularnewline
+            \hline 
+            \hline 
+            Max & 3.902 ms\tabularnewline
+            \hline 
+            Min & 2.933 ms\tabularnewline
+            \hline 
+            Mdia & 3.318 ms\tabularnewline
+            \hline 
+            Desvio & 0.145 ms\tabularnewline
+            \hline 
+          \end{tabular}
+          \par\end{centering}
+
+
+
+      }\subfloat[Tempo de comunição]{\begin{centering}
+          \begin{tabular}{|c|c|}
+            \hline 
+            Valor & Tempo\tabularnewline
+            \hline 
+            \hline 
+            Max & 3.385 ms\tabularnewline
+            \hline 
+            Min & 2.592 ms\tabularnewline
+            \hline 
+            Mdia & 2.870 ms\tabularnewline
+            \hline 
+            Desvio & 0.105 ms\tabularnewline
+            \hline 
+          \end{tabular}
+          \par\end{centering}
+
+      }
+      \par\end{centering}
+
+    \caption{Inserir compromisso}
+
+
+  \end{table}
+
+  \par\end{center}
+
+\begin{center}
+  \begin{table}[h!]
+    \begin{centering}
+      \subfloat[Tempo total]{\begin{centering}
+          \begin{tabular}{|c|c|}
+            \hline 
+            Valor & Tempo\tabularnewline
+            \hline 
+            \hline 
+            Max & 15.788 ms\tabularnewline
+            \hline 
+            Min & 11.238 ms\tabularnewline
+            \hline 
+            Mdia & 12.063 ms\tabularnewline
+            \hline 
+            Desvio & 0.171 ms\tabularnewline
+            \hline 
+          \end{tabular}
+          \par\end{centering}
+
+      }\subfloat[Tempo de comunição]{\begin{centering}
+          \begin{tabular}{|c|c|}
+            \hline 
+            Valor & Tempo\tabularnewline
+            \hline 
+            \hline 
+            Max & 3.370 ms\tabularnewline
+            \hline 
+            Min & 2.551 ms\tabularnewline
+            \hline 
+            Mdia & 2.878 ms\tabularnewline
+            \hline 
+            Desvio & 0.052 ms\tabularnewline
+            \hline 
+          \end{tabular}
+          \par\end{centering}
+
+      }
+      \par\end{centering}
+
+    \caption{Remover compromissos}
+  \end{table}
+
+  \par\end{center}
+
+\begin{center}
+  \begin{table}[h!]
+    \begin{centering}
+      \subfloat[Tempo total]{\begin{centering}
+          \begin{tabular}{|c|c|}
+            \hline 
+            Valor & Tempo\tabularnewline
+            \hline 
+            \hline 
+            Max & 11.722 ms\tabularnewline
+            \hline 
+            Min & 2.109 ms\tabularnewline
+            \hline 
+            Mdia & 3.989 ms\tabularnewline
+            \hline 
+            Desvio & 0.197 ms\tabularnewline
+            \hline 
+          \end{tabular}
+          \par\end{centering}
+
+      }\subfloat[Tempo de comunição]{\begin{centering}
+          \begin{tabular}{|c|c|}
+            \hline 
+            Valor & Tempo\tabularnewline
+            \hline 
+            \hline 
+            Max & 10.886 ms\tabularnewline
+            \hline 
+            Min & 1.429 ms\tabularnewline
+            \hline 
+            Mdia & 3.158 ms\tabularnewline
+            \hline 
+            Desvio & 0.190 ms\tabularnewline
+            \hline 
+          \end{tabular}
+          \par\end{centering}
+
+      }
+      \par\end{centering}
+
+    \caption{Ver compromissos de um dia e hora}
+  \end{table}
+
+  \par\end{center}
+
+\begin{center}
+  \begin{table}[h!]
+    \begin{centering}
+      \subfloat[Tempo total]{\begin{centering}
+          \begin{tabular}{|c|c|}
+            \hline 
+            Valor & Tempo\tabularnewline
+            \hline 
+            \hline 
+            Max & 12.891 ms\tabularnewline
+            \hline 
+            Min & 2.503 ms\tabularnewline
+            \hline 
+            Mdia & 5.144 ms\tabularnewline
+            \hline 
+            Desvio & 1.440 ms\tabularnewline
+            \hline 
+          \end{tabular}
+          \par\end{centering}
+
+      }\subfloat[Tempo de comunição]{\begin{centering}
+          \begin{tabular}{|c|c|}
+            \hline 
+            Valor & Tempo\tabularnewline
+            \hline 
+            \hline 
+            Max & 12.300 ms\tabularnewline
+            \hline 
+            Min & 1.819 ms\tabularnewline
+            \hline 
+            Mdia & 4.366 ms\tabularnewline
+            \hline 
+            Desvio & 1.445 ms\tabularnewline
+            \hline 
+          \end{tabular}
+          \par\end{centering}
+
+      }
+      \par\end{centering}
+
+    \caption{Ver compromissos de um dia}
+  \end{table}
+
+  \par\end{center}
+
+\begin{center}
+  \begin{table}[h!]
+    \begin{centering}
+      \subfloat[Tempo total]{\begin{centering}
+          \begin{tabular}{|c|c|}
+            \hline 
+            Valor & Tempo\tabularnewline
+            \hline 
+            \hline 
+            Max & 10.903 ms\tabularnewline
+            \hline 
+            Min & 2.121 ms\tabularnewline
+            \hline 
+            Mdia & 4.523 ms\tabularnewline
+            \hline 
+            Desvio & 0.191 ms\tabularnewline
+            \hline 
+          \end{tabular}
+          \par\end{centering}
+      }\subfloat[Tempo de comunição]{\begin{centering}
+          \begin{tabular}{|c|c|}
+            \hline 
+            Valor & Tempo\tabularnewline
+            \hline 
+            \hline 
+            Max & 10.231 ms\tabularnewline
+            \hline 
+            Min & 1.460 ms\tabularnewline
+            \hline 
+            Mdia & 3.743 ms\tabularnewline
+            \hline 
+            Desvio & 0.179 ms\tabularnewline
+            \hline 
+          \end{tabular}
+          \par\end{centering}
+      }
+      \par\end{centering}
+    \caption{Ver compromissos do mês}
+  \end{table}
+  \par\end{center}
+\newpage
+
+\subsection{Comparação de tecnologias}
 O RMI utiliza o protocolo TCP, que uma das suas características é 
 a transferência garantida, assim não foi necessário uma análise de erros na entrega
 dos pacotes. O que possibilitou uma diminuição do código se comparado
- a utilização do protocolo UDP em C.
+a utilização do protocolo UDP em C.
 
 Ao utilizar a tecnologia RMI conseguiu-se uma grande abstração em relação a
- comunicação entre cliente e servidor, já que a após estabelecida a comunicação o serivodor
- é chamado através de funções como se não fossem distribuídas. Da mesma maneira os arquivos são vistos como se fossem locais,
+comunicação entre cliente e servidor, já que a após estabelecida a comunicação o serivodor
+é chamado através de funções como se não fossem distribuídas. Da mesma maneira os arquivos são vistos como se fossem locais,
 o que é uma característica de transparência de localização, um dos objetivos de um sistema sistribuído. 
 
 
@@ -335,12 +562,12 @@ e o seu desempenho é pífio se comparado à linguagem C.
 }
 \lstloadlanguages{Java}
 
-%\begin{multicols}{1}
+% \begin{multicols}{1}
 \lstinputlisting[language=java,caption={Servidor }]{code/rel/Server.java}
 \lstinputlisting[language=java,caption={Main cliente }]{code/rel/CMain.java}
 \lstinputlisting[language=java,caption={Cliente }]{code/rel/Client.java}
 \lstinputlisting[language=java,caption={Server Interface }]{code/rel/MC823Server.java}
 \lstinputlisting[language=java,caption={Struct de compromissos }]{code/rel/Opr.java}
 
-%\end{multicols}
+% \end{multicols}
 \end{document}

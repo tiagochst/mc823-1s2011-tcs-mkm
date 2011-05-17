@@ -127,39 +127,58 @@ public class Server implements MC823Server{
     }
 
     public boolean desmarcarCompromisso(Opr op) throws RemoteException{
+
+	RandomAccessFile f; /*Arquivo*/
+	boolean found = false;
 		
-	int i;
+	/*Lista de compromissos não apagados*/
+	StringBuffer sb = new StringBuffer();
 		
 	try {
-	    RandomAccessFile f = new RandomAccessFile(op.getLogin() + ".dat","rw");
-
+	    f = new RandomAccessFile(op.getLogin() + ".dat","rw");
 
 	    /*Procura compromisso pelo nome*/
-	    String name,trash;
+	    String name,dia,hora,minuto;
 	    while((name = f.readLine())!= null){
 		/*Ignoro dia hora minuto*/
-		trash = f.readLine();
-		trash = f.readLine();
-		trash = f.readLine();
+		dia = f.readLine();
+		hora = f.readLine();
+		minuto = f.readLine();
+
+		System.out.println("\nEstou procurando por:"+op.getString());
 		
-		/*verifico se nome procurado é o mesmo*/
-		if(name.equals(op.getString())){
-		    /*verifico senha do usuario*/
-		    System.out.println("Encontrei:\n");
-		    /*Vou apagar*/
+		/*verifico se nome procurado não é o a ser apagado*/
+		if(!(name.equals(op.getString()))){
+		    System.out.println("\nNao eh");
+
+		    /*Vou manter compromisso na agenda*/
+		    sb.append(name+"\n");
+		    sb.append(dia+"\n"+hora+"\n"+minuto+"\n");
+		    
 		    /*TO BE DONE*/
-		    return true;
+		    found = true;
 		}
 	    }
 	    
 	    f.close();
+	    /*se achei tarefa reescrevo na agenda*/
+	    if(found){
+		op.setString(sb.toString());
+
+		File trash = new File(op.getLogin() + ".dat");
+		trash.delete();
+		f = new RandomAccessFile(op.getLogin() + ".dat","rw");
+		f.writeBytes(op.getString());
+		f.close();
+	  
+	    }
 			
-	    return true;
+	    return found;
 
 	} catch (Exception e) {
 	    System.err.println("File exception: " + e.toString());
 			
-	    return false;
+	    return found;
 	}
     }
 

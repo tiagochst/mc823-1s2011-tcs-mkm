@@ -12,7 +12,7 @@ client:
 	javac -cp client/MC823Server.jar \
 		 client/CMain.java  \
 		 client/Client.java \
-		client/MarcarTempo.java
+		client/timeStamp.java
 
 # compilando servidor
 server:

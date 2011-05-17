@@ -164,7 +164,7 @@ public class Client {
 	}
 	
 	try {
-	    //	    MarcarTempo temp = new MarcarTempo(op.getLogin()+"marcar");
+	    	    timeStamp temp = new timeStamp();
 	    if(stub.marcarCompromisso(op)){
 		System.out.print("\nA operação foi um sucesso:Compromisso marcado.\nPressione ENTER para continuar...");
 		leitor.readLine();
@@ -172,7 +172,7 @@ public class Client {
 		System.out.print("\nErro!!! Server Exception.\nPressione ENTER para continuar...");
 		leitor.readLine();
 	    }
-	    //temp.pararTempo();
+	    temp.pararTempo("1/clientTime.dat");
 	} catch (Exception e) {
 	    System.err.println("Client exception: " + e.toString());
 	    e.printStackTrace();
@@ -191,7 +191,7 @@ public class Client {
 	}
 		
 	try {
-	    //  MarcarTempo temp = new MarcarTempo(op.getLogin()+"desmarcar");
+	      timeStamp temp = new timeStamp();
 	    if(stub.desmarcarCompromisso(op)){
 		System.out.print("\nA operação foi um sucesso: Compromisso desmarcado.\nPressione ENTER para continuar...");
 		leitor.readLine();
@@ -199,7 +199,7 @@ public class Client {
 		System.out.print("\nErro!!! Server Exception.\nPressione ENTER para continuar...");
 		leitor.readLine();
 	    }
-	    //temp.pararTempo();
+	    temp.pararTempo("2/clientTime.dat");
 	} catch (Exception e) {
 	    System.err.println("Client exception: " + e.toString());
 	    e.printStackTrace();
@@ -221,11 +221,11 @@ public class Client {
 	}
 		  
 	try {
-	    //	    MarcarTempo temp = new MarcarTempo(op.getLogin()+"obterHora");
+	    	    timeStamp temp = new timeStamp();
 			
 	    //Recebe uma string de erro caso aconteca exception on server
 	    op.setString(stub.obterCompromissoHora(op));
-	    // temp.pararTempo();
+	     temp.pararTempo("3/clientTime.dat");
 	} catch (Exception e) {
 	    System.err.println("Client exception: " + e.toString());
 	    e.printStackTrace();
@@ -258,11 +258,11 @@ public class Client {
 	}
 
 	try {
-	    MarcarTempo temp = new MarcarTempo(op.getLogin()+"obterDia");
+	    timeStamp temp = new timeStamp();
 			
 	    //Recebe uma string de erro caso aconteca exception on server
 	    op.setString(stub.obterCompromissoDia(op));
-	    temp.pararTempo();
+	    temp.pararTempo("4/clientTime.dat");
 	} catch (Exception e) {
 	    System.err.println("Client exception: " + e.toString());
 	    e.printStackTrace();
@@ -286,11 +286,11 @@ public class Client {
     public void ShowMonth(MC823Server stub) {
 
 	try {
-	    //	    MarcarTempo temp = new MarcarTempo(op.getLogin()+"obterMes");
+	    	    timeStamp temp = new timeStamp();
 			
 	    //Recebe uma string de erro caso aconteca exception on server
 	    op.setString(stub.obterCompromissoMes(op));
-	    //   temp.pararTempo();
+	       temp.pararTempo("5/clientTime.dat");
 	} catch (Exception e) {
 	    System.err.println("Client exception: " + e.toString());
 	    e.printStackTrace();

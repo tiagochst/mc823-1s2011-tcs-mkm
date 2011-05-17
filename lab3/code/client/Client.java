@@ -258,11 +258,11 @@ public class Client {
 	}
 
 	try {
-	    //MarcarTempo temp = new MarcarTempo(op.getLogin()+"obterDia");
+	    MarcarTempo temp = new MarcarTempo(op.getLogin()+"obterDia");
 			
 	    //Recebe uma string de erro caso aconteca exception on server
 	    op.setString(stub.obterCompromissoDia(op));
-	    //   temp.pararTempo();
+	    temp.pararTempo();
 	} catch (Exception e) {
 	    System.err.println("Client exception: " + e.toString());
 	    e.printStackTrace();

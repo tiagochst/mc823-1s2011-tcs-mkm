@@ -167,7 +167,7 @@ public class Server implements MC823Server{
 
 	/*Lista de compromissos*/
 	StringBuffer sb = new StringBuffer();
-	op.setString("Nenhuma");
+	op.setString("Nenhum compromisso nesse dia e horario");
 	
 	try {
 	    RandomAccessFile f = new RandomAccessFile(op.getLogin() + ".dat","rw");
@@ -183,8 +183,11 @@ public class Server implements MC823Server{
 		/*verifico se nome procurado é o mesmo*/
 		if(dia.equals(Integer.toString(op.getDia()))){
 		    if(hora.equals(Integer.toString(op.getHora()))){
+
 			/*Preciso retornar lista de compromissos*/
-			sb.append(name + "\n");
+			sb.append("-----------\nNome:"+name);
+			sb.append("\nDia: "+dia+"\nHora: "+hora+"\nMinuto: "+minuto + "\n");
+			
 			op.setString(sb.toString());
 
 		    }
@@ -201,70 +204,83 @@ public class Server implements MC823Server{
 	    return "File exception: " + e.toString();
 	}
 	
-	
     }
+
     public String obterCompromissoDia(Opr op) throws RemoteException{
-		
-	int i;
-		
+
+	/*Lista de compromissos*/
+	StringBuffer sb = new StringBuffer();
+	op.setString("Nenhum Compromisso nesse dia");
+	
 	try {
 	    RandomAccessFile f = new RandomAccessFile(op.getLogin() + ".dat","rw");
-	    f.seek((op.getDia()-1)*2400);
-			
-	    StringBuffer sb = new StringBuffer();
-			
-	    //Coleta os compromissos do dia
-	    for (i=0;i<24;i++) {
-		sb.append(f.readLine() + "\n");
-	    }
-			
-	    op.setString(sb.toString());
-			
-	    f.close();
-
-	    //Retorna uma string com todos os compromissos do dia
-	    return op.getString();
-			
-	} catch (Exception e) {
-	    System.err.println("File exception: " + e.toString());
-			
-	    //retorna a string com o erro
-	    return "File exception: " + e.toString();
-	}
+	    
+	    /*Procura compromisso pelo nome*/
+	    String name,dia,hora,minuto;
+	    while((name = f.readLine())!= null){
+		/*Ignoro dia hora minuto*/
+		dia = f.readLine();
+		hora = f.readLine();
+		minuto = f.readLine();
 		
+		/*verifico se nome procurado é o mesmo*/
+		if(dia.equals(Integer.toString(op.getDia()))){
 
-    }
-    public String obterCompromissoMes(Opr op) throws RemoteException{
-	int i;
-		
-	try {
-	    RandomAccessFile f = new RandomAccessFile(op.getLogin() + ".dat","rw");
-			
-	    StringBuffer sb = new StringBuffer();
-			
-	    //Coleta todos os compromissos do mes deixando ja no formato apresentavel
-	    for (i=0;i<720;i++) {
-		f.seek(i*100);
-		if(f.readByte() != '\0'){
-		    f.seek(i*100);
-		    sb.append("\nDia: " + (i/24)+1 + "\n " + i%24 + "h - " + f.readLine() + "\n");
+		    /*Preciso retornar lista de compromissos*/
+		    sb.append("-----------\nNome:"+name);
+		    sb.append("\nDia: "+dia+"\nHora: "+hora+"\nMinuto: "+minuto + "\n");
+
+		    op.setString(sb.toString());
 		}
 	    }
-			
-	    op.setString(sb.toString());
-			
 	    f.close();
-			
-	    //Retorna uma string com todos os compromissos do dia
+	    
 	    return op.getString();
-			
+	    
 	} catch (Exception e) {
 	    System.err.println("File exception: " + e.toString());
-			
+	    
 	    //retorna a string com o erro
 	    return "File exception: " + e.toString();
 	}
-		
-    }
 	
+    }
+
+    public String obterCompromissoMes(Opr op) throws RemoteException{
+
+	/*Lista de compromissos*/
+	StringBuffer sb = new StringBuffer();
+	op.setString("Nenhum Compromisso no mes");
+	
+	try {
+	    RandomAccessFile f = new RandomAccessFile(op.getLogin() + ".dat","rw");
+	    
+	    /*Procura compromisso pelo nome*/
+	    String name,dia,hora,minuto;
+	    while((name = f.readLine())!= null){
+		/*Ignoro dia hora minuto*/
+		dia = f.readLine();
+		hora = f.readLine();
+		minuto = f.readLine();
+		
+		/*Preciso retornar lista de compromissos*/
+		sb.append("-----------\nNome:"+name);
+		sb.append("\nDia: "+dia+"\nHora: "+hora+"\nMinuto: "+minuto + "\n");
+
+		op.setString(sb.toString());
+		
+	    }
+	    f.close();
+	    
+	    return op.getString();
+	    
+	} catch (Exception e) {
+	    System.err.println("File exception: " + e.toString());
+	    
+	    //retorna a string com o erro
+	    return "File exception: " + e.toString();
+	}
+	
+    }
+    
 }

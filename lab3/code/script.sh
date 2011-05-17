@@ -1,4 +1,4 @@
-ps -u | grep $1 > lixo
+ps -fe | grep $1 > lixo
 cat lixo | while read linha
 do
     cont=0
@@ -13,3 +13,4 @@ do
     done
 done
 rm lixo
+rmiregistry &

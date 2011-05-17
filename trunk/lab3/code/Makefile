@@ -9,7 +9,10 @@ interfaces:
 
 # compilando cliente
 client:
-	javac -cp client/MC823Server.jar client/CMain.java client/Client.java
+	javac -cp client/MC823Server.jar \
+		 client/CMain.java  \
+		 client/Client.java \
+		client/MarcarTempo.java
 
 # compilando servidor
 server:

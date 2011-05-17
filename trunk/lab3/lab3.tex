@@ -509,6 +509,26 @@ comunicação entre cliente e servidor, já que a após estabelecida a comunica�
 é chamado através de funções como se não fossem distribuídas. Da mesma maneira os arquivos são vistos como se fossem locais,
 o que é uma característica de transparência de localização, um dos objetivos de um sistema sistribuído. 
 
+\begin{table}[h!]
+  \begin{center}
+  
+    \begin{tabular}{ccc}
+      
+      Função& TCP&  UDP \\
+      \hline
+      F0 & 0.705 ms & 0.200 ms\\
+      F1 & 0.725 & 0.215 ms\\
+      F2 & 0.705 ms & 0.200 ms\\
+      F3 & 0.715 ms & 0.074 ms\\
+      F4 & 0.727 ms & 0.251 ms\\
+      F5 & 0.716 ms & 0.241 ms
+    \end{tabular}
+  \end{center}
+      \vspace{-5mm}
+    \caption{Comparação de tempos de comunicação} \label{compcom}
+\end{table}
+
+
 
 \section{Conclusão}
 

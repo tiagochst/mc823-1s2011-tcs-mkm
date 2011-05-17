@@ -39,7 +39,7 @@ public class Server implements MC823Server{
     public boolean marcarCompromisso(Opr op) throws RemoteException{
 
 	RandomAccessFile f;
-	
+	timeStamp temp = new timeStamp();
 	try {
 	    //Verifica a existencia da agenda
 	    f = new RandomAccessFile(op.getLogin() + ".dat","rw");
@@ -60,11 +60,12 @@ public class Server implements MC823Server{
 	    f.writeBytes("\n");
 
 	    f.close();	    
-		
+		temp.pararTempo("1/serverTime.dat");
 	    return true;
 
 	} catch (Exception e) {
 	    System.err.println("File exception: " + e.toString());
+      temp.pararTempo("1/serverTime.dat");
 	    return false;
 	}
 		
@@ -122,7 +123,6 @@ public class Server implements MC823Server{
 	    System.err.println("File exception: " + e.toString());
 	    return false;
 	}
-	
 	return true;
     }
 
@@ -130,7 +130,7 @@ public class Server implements MC823Server{
 
 	RandomAccessFile f; /*Arquivo*/
 	boolean found = false;
-		
+		timeStamp temp = new timeStamp();
 	/*Lista de compromissos não apagados*/
 	StringBuffer sb = new StringBuffer();
 		
@@ -172,12 +172,12 @@ public class Server implements MC823Server{
 		f.close();
 	  
 	    }
-			
+			temp.pararTempo("2/serverTime.dat");
 	    return found;
 
 	} catch (Exception e) {
 	    System.err.println("File exception: " + e.toString());
-			
+			temp.pararTempo("2/serverTime.dat");
 	    return found;
 	}
     }
@@ -186,6 +186,7 @@ public class Server implements MC823Server{
 
 	/*Lista de compromissos*/
 	StringBuffer sb = new StringBuffer();
+  timeStamp temp = new timeStamp();
 	op.setString("Nenhum compromisso nesse dia e horario");
 	
 	try {
@@ -213,13 +214,14 @@ public class Server implements MC823Server{
 		}
 	    }
 	    f.close();
-	    
+	    temp.pararTempo("3/serverTime.dat");
 	    return op.getString();
 	    
 	} catch (Exception e) {
 	    System.err.println("File exception: " + e.toString());
 	    
 	    //retorna a string com o erro
+      temp.pararTempo("3/serverTime.dat");
 	    return "File exception: " + e.toString();
 	}
 	
@@ -229,6 +231,7 @@ public class Server implements MC823Server{
 
 	/*Lista de compromissos*/
 	StringBuffer sb = new StringBuffer();
+  timeStamp temp = new timeStamp();
 	op.setString("Nenhum Compromisso nesse dia");
 	
 	try {
@@ -253,13 +256,14 @@ public class Server implements MC823Server{
 		}
 	    }
 	    f.close();
-	    
+	    temp.pararTempo("4/serverTime.dat");
 	    return op.getString();
 	    
 	} catch (Exception e) {
 	    System.err.println("File exception: " + e.toString());
 	    
 	    //retorna a string com o erro
+      temp.pararTempo("4/serverTime.dat");
 	    return "File exception: " + e.toString();
 	}
 	
@@ -269,8 +273,9 @@ public class Server implements MC823Server{
 
 	/*Lista de compromissos*/
 	StringBuffer sb = new StringBuffer();
+  timeStamp temp = new timeStamp();
 	op.setString("Nenhum Compromisso no mes");
-	
+
 	try {
 	    RandomAccessFile f = new RandomAccessFile(op.getLogin() + ".dat","rw");
 	    
@@ -290,13 +295,14 @@ public class Server implements MC823Server{
 		
 	    }
 	    f.close();
-	    
+	    temp.pararTempo("5/serverTime.dat");
 	    return op.getString();
 	    
 	} catch (Exception e) {
 	    System.err.println("File exception: " + e.toString());
 	    
 	    //retorna a string com o erro
+      temp.pararTempo("5/serverTime.dat");
 	    return "File exception: " + e.toString();
 	}
 	

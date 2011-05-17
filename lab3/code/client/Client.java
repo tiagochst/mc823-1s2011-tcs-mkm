@@ -166,13 +166,14 @@ public class Client {
 	try {
 	    	    timeStamp temp = new timeStamp();
 	    if(stub.marcarCompromisso(op)){
+        temp.pararTempo("1/clientTime.dat");
 		System.out.print("\nA operação foi um sucesso:Compromisso marcado.\nPressione ENTER para continuar...");
 		leitor.readLine();
 	    } else {
+        temp.pararTempo("1/clientTime.dat");
 		System.out.print("\nErro!!! Server Exception.\nPressione ENTER para continuar...");
 		leitor.readLine();
 	    }
-	    temp.pararTempo("1/clientTime.dat");
 	} catch (Exception e) {
 	    System.err.println("Client exception: " + e.toString());
 	    e.printStackTrace();
@@ -193,13 +194,14 @@ public class Client {
 	try {
 	      timeStamp temp = new timeStamp();
 	    if(stub.desmarcarCompromisso(op)){
+          temp.pararTempo("2/clientTime.dat");
 		System.out.print("\nA operação foi um sucesso: Compromisso desmarcado.\nPressione ENTER para continuar...");
 		leitor.readLine();
 	    } else {
+            temp.pararTempo("2/clientTime.dat");
 		System.out.print("\nErro!!! Server Exception.\nPressione ENTER para continuar...");
 		leitor.readLine();
 	    }
-	    temp.pararTempo("2/clientTime.dat");
 	} catch (Exception e) {
 	    System.err.println("Client exception: " + e.toString());
 	    e.printStackTrace();

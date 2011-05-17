@@ -232,8 +232,9 @@ public class Client {
 	}
 
 	try {
-	    System.out.println("\nDia: " + op.getDia());
-	    System.out.println("\n"+ op.getHora()+ "h - " + op.getString());
+	    System.out.println("\n----------\nCompromissos do dia: " + op.getDia()+"e hora"+ op.getHora()+ "h\n----------");
+	    System.out.println(op.getString());
+	    System.out.println("----------\n");
 	    System.out.print("\nPressione ENTER para continuar...");
 	    leitor.readLine();
 		
@@ -268,14 +269,11 @@ public class Client {
 	}
 	
 	try {
-	    System.out.println("\nDia: " + op.getDia());
-			
-	    String[] tokens = op.getString().split(String.valueOf('\n'));
-			
-	    for(i=0;i<24;i++){
-		System.out.println(i + "h - " + tokens[i]);
-	    }
-	    //System.out.println(op.getString());
+
+	    System.out.println("\n----------\nCompromissos do dia: " + op.getDia()+"\n----------");
+	    System.out.println(op.getString());
+	    System.out.println("----------\n");
+
 			
 	    System.out.print("\nPressione ENTER para continuar...");
 	    leitor.readLine();
@@ -299,8 +297,10 @@ public class Client {
 	}
 
 	try {
-			
+	    System.out.println("\n----------\nCompromissos do mes\n----------");
 	    System.out.println(op.getString());
+	    System.out.println("----------\n");
+	   
 	    System.out.print("\nPressione ENTER para continuar...");
 	    leitor.readLine();
 	} catch (Exception e) {

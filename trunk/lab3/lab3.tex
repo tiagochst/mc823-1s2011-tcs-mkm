@@ -384,7 +384,7 @@ do mês, ver a agenda de um dia e ver a agenda de uma hora. Os dados e os testes
             \hline 
             Min & 8.687 ms\tabularnewline
             \hline 
-            Média & 9185 ms\tabularnewline
+            Média & 9.185 ms\tabularnewline
             \hline 
             Desvio & 0.238 ms\tabularnewline
             \hline 
@@ -434,9 +434,27 @@ do mês, ver a agenda de um dia e ver a agenda de uma hora. Os dados e os testes
             Desvio & 0.190 ms\tabularnewline
             \hline 
           \end{tabular}
-          \par\end{centering}
-
+         \par\end{centering}
       }
+   \subfloat[Tempo de processamento]{
+        \begin{centering}
+          \begin{tabular}{|c|c|}
+            \hline 
+            Valor & Tempo\tabularnewline
+            \hline 
+            \hline 
+            Max & 0.836 ms\tabularnewline
+            \hline 
+            Min & 0.680 ms\tabularnewline
+            \hline 
+            Média & 0.841 ms\tabularnewline
+            \hline 
+            Desvio & 0.048 ms\tabularnewline
+            \hline 
+          \end{tabular}
+          \par\end{centering}
+      }
+
       \par\end{centering}
 
     \caption{Ver compromissos de um dia e hora}
@@ -480,7 +498,24 @@ do mês, ver a agenda de um dia e ver a agenda de uma hora. Os dados e os testes
             \hline 
           \end{tabular}
           \par\end{centering}
-
+      }
+   \subfloat[Tempo de processamento]{
+        \begin{centering}
+          \begin{tabular}{|c|c|}
+            \hline 
+            Valor & Tempo\tabularnewline
+            \hline 
+            \hline 
+            Max & 0.691 ms\tabularnewline
+            \hline 
+            Min & 0.684 ms\tabularnewline
+            \hline 
+            Média & 0.778 ms\tabularnewline
+            \hline 
+            Desvio & 0.002 ms\tabularnewline
+            \hline 
+          \end{tabular}
+          \par\end{centering}
       }
       \par\end{centering}
 
@@ -521,6 +556,24 @@ do mês, ver a agenda de um dia e ver a agenda de uma hora. Os dados e os testes
             Média & 3.743 ms\tabularnewline
             \hline 
             Desvio & 0.179 ms\tabularnewline
+            \hline 
+          \end{tabular}
+          \par\end{centering}
+      }
+   \subfloat[Tempo de processamento]{
+        \begin{centering}
+          \begin{tabular}{|c|c|}
+            \hline 
+            Valor & Tempo\tabularnewline
+            \hline 
+            \hline 
+            Max & 0.672 ms\tabularnewline
+            \hline 
+            Min & 0.661 ms\tabularnewline
+            \hline 
+            Média & 0.780 ms\tabularnewline
+            \hline 
+            Desvio & 0.005 ms\tabularnewline
             \hline 
           \end{tabular}
           \par\end{centering}
@@ -634,6 +687,5 @@ e o seu desempenho é pífio se comparado à linguagem C.
 \lstinputlisting[language=java,caption={Cliente }]{code/rel/Client.java}
 \lstinputlisting[language=java,caption={Server Interface }]{code/rel/MC823Server.java}
 \lstinputlisting[language=java,caption={Struct de compromissos }]{code/rel/Opr.java}
-
  \end{multicols}
 \end{document}

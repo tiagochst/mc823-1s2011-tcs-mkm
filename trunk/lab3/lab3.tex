@@ -20,40 +20,39 @@
 \usepackage{verbatim}
 \usepackage{multicol}
 
-\usepackage{listings}
-\lstset{language=C}
+
+
+%%% usado para codigo %%%
 \usepackage{listings}
 \lstset{
-  basicstyle=\footnotesize\ttfamily, % Standardschrift
-  numbers=left,               % Ort der Zeilennummern
-  numberstyle=\tiny,          % Stil der Zeilennummern
-  % stepnumber=2,               % Abstand zwischen den Zeilennummern
-  numbersep=5pt,              % Abstand der Nummern zum Text
-  tabsize=2,                  % Groesse von Tabs
-  extendedchars=true,         %
-  breaklines=true,            % Zeilen werden Umgebrochen
-  classoffset=0,
+  language = Java,
+  basicstyle=\scriptsize\ttfamily, 
+  numbers=left,               
+  numberstyle=\tiny,         
+  numbersep=5pt,             
+  tabsize=2,                  
+  extendedchars=true,  
+  breaklines=true,       
   keywordstyle=\color{blue},
-  classoffset=1,
-  morekeywords={factor},keywordstyle=\color{red},
-  classoffset=0,
-  % frame=b,         
-  % keywordstyle=[1]\textbf,    % Stil der Keywords
-  % keywordstyle=[2]\textbf,    %
-  % keywordstyle=[3]\textbf,    %
-  % keywordstyle=[4]\textbf,   \sqrt{\sqrt{}} %
-  stringstyle=\color{green}\ttfamily, % Farbe der String
-  showspaces=false,           % Leerzeichen anzeigen ?
-  showtabs=false,             % Tabs anzeigen ?
+%  frame=b,         
+  stringstyle=\color{green}\ttfamily, 
+  showspaces=false,          
+  showtabs=false,             
   xleftmargin=17pt,
   framexleftmargin=17pt,
   framexrightmargin=5pt,
+  commentstyle=\color[rgb]{0.133,0.545,0.133},
+  stringstyle=\color[rgb]{0.627,0.126,0.941},
   framexbottommargin=4pt,
-  % backgroundcolor=\color{lightgray},
-  showstringspaces=false      % Leerzeichen in Strings anzeigen ?        
+  showstringspaces=false              
 }
 \lstloadlanguages{Java}
-
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFont{green}{\color{green}}
+\DeclareCaptionFormat{listing}{{\colorbox[cmyk]{1,1,1,1}{
+      \parbox{8.5cm}{\centering #1#2#3}}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
 
 
 % Definindo o espaçamento entre linhas para 1.5
@@ -657,29 +656,7 @@ e o seu desempenho é pífio se comparado à linguagem C.
 \newpage
 \section{Anexo}
 
-\lstset{
-  basicstyle=\scriptsize\ttfamily, % Standardschrift
-  numbers=left,               % Ort der Zeilennummern
-  numberstyle=\scriptsize,          % Stil der Zeilennummern
-  numbersep=5pt,              % Abstand der Nummern zum Text
-  tabsize=2,                  % Groesse von Tabs
-  extendedchars=true,         %
-  breaklines=true,            % Zeilen werden Umgebrochen
-  classoffset=0,
-  keywordstyle=\color{blue},
-  classoffset=1,
-  morekeywords={factor},keywordstyle=\color{red},
-  classoffset=0,
-  stringstyle=\color{green}\ttfamily, % Farbe der String
-  showspaces=false,           % Leerzeichen anzeigen ?
-  showtabs=false,             % Tabs anzeigen ?
-  xleftmargin=17pt,
-  framexleftmargin=17pt,
-  framexrightmargin=5pt,
-  framexbottommargin=4pt,
-  showstringspaces=false      % Leerzeichen in Strings anzeigen ?        
-}
-\lstloadlanguages{Java}
+
 
  \begin{multicols}{1}
 \lstinputlisting[language=java,caption={Servidor }]{code/rel/Server.java}

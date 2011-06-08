@@ -263,19 +263,17 @@ O nosso sistema, além disso,apresenta transparência ao usuário. Os tipos de t
 
 
 \section{Tempos de comunicação e total}
-Aplicamos o cálculo de tempo ao programa principal de forma a obtermos o tempo total, tempo de comunicação e
-os tempos da execução de cada função. Para o tempo total, no cliente pega-se o tempo antes da chamada da função do servidor e após o
-retorno dessa função.
+Aplicamos o cálculo de tempo ao programa principal de forma a obtermos o tempo total e o tempo de comunicação de cada função. Para o tempo total, pega-se, no cliente, a diferença do tempo no final da função e o tempo quando a função é chamada.
 
-Para o tempo de comunicação, pega-se o tempo total e subtrai-se o tempo de processamento do servidor, que
-é depois da chamada da função e antes do retorno da função.
+Para o tempo de comunicação, pega-se o tempo total e subtrai-se o tempo de processamento do servidor. O tempo do servidor é calculado fazendo-se a diferença de dois tempos: antes do retorno da função e depois da chamada da função.
 Para o tempo total das funções obteu-se o tempo de inserir um compromisso, remover o compromisso, ver a agenda
-do mês, ver a agenda de um dia, ver a agenda de uma hora. Os dados e os testes estão exemplificados nas tabelas seguintes:
+do mês, ver a agenda de um dia e ver a agenda de uma hora. Os dados e os testes estão exemplificados nas tabelas seguintes:
 
 \begin{center}
   \begin{table}[h!]
     \begin{centering}
-      \subfloat[Tempo total]{\begin{centering}
+      \subfloat[Tempo total]{
+        \begin{centering}
           \begin{tabular}{|c|c|}
             \hline 
             Valor & Tempo\tabularnewline
@@ -291,10 +289,9 @@ do mês, ver a agenda de um dia, ver a agenda de uma hora. Os dados e os testes 
             \hline 
           \end{tabular}
           \par\end{centering}
-
-
-
-      }\subfloat[Tempo de comunição]{\begin{centering}
+      }
+      \subfloat[Tempo de comunição]{
+        \begin{centering}
           \begin{tabular}{|c|c|}
             \hline 
             Valor & Tempo\tabularnewline
@@ -310,8 +307,26 @@ do mês, ver a agenda de um dia, ver a agenda de uma hora. Os dados e os testes 
             \hline 
           \end{tabular}
           \par\end{centering}
-
       }
+      \subfloat[Tempo de processamento]{
+        \begin{centering}
+          \begin{tabular}{|c|c|}
+            \hline 
+            Valor & Tempo\tabularnewline
+            \hline 
+            \hline 
+            Max & 0.517 ms\tabularnewline
+            \hline 
+            Min & 0.341 ms\tabularnewline
+            \hline 
+            Média & 0.448 ms\tabularnewline
+            \hline 
+            Desvio & 0.124 ms\tabularnewline
+            \hline 
+          \end{tabular}
+          \par\end{centering}
+      }
+
       \par\end{centering}
 
     \caption{Inserir compromisso}
@@ -340,8 +355,8 @@ do mês, ver a agenda de um dia, ver a agenda de uma hora. Os dados e os testes 
             \hline 
           \end{tabular}
           \par\end{centering}
-
-      }\subfloat[Tempo de comunição]{\begin{centering}
+      }
+      \subfloat[Tempo de comunição]{\begin{centering}
           \begin{tabular}{|c|c|}
             \hline 
             Valor & Tempo\tabularnewline
@@ -357,8 +372,26 @@ do mês, ver a agenda de um dia, ver a agenda de uma hora. Os dados e os testes 
             \hline 
           \end{tabular}
           \par\end{centering}
-
       }
+      \subfloat[Tempo de processamento]{
+        \begin{centering}
+          \begin{tabular}{|c|c|}
+            \hline 
+            Valor & Tempo\tabularnewline
+            \hline 
+            \hline 
+            Max & 12.418 ms\tabularnewline
+            \hline 
+            Min & 8.687 ms\tabularnewline
+            \hline 
+            Média & 9185 ms\tabularnewline
+            \hline 
+            Desvio & 0.238 ms\tabularnewline
+            \hline 
+          \end{tabular}
+          \par\end{centering}
+      }
+
       \par\end{centering}
 
     \caption{Remover compromissos}
@@ -499,36 +532,49 @@ do mês, ver a agenda de um dia, ver a agenda de uma hora. Os dados e os testes 
 \newpage
 
 \subsection{Comparação de tecnologias}
-O RMI utiliza o protocolo TCP, que uma das suas características é 
-a transferência garantida, assim não foi necessário uma análise de erros na entrega
-dos pacotes. O que possibilitou uma diminuição do código se comparado
-a utilização do protocolo UDP em C.
+O RMI utiliza o protocolo TCP, no qual uma das suas características é 
+a transferência garantida de dados, assim não foi necessária uma análise de erros na entrega
+dos pacotes. O que possibilitou uma diminuição do código em aproximadamente 20\% para o protocolo UDP em C e cerca de 38\% para o protocolo TCP, também em C.
+
+\begin{table}[h!]
+  \begin{center}
+  
+    \begin{tabular}{cccc}
+      
+       & TCP&  UDP & RMI\\
+      \hline
+      Nº de linhas & 1344 & 1038 & 829 \\
+    \end{tabular}
+  \end{center}
+      \vspace{-5mm}
+    \caption{Comparação do tamanho de codigo} \label{compcom}
+\end{table}
 
 Ao utilizar a tecnologia RMI conseguiu-se uma grande abstração em relação a
-comunicação entre cliente e servidor, já que a após estabelecida a comunicação o serivodor
-é chamado através de funções como se não fossem distribuídas. Da mesma maneira os arquivos são vistos como se fossem locais,
+comunicação entre cliente e servidor, já que, após estabelecida a comunicação, o serivodor
+é chamado através de funções como se não fossem distribuídas. Da mesma maneira, os arquivos são vistos como se fossem locais,
 o que é uma característica de transparência de localização, um dos objetivos de um sistema sistribuído. 
 
 \begin{table}[h!]
   \begin{center}
   
-    \begin{tabular}{ccc}
+    \begin{tabular}{cccc}
       
-      Função& TCP&  UDP \\
+      Função& TCP&  UDP & RMI\\
       \hline
-      F0 & 0.705 ms & 0.200 ms\\
-      F1 & 0.725 & 0.215 ms\\
-      F2 & 0.705 ms & 0.200 ms\\
-      F3 & 0.715 ms & 0.074 ms\\
-      F4 & 0.727 ms & 0.251 ms\\
-      F5 & 0.716 ms & 0.241 ms
+      F0 & 0.705 ms & 0.200 ms & 2.862 ms\\
+      F1 & 0.725 ms & 0.215 ms & 2.870 ms\\
+      F2 & 0.705 ms & 0.200 ms & 2.878 ms\\
+      F3 & 0.715 ms & 0.074 ms & 3.158 ms\\
+      F4 & 0.727 ms & 0.251 ms & 4.366 ms\\
+      F5 & 0.716 ms & 0.241 ms & 3.743 ms
     \end{tabular}
   \end{center}
       \vspace{-5mm}
-    \caption{Comparação de tempos de comunicação} \label{compcom}
+    \caption{Comparação de tempos de comunicação} \label{}
 \end{table}
 
-
+Na tabela acima, nota-se que os tempos de comunicação do RMI é cerca de dez vezes maior que o UDP e para o TCP é, em média, 5 vezes maior. Ao passo que, no desenvolvimento do código o RMI mostrou-se mais fácil de programar que os outros dois protocolos, devido ao mais alto nível de abstração do RMI.
 
 \section{Conclusão}
 
@@ -583,11 +629,11 @@ e o seu desempenho é pífio se comparado à linguagem C.
 \lstloadlanguages{Java}
 
 % \begin{multicols}{1}
-\lstinputlisting[language=java,caption={Servidor }]{code/rel/Server.java}
-\lstinputlisting[language=java,caption={Main cliente }]{code/rel/CMain.java}
-\lstinputlisting[language=java,caption={Cliente }]{code/rel/Client.java}
-\lstinputlisting[language=java,caption={Server Interface }]{code/rel/MC823Server.java}
-\lstinputlisting[language=java,caption={Struct de compromissos }]{code/rel/Opr.java}
+%\lstinputlisting[language=java,caption={Servidor }]{code/client/Server.java}
+%\lstinputlisting[language=java,caption={Main cliente }]{code/client/CMain.java}
+%\lstinputlisting[language=java,caption={Cliente }]{code/client/Client.java}
+%\lstinputlisting[language=java,caption={Server Interface }]{code/client/MC823Server.java}
+%\lstinputlisting[language=java,caption={Struct de compromissos }]{code/client/Opr.java}
 
 % \end{multicols}
 \end{document}

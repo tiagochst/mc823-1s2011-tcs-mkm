@@ -12,5 +12,5 @@
 \contentsline {section}{\numberline {3}Ambiente de implementa\IeC {\c c}\IeC {\~a}o}{4}
 \contentsline {section}{\numberline {4}Tempos de comunica\IeC {\c c}\IeC {\~a}o e total}{4}
 \contentsline {subsection}{\numberline {4.1}Compara\IeC {\c c}\IeC {\~a}o de tecnologias}{6}
-\contentsline {section}{\numberline {5}Conclus\IeC {\~a}o}{6}
+\contentsline {section}{\numberline {5}Conclus\IeC {\~a}o}{7}
 \contentsline {section}{\numberline {6}Anexo}{8}

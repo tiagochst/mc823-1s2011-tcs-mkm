@@ -607,6 +607,8 @@ comunicação entre cliente e servidor, já que, após estabelecida a comunicaç
 é chamado através de funções como se não fossem distribuídas. Da mesma maneira, os arquivos são vistos como se fossem locais,
 o que é uma característica de transparência de localização, um dos objetivos de um sistema sistribuído. 
 
+Além disso, através do security manager o RMI cuida da segurança do sistema, protegendo o acesso aos recursos do sistema de códigos maliciosos baixados que rodam na máquina virtual Java.
+
 \begin{table}[h!]
   \begin{center}
   
@@ -633,7 +635,7 @@ Na tabela acima, nota-se que os tempos de comunicação do RMI é cerca de dez v
 Utilizar a tecnologia Java RMI facilitou o desenvolvimento de aplicações distribuídas,
 no qual existe a interação entre um cliente e um servidor, devido a inclusão da implementação 
 do protocolo TCP. Além disso, java proporciona a funcionalidade garbage collector que nos exime de
-se preocupar com a limpeza de memória, diferentemente do que ocorreu desenvolvendo a agenda na linguagem C.
+se preocupar com a limpeza de memória, diferentemente do que ocorreu desenvolvendo a agenda na linguagem C. Além disso, o RMI cuida da segurança do sistema ao possibilitar a criação e instalação do security manager.
 
 Por outro lado, existe a necessidade de uma largura de banda consideravelmente
 maior em relação ao Socket TCP. Entretanto, como a tecnologia Java RMI
@@ -664,5 +666,7 @@ e o seu desempenho é pífio se comparado à linguagem C.
 \lstinputlisting[language=java,caption={Cliente }]{code/rel/Client.java}
 \lstinputlisting[language=java,caption={Server Interface }]{code/rel/MC823Server.java}
 \lstinputlisting[language=java,caption={Struct de compromissos }]{code/rel/Opr.java}
+\lstinputlisting[language=java,caption={Marcação de tempos }]{code/rel/timeStamp.java}
+
  \end{multicols}
 \end{document}

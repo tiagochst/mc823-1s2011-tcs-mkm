@@ -19,7 +19,10 @@ public class Server implements MC823Server{
      * @param args
      */
     public static void main(String[] args) {
-		
+
+	if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
 	try {
 	    Server obj = new Server();
 	    MC823Server stub = (MC823Server) UnicastRemoteObject.exportObject(obj, 0);

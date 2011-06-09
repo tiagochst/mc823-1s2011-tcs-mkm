@@ -22,6 +22,11 @@ public class CMain {
 
 	/* Recebo o nome/ip do servidor para a conexao */		
 	String host = (args.length < 1) ? null : args[0];
+
+	if (System.getSecurityManager() == null) {
+	    System.setSecurityManager(new SecurityManager());
+        }
+
 	try {
 	    /*Procura pelo registro usado pelo host,
 	      o registro e usado para referenciar um objeto remoto */
